@@ -46,7 +46,7 @@ CREATE TABLE OrderPayment (
 
 CREATE TABLE OrderDetails (
 	OrderID int(3) NOT NULL,
-	FoodID int(3) NOT NULL,
+	FoodID varchar(3) NOT NULL,
 	Quantity int(3) NOT NULL,
 	Total double(6,2) NOT NULL,
 	FOREIGN KEY(FoodID) REFERENCES Menu(FoodID),
