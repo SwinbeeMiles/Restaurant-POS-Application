@@ -24,7 +24,7 @@ app.directive("pigeonTable", function ($parse, $http) {
     
     direc.controller = "pigeonTable";
 
-    direc.templateUrl = 'pigeon-table/template/outputTemplate.html';
+    direc.templateUrl = 'frameworks/template/outputTemplate.html';
     
     direc.compile = function () {
         var linkFunction = function (scope, element, attributes) {
@@ -118,7 +118,7 @@ app.controller("pigeonTable", function ($scope, $http, $uibModal) {
     //Fetch Data from MySQL
     $scope.getData = function () {
         $scope.isLoading = true;
-        $http.post("pigeon-core/get-data-with-crud.php", {'sql': $scope.query})
+        $http.post("frameworks/pigeon-core/get-data-with-crud.php", {'sql': $scope.query})
             .then(function (response) {
                 if (typeof response.data.data === 'string') {
                     $scope.error = true;
@@ -285,7 +285,7 @@ app.controller("InsertModalInstanceCtrl", function ($scope, $http, $uibModalInst
         form.sqlType = "INSERT";
         form.tableStructure = tableStructure;
 
-        $http.post("pigeon-core/get-data-with-crud.php", JSON.stringify(form))
+        $http.post("frameworks/pigeon-core/get-data-with-crud.php", JSON.stringify(form))
             .then(function (response) {
                 if (response.data === "Inserted") {
                     $uibModalInstance.close($scope.form);
@@ -317,7 +317,7 @@ app.controller("EditModalInstanceCtrl", function ($scope, $http, $uibModalInstan
         form.sqlType = "UPDATE";
         form.tableStructure = tableStructure;
 
-        $http.post("pigeon-core/get-data-with-crud.php", JSON.stringify(form))
+        $http.post("frameworks/pigeon-core/get-data-with-crud.php", JSON.stringify(form))
             .then(function (response) {
                 if (response.data === "Updated") {
                     $uibModalInstance.close($scope.selectedData);
@@ -349,7 +349,7 @@ app.controller("DeleteModalInstanceCtrl", function ($scope, $http, $uibModalInst
         form.sqlType = "DELETE";
         form.tableStructure = tableStructure;
 
-        $http.post("pigeon-core/get-data-with-crud.php", JSON.stringify(form))
+        $http.post("frameworks/pigeon-core/get-data-with-crud.php", JSON.stringify(form))
             .then(function (response) {
                 if (response.data === "Deleted") {
                     $uibModalInstance.close($scope.selectedData);
