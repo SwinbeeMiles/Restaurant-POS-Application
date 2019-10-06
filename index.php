@@ -8,18 +8,6 @@
 </head>
 
 <body>
-	<?php
-		define('servername','localhost');
-		define('username','root');
-		define('password','');
-		define('dbname','restaurantdatabase');
-		
-		$conn = mysqli_connect(servername, username, password, dbname);
-		
-		if ($conn == false) {
-			die("ERROR: Connection failed. ".mysqli_connect_error());
-		}
-	?>
     <form action="index.php" method="post" novalidate="novalidate">
         <label for="_username">Username:</label> <input type="text" name="username" id="_username"><br>
         <label for="_password">Password:</label> <input type="text" name="password" id="_password"><br>
@@ -28,6 +16,8 @@
         <button type="reset">Reset</button>
     </form>
     <?php
+		require_once 'includes/connectDB.php';
+		
 		$user = $pass = "";
 		$username_err = $password_err = "";
 		
@@ -47,7 +37,7 @@
 			
 			if(empty($username_err) && empty($password_err)){
 				$sql = "SELECT username, password FROM account WHERE username = ?";
-				$stmt = mysqli_prepare($conn, $sql);
+				$stmt = mysqli_prepare(connect(), $sql);
 				mysqli_stmt_bind_param($stmt, 's', $user);
 				mysqli_stmt_execute($stmt);
 				mysqli_stmt_store_result($stmt);
