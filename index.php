@@ -47,12 +47,12 @@
 					
 					if(mysqli_stmt_fetch($stmt)){
 						if($pass == $stored_password){
+							session_start();
+							$_SESSION['loggedin'] = true;
 							header("location: homepage.php");
 						}
 						else{
 							echo "<p>Incorrect Password.</p>";
-							echo $pass;
-							echo $stored_password;
 						}
 					}
 				}

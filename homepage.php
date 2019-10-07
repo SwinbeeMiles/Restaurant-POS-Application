@@ -15,11 +15,12 @@
 <body>
   <header>
     <?php
-    include('includes/header.php')
+		include('includes/header.php');
+		include('includes/loginCheck.php');
     ?>
     <div class="menuNavigation">
       <?php
-      include('includes/navMenu.php')
+		include('includes/navMenu.php');
       ?>
     </div>
   </header>
@@ -30,7 +31,7 @@
 
   <footer>
     <?php
-    include('includes/footer.php')
+		include('includes/footer.php');
     ?>
   </footer>
   <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
