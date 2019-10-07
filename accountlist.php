@@ -3,7 +3,7 @@
 <!-- data-ng-app="pigeon-table" in the html is essential to inject ngPigeon-table into the webpage-->
 <html lang="en">
 <head>
-    <title>Menu List</title>
+    <title>Account List</title>
     <meta charset="utf-8"/>
     <meta name="description" content="Modify accounts database"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
