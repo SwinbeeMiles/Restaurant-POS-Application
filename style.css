@@ -1,0 +1,43 @@
+.menuNavigation ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+}
+.menuNavigation{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+}
+.menuNavigation > ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+}
+.shit{
+  background-color: #333333;
+  font-size:200px;
+}
+
+
+.menuNavigation ul li a {
+  display: block;
+  color: white;
+  padding:10px;
+  text-align: center;
+  text-decoration: none;
+}
+.header{
+  background-color: #52a9f3;
+}
+
+#logopng
+{
+height: 50px;
+width:100px;
+}
