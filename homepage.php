@@ -15,14 +15,17 @@
 <body>
   <header>
     <?php
-    include('includes/header.php')
+		include('includes/header.php');
+		include('includes/loginCheck.php');
     ?>
     <div class="menuNavigation">
       <?php
-      include('includes/navMenu.php')
+		include('includes/navMenu.php');
       ?>
     </div>
   </header>
+    <p id="hello">HELLO WORLD</p>
+    
 
 <p> I am tired of this shit. </p>
 <p id="shit"> shit show </p>
@@ -30,7 +33,7 @@
 
   <footer>
     <?php
-    include('includes/footer.php')
+		include('includes/footer.php');
     ?>
   </footer>
   <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
