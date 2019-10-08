@@ -36,7 +36,7 @@
 			}
 			
 			if(empty($username_err) && empty($password_err)){
-				$sql = "SELECT username, password FROM account WHERE username = ?";
+				$sql = "SELECT Username, Password FROM account WHERE Username = ?";
 				$stmt = mysqli_prepare(connect(), $sql);
 				mysqli_stmt_bind_param($stmt, 's', $user);
 				mysqli_stmt_execute($stmt);
