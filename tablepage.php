@@ -46,6 +46,9 @@
     <p>{{orderID}}</p>
     <p>Please work</p>
     <p>{{orderDetailsArray}}</p>
+    <p>tasd</p>
+    <p>{{bill}}</p>
+    <p>{{test}}</p>
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>
     <script src="frameworks/js/bootstrap.min.js"></script>
