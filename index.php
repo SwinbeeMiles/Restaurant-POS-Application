@@ -22,13 +22,13 @@
 		$username_err = $password_err = "";
 		
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
-		 
+			
+			//Ensures username and password is not empty
 			if(empty(trim($_POST["username"]))){
 				$username_err = "Please enter username.";
 			} else{
 				$user = trim($_POST["username"]);
 			}
-			
 			if(empty(trim($_POST["password"]))){
 				$password_err = "Please enter your password.";
 			} else{
@@ -36,19 +36,34 @@
 			}
 			
 			if(empty($username_err) && empty($password_err)){
-				$sql = "SELECT Username, Password FROM account WHERE Username = ?";
-				$stmt = mysqli_prepare(connect(), $sql);
+				$sql = "SELECT Username, Password, AdminPrivilege FROM account WHERE Username = ?";
+				$conn = connect();
+				$stmt = mysqli_prepare($conn, $sql);
+				//Replace ? in sql statement with username input
 				mysqli_stmt_bind_param($stmt, 's', $user);
 				mysqli_stmt_execute($stmt);
+				//Stores new statement
 				mysqli_stmt_store_result($stmt);
 				
+				//Check if the username matches exactly another username stored in DB
 				if(mysqli_stmt_num_rows($stmt) == 1){
-					mysqli_stmt_bind_result($stmt, $user, $stored_password);
+					//Bind the data to variables
+					mysqli_stmt_bind_result($stmt, $user, $stored_password, $privilege);
 					
 					if(mysqli_stmt_fetch($stmt)){
 						if($pass == $stored_password){
 							session_start();
 							$_SESSION['loggedin'] = true;
+							
+							if($privilege > 0){
+								$privilege = 1;
+							}
+							else{
+								$privilege = 0;
+							}
+							
+							$_SESSION['privilege'] = $privilege;
+							
 							header("location: homepage.php");
 						}
 						else{
