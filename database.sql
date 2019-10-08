@@ -30,7 +30,7 @@ CREATE TABLE orders (
 	OrderTime time NOT NULL,
 	TableID int(3) NOT NULL,
 	PaidStatus boolean NOT NULL,
-	FOREIGN KEY(TableID) REFERENCES Tables(TableID),
+	FOREIGN KEY(TableID) REFERENCES tables(TableID),
 	PRIMARY KEY (OrderID)
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE orderpayment (
 	TotalPaid double(6,2) NOT NULL,
 	Balance double(6,2) NOT NULL,
 	DatePaid date NOT NULL,
-	FOREIGN KEY(OrderID) REFERENCES Orders(OrderID),
+	FOREIGN KEY(OrderID) REFERENCES orders(OrderID),
 	PRIMARY KEY (OrderID)
 );
 
@@ -49,8 +49,8 @@ CREATE TABLE orderdetails (
 	FoodID varchar(3) NOT NULL,
 	Quantity int(3) NOT NULL,
 	Total double(6,2) NOT NULL,
-	FOREIGN KEY(FoodID) REFERENCES Menu(FoodID),
-	FOREIGN KEY(OrderID) REFERENCES Orders(OrderID),
+	FOREIGN KEY(FoodID) REFERENCES menu(FoodID),
+	FOREIGN KEY(OrderID) REFERENCES orders(OrderID),
 	PRIMARY KEY (OrderID, FoodID)
 );
 
