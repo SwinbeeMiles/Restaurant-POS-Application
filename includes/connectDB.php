@@ -12,6 +12,12 @@
 			$dbName = 'restaurantdatabase';
 			$conn = mysqli_connect($dbServername,$dbUsername,$dbPassword,$dbName);
 		}
-		return $conn;
+		
+		if($conn === false){
+			die("ERROR: Could not connect to database.".mysqli_connect_error());
+		}
+		else{
+			return $conn;
+		}
 	}
 ?>
