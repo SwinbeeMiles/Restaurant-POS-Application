@@ -1,43 +1,60 @@
+
+header{
+  background-color: #9ab5f7;
+}
+
+#headerlogo{
+  height: 120px;
+  width:170px;
+  margin-top: -25px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: -50px;
+}
+
+#loginlogo{
+
+  height: 250px;
+  width:350px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:4%;
+  margin-bottom: -20%;
+}
+
+#mainbutton{
+  margin-top: 50px;
+  margin-left:20px;
+  padding:40px 90px;
+  background-color: #C4D4FC;
+  color:white;
+  font-size: 35px;
+}
+
+#centerbutton {
+display:inline-block;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: -30%;
+}
+
 .menuNavigation ul{
   list-style-type: none;
-  margin: 0;
-  padding: 0;
   overflow: hidden;
-  background-color: #333333;
 }
-.menuNavigation{
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333333;
+.menuNavigation li {
+  float: right;
 }
-.menuNavigation > ul{
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333333;
-}
-.shit{
-  background-color: #333333;
-  font-size:200px;
-}
-
-
-.menuNavigation ul li a {
+.menuNavigation li a {
   display: block;
   color: white;
-  padding:10px;
   text-align: center;
+  padding: 15px;
   text-decoration: none;
 }
-.header{
-  background-color: #52a9f3;
-}
 
-#logopng
-{
-height: 50px;
-width:100px;
+.menuNavigation li a:hover {
+  background-color: #BDD3E0;
 }
