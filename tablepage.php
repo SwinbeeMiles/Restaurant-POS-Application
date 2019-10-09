@@ -35,7 +35,7 @@
             </button>
         </span>
     </div>
-    
+
     <data-order-Info></data-order-Info>
     <p>{{table}}</p>
     <br>

@@ -2,24 +2,24 @@
 
   $navItem = array(
 
-    array(
-      slug  => "homepage.php"
-      title => "Home"
-    ),
+     array(
+       slug  => "homepage.php"
+       title => "Home"
+     ),
 
-    array(
-      slug  => "table.php"
-      title => "Table"
-    ),
+     array(
+       slug  => "tablelist.php"
+       title => "Table"
+     ),
 
-    array(
-      slug  => "menu.php"
-      title => "Menu"
-    ),
+     array(
+       slug  => "menu.php"
+       title => "Menu"
+     ),
 
-    array(
-      slug  => "index.php"
-      title => "Login"
-    ),
-);
- ?>
+     array(
+       slug  => "index.php"
+       title => "Login"
+     ),
+   );
+?>
