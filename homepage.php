@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +26,7 @@
   <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-4 col-sm-4"><button type="button" id="mainbutton" class="btn">Table</button></div>
+      <div class="col-lg-4 col-sm-4"><button type="button" id="mainbutton" onclick="location.href='tablepage.php'">Table</button></div>
       <div class="col-lg-4 col-sm-4"><button type="button" id="mainbutton" class="btn">Menu</button></div>
       <div class="col-lg-4 col-sm-4"><button type="button" id="mainbutton" class="btn">Reservation</button></div>
     </div>
