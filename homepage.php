@@ -5,10 +5,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
-  <!-- Bootstrap -->
-  <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
+
   <title>FoodSmith Cafe House</title>
 
 </head>
@@ -24,24 +23,23 @@
       ?>
     </div>
   </header>
-    <p id="hello">HELLO WORLD</p>
-    
 
-<p> I am tired of this shit. </p>
-<p id="shit"> shit show </p>
+  <body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4 col-sm-4"><button type="button" id="mainbutton" class="btn">Table</button></div>
+      <div class="col-lg-4 col-sm-4"><button type="button" id="mainbutton" class="btn">Menu</button></div>
+      <div class="col-lg-4 col-sm-4"><button type="button" id="mainbutton" class="btn">Reservation</button></div>
+    </div>
+  </div>
 
+  </body>
 
   <footer>
     <?php
 		include('includes/footer.php');
     ?>
   </footer>
-  <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
-  <script src="frameworks/js/jquery.min.js"></script>
-  <!-- All Bootstrap plug-ins file -->
-  <script src="frameworks/js/bootstrap.min.js"></script>
-  <!-- Basic AngularJS -->
-  <script src="frameworks/js/angular.min.js"></script>
 
 </body>
 </html>

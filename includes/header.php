@@ -1,6 +1,6 @@
 <html>
 <header>
-  <img src="assets/foodsmith.png" id="logopng" alt="cafelogo">
+  <img src="assets/foodsmith.png" id="headerlogo" alt="cafelogo">
 </header>
 
 </html>
