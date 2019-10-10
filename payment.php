@@ -11,7 +11,7 @@
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body data-ng-controller="pay">
+<body data-ng-controller="payment">
     <h1>Customer Bill Payment for Table: {{tableID}}</h1>
     <p>Order ID: {{order[0].orderID}}</p>
     <div ng-repeat="x in order">
