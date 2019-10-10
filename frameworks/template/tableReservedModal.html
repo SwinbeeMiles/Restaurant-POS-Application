@@ -1,21 +1,21 @@
 <!-- Modal -->
-<div class="modal fade" id="orderModal" role="dialog">
+<div class="modal fade" id="reservedModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Table Orders</h4>
+                <h4 class="modal-title">Table Reservation</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <p>Table no: {{occupiedTable}}</p>
-                <div data-ng-repeat="x in orderDetailsArray">
-                    <p>Food ID: {{x.foodID}} Quantity: {{x.quantity}} Total: RM{{x.total}}</p>
+                <div data-ng-repeat="x in customerReservation">
+                    <p>Customer Name: {{x.Name}} Number of guest: {{x.guestNum}} Date: {{x.date}} Time: {{x.time}}</p>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-default" onclick="location.href='payment.php'">Pay</button>
+                <button type="button" class="btn btn-default" onclick="location.href=''">Order</button>
             </div>
         </div>
     </div>

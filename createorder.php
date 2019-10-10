@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="en" data-ng-app="tableDispApp">
 <head>
     <title>Create Order</title>
     <meta charset="utf-8"/>
     <meta name="description" content="Creating new orders"/>
-</head> 
-<body>
+</head>
+<body data-ng-controller="createOrder">
     <h1>Create Order</h1>
     <form action="createorder.php" method="get">
 		<input type="hidden" name="tableid" value="1"><br/>
 		Fried Rice Quantity: <input type="number" name="item[f15][quantity]" />
 		<input type="hidden" name="item[f15][food]" value="f15"/><br/>
+		<input type="hidden" name="tableid" value="{{takenTable}}"><br/>
+		Fried Rice Quantity: <input type="number" name="item[f10][quantity]" />
+		<input type="hidden" name="item[f10][food]" value="f10"/><br/>
 		<!--Onion Quantity: <input type="number" name="item[f1][quantity]" />
 		<input type="hidden" name="item[f1][food]" value="onion"/><br/>
 		Tomato Quantity: <input type="number" name="item[f23][quantity]" />
@@ -130,6 +133,13 @@
 			mysqli_close($conn);			
 		}
 	?>
+    
+    <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
+    <script src="frameworks/js/jquery.min.js"></script>
+    <script src="frameworks/js/bootstrap.min.js"></script>
+    <script src="frameworks/js/angular.min.js"></script>
+    <script src="frameworks/js/angular-route.min.js"></script>
+    <script src="frameworks/js/tableDisplayApp.js"></script>
 </body>
 </html>
 
