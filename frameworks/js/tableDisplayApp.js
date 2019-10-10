@@ -43,16 +43,24 @@ app.controller("tableControl", function ($scope, $http,$window) {
     $scope.displayTableStatus = function (tableId) {
         var a = 0;
         var b = 0;
-
-        if ($scope.table[tableId].Status === "available") {
+        
+        $scope.occupiedTable = $scope.table[tableId].TableID;
+        a = $scope.tableOrders.length - 1;
+        
+        if($scope.table[tableId].Status === "available") 
+        {
+            $window.sessionStorage.orderTable=$scope.table[tableId].TableID;
+        } 
+        else if($scope.table[tableId].Status === "reserved") 
+        {
             alert("The table id is: " + $scope.table[tableId].TableID);
-        } else if ($scope.table[tableId].Status === "reserved") {
-            alert("The table id is: " + $scope.table[tableId].TableID);
-        } else if ($scope.table[tableId].Status === "occupied") {
-            $scope.occupiedTable = $scope.table[tableId].TableID;
-            a = $scope.tableOrders.length - 1;
-            while (a >= 0) {
-                if ($scope.occupiedTable === $scope.tableOrders[a].TableID) {
+        } 
+        else if($scope.table[tableId].Status === "occupied") 
+        {
+            while (a >= 0) 
+            {
+                if($scope.occupiedTable === $scope.tableOrders[a].TableID) 
+                {
                     $scope.orderID = $scope.tableOrders[a].OrderID;
                     break;
                 }
@@ -60,7 +68,8 @@ app.controller("tableControl", function ($scope, $http,$window) {
             }
             $scope.orderDetailsArray = [];
             b = $scope.tableOrdersDetails.length - 1;
-            while (b >= 0) {
+            while (b >= 0) 
+            {
                 if ($scope.orderID === $scope.tableOrdersDetails[b].OrderID) {
                     $scope.orderDetailsArray.push({
                         orderID: $scope.tableOrdersDetails[b].OrderID,
@@ -98,10 +107,33 @@ app.directive("orderInfo", function () {
     return product;
 });
 
-app.controller("pay", function ($scope, $http,$window) {
+app.directive("reservedInfo", function () {
     "use strict";
-    $scope.hello="hi";
+    var product = {};
+    product.restrict = "E";
+    product.controller = "tableControl";
+    product.templateUrl = "frameworks/template/tableReservedModal.html";
+    product.compile = function () {
+        var linkFunction = function (scope, element, attributes) {
+
+            //Initialize the default settings
+            scope.init();
+
+        };
+
+        return linkFunction;
+    };
+    return product;
+});
+
+app.controller("payment", function ($scope, $http,$window) {
+    "use strict";
     $scope.tableID=$window.sessionStorage.tableNo;
     $scope.order=JSON.parse($window.sessionStorage.orders);
 
+});
+
+app.controller("createOrder", function ($scope, $http,$window) {
+    "use strict";
+    $scope.takenTable=$window.sessionStorage.orderTable;
 });
