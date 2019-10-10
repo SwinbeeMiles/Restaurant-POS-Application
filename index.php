@@ -98,12 +98,13 @@
               <img src="assets/foodsmith.png" id="loginlogo" alt="cafelogo">
               <label for="_username">Username:</label>
               <input type="text" name="username" id="_username" class="form-control"><br>
-              <?php echo $username_err; ?>
-              <?php echo $nousername; ?>
+              <span style="color: red;"><?php echo $username_err; ?></span>
+              <span style="color: red;"><?php echo $nousername; ?></span>
               <br><br><label for="_password">Password: </label>
               <input type="text" name="password" id="_password" class="form-control"><br>
-              <?php echo $password_err; ?>
-              <?php echo $nopassword; ?>
+
+              <span style="color: red;"><?php echo $password_err; ?></span>
+              <span style="color: red;"><?php echo $nopassword; ?></span>
               <br>
 
           <button type="submit" id="centerbutton" class="btn btn-primary">Login</button>
