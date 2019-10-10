@@ -8,12 +8,9 @@
 <body data-ng-controller="createOrder">
     <h1>Create Order</h1>
     <form action="createorder.php" method="get">
-		<input type="hidden" name="tableid" value="1"><br/>
+		<input type="hidden" name="tableid" value="{{takenTable}}"><br/>
 		Fried Rice Quantity: <input type="number" name="item[f15][quantity]" />
 		<input type="hidden" name="item[f15][food]" value="f15"/><br/>
-		<input type="hidden" name="tableid" value="{{takenTable}}"><br/>
-		Fried Rice Quantity: <input type="number" name="item[f10][quantity]" />
-		<input type="hidden" name="item[f10][food]" value="f10"/><br/>
 		<!--Onion Quantity: <input type="number" name="item[f1][quantity]" />
 		<input type="hidden" name="item[f1][food]" value="onion"/><br/>
 		Tomato Quantity: <input type="number" name="item[f23][quantity]" />
