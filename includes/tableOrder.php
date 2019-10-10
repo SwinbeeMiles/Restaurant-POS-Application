@@ -8,7 +8,7 @@ if(mysqli_num_rows($select)>0)
 {
     while($row = mysqli_fetch_array($select))
     {
-        $data[] = array("OrderID"=>$row['OrderID'],"OrderDate"=>$row['OrderDate'],"OrderTime"=>$row['OrderTime'],"TableID"=>$row['TableID'],"PaidStatus"=>$row['PaidStatus']);
+        $data[] = array("OrderID"=>$row['OrderID'],"OrderDate"=>$row['OrderDate'],"OrderTime"=>$row['OrderTime'],"TableID"=>$row['TableID']);
     }
 
     echo json_encode($data);
