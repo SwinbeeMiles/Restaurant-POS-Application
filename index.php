@@ -12,7 +12,7 @@
 
 <body>
 
-  <img src="assets/foodsmith.png" id="loginlogo" alt="cafelogo">
+
 
   <div ="container-fluid"
 
@@ -95,6 +95,7 @@
       <div class="row h-100 justify-content-center align-items-center">
         <div class="form-group">
           <form action="index.php" method="post" novalidate="novalidate">
+              <img src="assets/foodsmith.png" id="loginlogo" alt="cafelogo">
               <label for="_username">Username:</label>
               <input type="text" name="username" id="_username" class="form-control"><br>
               <?php echo $username_err; ?>

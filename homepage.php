@@ -13,22 +13,23 @@
 <body>
   <header>
     <?php
-		include('includes/header.php');
-		include('includes/loginCheck.php');
+		      include('includes/header.php');
+		      include('includes/loginCheck.php');
     ?>
     <div class="menuNavigation">
       <?php
-		include('includes/navMenu.php');
+		      include('includes/navMenu.php');
       ?>
     </div>
   </header>
 
   <body>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-4 col-sm-4"><button type="button" id="mainbutton" onclick="location.href='tablepage.php'">Table</button></div>
-      <div class="col-lg-4 col-sm-4"><button type="button" id="mainbutton" class="btn">Menu</button></div>
-      <div class="col-lg-4 col-sm-4"><button type="button" id="mainbutton" class="btn">Reservation</button></div>
+    <div class="row justify-content-around">
+      <div class="col-xl-6"><button type="button" id="mainbutton" onclick="location.href='tablepage.php">Table</button></div>
+      <div class="col-xl-6"><button type="button" id="mainbutton" class="btn">Menu</button></div>
+      <div class="col-xl-6"><button type="button" id="mainbutton" class="btn">Reservation</button></div>
+      <div class="col-xl-6"><button type="button" id="mainbutton" class="btn">Reservation</button></div>
     </div>
   </div>
 
