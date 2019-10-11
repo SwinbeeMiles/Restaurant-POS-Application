@@ -15,28 +15,27 @@
 
     <div data-ng-repeat="x in table track by $index">
         <span data-ng-if="x.Status=='available'">
-            <button type="button" class="btn btn-success" data-ng-click="displayTableStatus($index)">
-                <p>Table No:{{x.TableID}}</p>
-                <p>Chairs:{{x.Chairs}}</p>
+            <button type="button" class="btn btn-success" data-ng-click="displayTableStatus($index)" onclick="location.href='createorder.php'">
+                Table No:{{x.TableID}} Chairs:{{x.Chairs}}
             </button>
         </span>
 
         <span data-ng-if="x.Status=='reserved'">
-            <button type="button" class="btn btn-warning" data-ng-click="displayTableStatus($index)">
-                <p>Table No:{{x.TableID}}</p>
-                <p>Chairs:{{x.Chairs}}</p>
+            <button type="button" class="btn btn-warning" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#reservedModal">
+                Table No:{{x.TableID}} Chairs:{{x.Chairs}}
             </button>
         </span>
 
         <span data-ng-if="x.Status=='occupied'">
-            <button type="button" class="btn btn-danger" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#myModal">
-                <p>Table No:{{x.TableID}}</p>
-                <p>Chairs:{{x.Chairs}}</p>
+            <button type="button" class="btn btn-danger" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#orderModal">
+                Table No:{{x.TableID}} Chairs:{{x.Chairs}}
             </button>
         </span>
     </div>
 
     <data-order-Info></data-order-Info>
+    <data-reserved-Info></data-reserved-Info>
+    
     <p>{{table}}</p>
     <br>
     <p>table order is</p>
