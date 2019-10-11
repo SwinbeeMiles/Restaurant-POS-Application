@@ -12,7 +12,7 @@
 
 <body>
 
-  <img src="assets/foodsmith.png" id="loginlogo" alt="cafelogo">
+
 
   <div ="container-fluid"
 
@@ -93,22 +93,29 @@
   <div style="height: 100vh">
     <div class="container h-100">
       <div class="row h-100 justify-content-center align-items-center">
-        <div class="form-group">
-          <form action="index.php" method="post" novalidate="novalidate">
-              <label for="_username">Username:</label>
-              <input type="text" name="username" id="_username" class="form-control"><br>
-              <?php echo $username_err; ?>
-              <?php echo $nousername; ?>
-              <br><br><label for="_password">Password: </label>
-              <input type="text" name="password" id="_password" class="form-control"><br>
-              <?php echo $password_err; ?>
-              <?php echo $nopassword; ?>
-              <br>
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group">
 
-          <button type="submit" id="centerbutton" class="btn btn-primary">Login</button>
-          <button type="reset" id="centerbutton" class="btn btn-outline-primary">Reset</button>
+              <form action="index.php" method="post" novalidate="novalidate">
+                <img src="assets/foodsmith.png" id="loginlogo" alt="cafelogo">
+                <label for="_username">Username:</label>
+                <input type="text" name="username" id="_username" class="form-control"><br>
+                <span style="color: red;"><?php echo $username_err; ?></span>
+                <span style="color: red;"><?php echo $nousername; ?></span>
+                <br><br><label for="_password">Password: </label>
+                <input type="text" name="password" id="_password" class="form-control"><br>
 
-          </form>
+                <span style="color: red;"><?php echo $password_err; ?></span>
+                <span style="color: red;"><?php echo $nopassword; ?></span>
+                <br>
+
+                <button type="submit" id="centerbutton" class="btn btn-primary">Login</button>
+                <button type="reset" id="centerbutton" class="btn btn-outline-primary">Reset</button>
+
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
