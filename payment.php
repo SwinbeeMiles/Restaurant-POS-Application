@@ -12,8 +12,9 @@
 </head>
 
 <body data-ng-controller="payment">
+    
     <h1>Customer Bill Payment for Table: {{tableID}}</h1>
-    <p>Order ID: {{order[0].orderID}}</p>
+    <h2>Order ID: {{order[0].orderID}}</h2>
     <div ng-repeat="x in order">
         <p>Food: {{x.foodID}} Quantity:{{x.quantity}} Total: RM {{x.total}}</p>
     </div>
@@ -22,8 +23,8 @@
 	<form action="payment.php" method="get">
 		<!-- Value of orderid & tableid needs to be changed 
 		dynamically depending on user input -->
-		<input type="hidden" name="orderid" value="1">
-		<input type="hidden" name="tableid" value="1">
+		<input type="hidden" name="orderid" value="{{order[0].orderID}}">
+		<input type="hidden" name="tableid" value="{{tableID}}">
 		Paid Amount: <input type="text" name="amount" />
 		<input type="submit" value="Pay"/>
 	</form>
