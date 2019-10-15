@@ -29,8 +29,15 @@ app.controller("tableControl", function ($scope, $http,$window) {
         return $scope.tableOrders;
 
     });
-
-
+    
+    $scope.paymentData = $http({
+        method: 'GET',
+        url: 'includes/orderPayment.php'
+    }).then(function onFulfilledHandler(response) {
+    $scope.paymentInfo = response.data;
+        return $scope.paymentInfo;
+    });
+    
     $scope.tableOrderDetails = $http({
         method: 'GET',
         url: 'includes/tableOrderDetails.php'
@@ -41,9 +48,7 @@ app.controller("tableControl", function ($scope, $http,$window) {
     });
 
     $scope.displayTableStatus = function (tableId) {
-        var a = 0;
-        var b = 0;
-        
+        var a = 0,b=0, x=$scope.paymentInfo.length-1;
         $scope.occupiedTable = $scope.table[tableId].TableID;
         a = $scope.tableOrders.length - 1;
         
@@ -53,7 +58,7 @@ app.controller("tableControl", function ($scope, $http,$window) {
         } 
         else if($scope.table[tableId].Status === "reserved") 
         {
-            alert("The table id is: " + $scope.table[tableId].TableID);
+            $window.alert("The table id is: " + $scope.table[tableId].TableID);
         } 
         else if($scope.table[tableId].Status === "occupied") 
         {
@@ -82,6 +87,17 @@ app.controller("tableControl", function ($scope, $http,$window) {
             }
             $window.sessionStorage.orders=JSON.stringify($scope.orderDetailsArray);
             $window.sessionStorage.tableNo=$scope.table[tableId].TableID;
+            
+            while(x>=0)
+            {
+                if($scope.orderID===$scope.paymentInfo[x].OrderID)
+                {
+                    $scope.total = $scope.paymentInfo[x].TotalPrice;  
+                    break;
+                }
+                x-=1;
+            }
+            $window.sessionStorage.totalCost = $scope.total;
         }
     };
            
@@ -128,8 +144,30 @@ app.directive("reservedInfo", function () {
 
 app.controller("payment", function ($scope, $http,$window) {
     "use strict";
+    
     $scope.tableID=$window.sessionStorage.tableNo;
     $scope.order=JSON.parse($window.sessionStorage.orders);
+    $scope.total = parseFloat($window.sessionStorage.totalCost);
+    
+    $scope.errorMsg = "";
+    var regExNum = /^[0-9]*(\.[0-9]+)?$/;
+    $scope.validatePaymentInput=function()
+    {
+        if(!regExNum.test($scope.enteredAmount))
+        {
+            $window.alert("Invalid payment input!");
+        }
+        
+        else if($scope.enteredAmount < $scope.total)
+        {
+            $window.alert("Expected amount paid to be greater than total of order.");
+        }
+        
+        else if(regExNum.test($scope.enteredAmount))
+        {
+            $window.alert("Transaction success!");
+        }
+    };
 
 });
 

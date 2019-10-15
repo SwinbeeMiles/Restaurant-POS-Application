@@ -11,32 +11,31 @@
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body data-ng-controller="payment">
+<body data-ng-controller="payment" data-ng-init="init()">
     
     <h1>Customer Bill Payment for Table: {{tableID}}</h1>
     <h2>Order ID: {{order[0].orderID}}</h2>
     <div ng-repeat="x in order">
         <p>Food: {{x.foodID}} Quantity:{{x.quantity}} Total: RM {{x.total}}</p>
     </div>
-    <p>Total Price: </p>
-	
-	<form action="payment.php" method="get">
-		<!-- Value of orderid & tableid needs to be changed 
+    <p>Total Price: {{total}} </p>
+
+	<form action="payment.php" method="get" novalidate>
+		<!-- Value of orderid & tableid changed 
 		dynamically depending on user input -->
-		<input type="hidden" name="orderid" value="{{order[0].orderID}}">
-		<input type="hidden" name="tableid" value="{{tableID}}">
-		Paid Amount: <input type="text" name="amount" />
-		<input type="submit" value="Pay"/>
+		<input type="hidden" name="orderid" value="{{order[0].orderID}}"/>
+		<input type="hidden" name="tableid" value="{{tableID}}"/>
+		Paid Amount: <input type="text" name="amount" ng-model="enteredAmount" id="test"/>
+		<input type="submit" value="Pay" data-ng-click="validatePaymentInput()"/>
 	</form>
-	
+
 	<?php
 		require_once 'includes/connectDB.php';
-		
-		if(!empty($_GET['amount'])){
+
+		if((!empty($_GET['amount'])) && (preg_match ("/^[0-9]*(\.[0-9]+)?$/",$_GET['amount']))){
 			$orderid = $_GET['orderid'];
 			$tableid = $_GET['tableid'];
 			$amount = $_GET['amount'];
-			
 			$sql = "SELECT TotalPrice FROM orderpayment WHERE OrderID = ?";
 			$conn = connect();
 			if($stmt = mysqli_prepare($conn, $sql)){
@@ -100,6 +99,7 @@
 			
 			mysqli_close($conn);
 		}
+
 	?>
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>
