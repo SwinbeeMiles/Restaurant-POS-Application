@@ -69,4 +69,24 @@ CREATE TABLE orderdetails (
 INSERT INTO orderdetails (OrderID, FoodID, Quantity, Total) 
 VALUES (1,'f15',2,10.00);
 
+CREATE TABLE reservation (
+	ReservationID int(3) NOT NULL AUTO_INCREMENT,
+	TableID int(3) NOT NULL,
+	ReservationTime time NOT NULL,
+	ReservationDate date NOT NULL,
+	EndTime time NOT NULL,
+	FOREIGN KEY(TableID) REFERENCES tables(TableID),
+	PRIMARY KEY(ReservationID, TableID)
+);
 
+INSERT INTO reservation (TableID, ReservationTime, ReservationDate, EndTime) 
+VALUES (1,'2019-10-09', '07:07:07', '19:09:09');
+
+CREATE TABLE coupons (
+	CouponCode varchar(10) NOT NULL,
+	DiscountRate double(3,2) NOT NULL,
+	ExpiryDate date,
+);
+
+INSERT INTO coupons (CouponCode, DiscountRate, ExpiryDate) 
+VALUES ('testcode','0.50', '30-12-2020');
