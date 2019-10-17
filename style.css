@@ -16,8 +16,8 @@ header{
 }
 
 #loginlogo{
-  height: 100px;
-  width:200px;
+  height: 60px;
+  width:150px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -32,7 +32,6 @@ header{
 .menuNavigation li {
   float: right;
 }
-
 .menuNavigation li a {
   display: block;
   color: white;
@@ -41,7 +40,6 @@ header{
   text-decoration: none;
   margin-bottom: 15px;
 }
-
 .menuNavigation li a:hover {
   background-color: grey;
   transition: 0.1s;
@@ -52,33 +50,93 @@ header{
   background-color: #a2a1a9;
   color:white;
   font-size: 35px;
-  padding: 30px 50px;
+  width:70%;
+  padding-top: 15%;
+  padding-bottom: 15%;
   margin-left: auto;
   margin-right: auto;
+  margin-top:5%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
 }
-
 #mainbutton:hover{
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
 }
 
-#centerbutton {
-display:inline-block;
-margin-left: auto;
-margin-right: auto;
-
+#loginbutton {
+display:flex;
+justify-content: center;
 }
+#loginbutton:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
 .card-body{
   padding: 50px 90px;
 }
 .card {
   /* Add shadows to create the "card" effect */
-    background-color: rgba(255,255,255, 0.6) !important;
+  background-color: rgba(255,255,255, 0.6) !important;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
 }
-
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+.containerAdjust{
+  display: flex;
+
+}
+#tableAvailable{
+  background-color: #28a745;
+  color:white;
+  font-size: 20px;
+  border-radius: 10px;
+  width:70%;
+  padding-top: 8%;
+  padding-bottom: 8%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:5%;
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.3);
+  transition: 0.3s;
+  display: wrap;
+  justify-content: center;
+}
+#tableReserved{
+  background-color: #ffc108;
+  color:white;
+  font-size: 20px;
+  border-radius: 10px;
+  width:70%;
+  padding-top: 8%;
+  padding-bottom: 8%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:5%;
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.3);
+  transition: 0.3s;
+  display: wrap;
+  justify-content: center;
+}
+#tableOccupied{
+  background-color: #dc3545;
+  color:white;
+  font-size: 20px;
+  border-radius: 10px;
+  width:70%;
+  padding-top: 8%;
+  padding-bottom: 8%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:5%;
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.3);
+  transition: 0.3s;
+  display: wrap;
+  justify-content: center;
 }

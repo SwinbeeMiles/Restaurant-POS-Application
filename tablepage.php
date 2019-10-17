@@ -2,37 +2,49 @@
 <html lang="en" data-ng-app="tableDispApp">
 
 <head>
-    <title>Table List</title>
+    <title>FoodSmith-Table List</title>
     <meta charset="utf-8" />
-    <meta name="description" content="The status of the tables in the restaurant" />
-    <meta name="author" content="T.W.J" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
     <!-- Bootstrap -->
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body data-ng-controller="tableControl">
-
-    <div data-ng-repeat="x in table track by $index">
+<header>
+  <?php
+        include('includes/header.php');
+        include('includes/loginCheck.php');
+  ?>
+  <div class="menuNavigation">
+    <?php
+        include('includes/navMenu.php');
+    ?>
+  </div>
+</header>
+<body>
+  <div class="container-fluid">
+    <div class="containerAdjust">
+      <div data-ng-repeat="x in table track by $index">
         <span data-ng-if="x.Status=='available'">
-            <button type="button" class="btn btn-success" data-ng-click="displayTableStatus($index)" onclick="location.href='createorder.php'">
+            <button type="button" id="tableAvailable" data-ng-click="displayTableStatus($index)" onclick="location.href='createorder.php'">
                 Table No:{{x.TableID}} Chairs:{{x.Chairs}}
             </button>
         </span>
-
         <span data-ng-if="x.Status=='reserved'">
-            <button type="button" class="btn btn-warning" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#reservedModal">
+            <button type="button" id="tableReserved" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#reservedModal">
                 Table No:{{x.TableID}} Chairs:{{x.Chairs}}
             </button>
         </span>
-
         <span data-ng-if="x.Status=='occupied'">
-            <button type="button" class="btn btn-danger" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#orderModal">
+            <button type="button" id="tableOccupied" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#orderModal">
                 Table No:{{x.TableID}} Chairs:{{x.Chairs}}
             </button>
         </span>
+      </div>
     </div>
-
+  </div>
     <data-order-Info></data-order-Info>
     <data-reserved-Info></data-reserved-Info>
 

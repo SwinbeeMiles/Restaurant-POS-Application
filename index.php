@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <script src="js/script.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -108,10 +108,12 @@
 
                 <span style="color: red;"><?php echo $password_err; ?></span>
                 <span style="color: red;"><?php echo $nopassword; ?></span>
-                <br>
+                <br><br>
 
-                <button type="submit" id="centerbutton" class="btn btn-primary">Login</button>
-                <button type="reset" id="centerbutton" class="btn btn-outline-primary">Reset</button>
+                <div class="row justify-content-around">
+                <button type="submit" id="loginbutton" class="btn btn-secondary">Login</button>
+                <button type="reset" id="loginbutton" class="btn btn-outline-secondary">Reset</button>
+              </div>
 
               </form>
             </div>

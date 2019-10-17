@@ -4,9 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
-
+  
   <title>FoodSmith Cafe House</title>
 
 </head>
@@ -26,10 +27,10 @@
   <body>
   <div class="container-fluid">
     <div class="row justify-content-around">
-      <div class="col-xl-6"><button type="button" id="mainbutton" onclick="location.href='tablepage.php">Table</button></div>
-      <div class="col-xl-6"><button type="button" id="mainbutton" class="btn">Menu</button></div>
-      <div class="col-xl-6"><button type="button" id="mainbutton" class="btn">Reservation</button></div>
-      <div class="col-xl-6"><button type="button" id="mainbutton" class="btn">Reservation</button></div>
+      <div class="col-xl-6"><button type="button" id="mainbutton" onclick=location.href="tablepage.php">Table</button></div>
+      <div class="col-xl-6"><button type="button" id="mainbutton">Menu</button></div>
+      <div class="col-xl-6"><button type="button" id="mainbutton">Reservation</button></div>
+      <div class="col-xl-6"><button type="button" id="mainbutton">Account</button></div>
     </div>
   </div>
 
