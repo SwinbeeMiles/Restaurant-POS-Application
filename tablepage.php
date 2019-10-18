@@ -25,23 +25,30 @@
 </header>
 <body>
   <div class="container-fluid">
-    <div class="containerAdjust">
+    <div class="flex-container">
       <div data-ng-repeat="x in table track by $index">
-        <span data-ng-if="x.Status=='available'">
+
+          <span data-ng-if="x.Status=='available'">
             <button type="button" id="tableAvailable" data-ng-click="displayTableStatus($index)" onclick="location.href='createorder.php'">
                 Table No:{{x.TableID}} Chairs:{{x.Chairs}}
             </button>
         </span>
+
         <span data-ng-if="x.Status=='reserved'">
             <button type="button" id="tableReserved" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#reservedModal">
                 Table No:{{x.TableID}} Chairs:{{x.Chairs}}
             </button>
+
         </span>
+
+
         <span data-ng-if="x.Status=='occupied'">
             <button type="button" id="tableOccupied" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#orderModal">
                 Table No:{{x.TableID}} Chairs:{{x.Chairs}}
             </button>
+
         </span>
+        </div>
       </div>
     </div>
   </div>
