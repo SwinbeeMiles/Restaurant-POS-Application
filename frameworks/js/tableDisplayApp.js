@@ -46,19 +46,47 @@ app.controller("tableControl", function ($scope, $http,$window) {
         $scope.tableOrdersDetails = response.data;
         return $scope.tableOrdersDetails;
     });
+    
+    $scope.tableRevDetails = $http({
+        method: 'GET',
+        url: 'includes/tableReservationDetails.php'
+    }).then(function onFulfilledHandler(response) {
+
+        $scope.tableRevDetails = response.data;
+        return $scope.tableRevDetails;
+    });
 
     $scope.displayTableStatus = function (tableId) {
-        var a = 0,b=0, x=$scope.paymentInfo.length-1;
+        var a = 0,b=0,e=0, x=$scope.paymentInfo.length-1;
         $scope.occupiedTable = $scope.table[tableId].TableID;
         a = $scope.tableOrders.length - 1;
+        
+        //Get current date
+        $scope.DateObj = new Date();
+        //Convert date to yyyy-mm-dd
+        $scope.date = $scope.DateObj.getFullYear() + '-' + ('0' + ($scope.DateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + $scope.DateObj.getDate()).slice(-2);
         
         if($scope.table[tableId].Status === "available") 
         {
             $window.sessionStorage.orderTable=$scope.table[tableId].TableID;
         } 
+        
         else if($scope.table[tableId].Status === "reserved") 
         {
-            $window.alert("The table id is: " + $scope.table[tableId].TableID);
+            $scope.tableRevArray = [];
+            while (e <= $scope.tableRevDetails.length-1) 
+            {
+                if (($scope.table[tableId].TableID === $scope.tableRevDetails[e].TableID)&&($scope.date === $scope.tableRevDetails[e].RevDate)) {
+                    $scope.tableRevArray.push({
+                        RevID: $scope.tableRevDetails[e].RevID,
+                        RevTime: $scope.tableRevDetails[e].RevTime,
+                        RevDate: $scope.tableRevDetails[e].RevDate,
+                        RevEnd: $scope.tableRevDetails[e].RevEndTime
+                    });
+                }
+                e += 1;
+            }
+            $window.sessionStorage.orderTable=$scope.table[tableId].TableID;
         } 
         else if($scope.table[tableId].Status === "occupied") 
         {

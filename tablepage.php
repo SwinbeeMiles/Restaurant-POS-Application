@@ -23,7 +23,7 @@
     ?>
   </div>
 </header>
-<body>
+<body data-ng-controller="tableControl">
   <div class="container-fluid">
     <div class="flex-container">
       <div data-ng-repeat="x in table track by $index">
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-  </div>
+
     <data-order-Info></data-order-Info>
     <data-reserved-Info></data-reserved-Info>
 

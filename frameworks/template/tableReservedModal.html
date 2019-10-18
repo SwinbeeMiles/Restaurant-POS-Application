@@ -9,13 +9,13 @@
             </div>
             <div class="modal-body">
                 <p>Table no: {{occupiedTable}}</p>
-                <div data-ng-repeat="x in customerReservation">
-                    <p>Customer Name: {{x.Name}} Number of guest: {{x.guestNum}} Date: {{x.date}} Time: {{x.time}}</p>
+                <div data-ng-repeat="x in tableRevArray">
+                    <p>RevID: {{x.RevID}} RevTime: {{x.RevTime}}-{{x.RevEnd}} RevDate: {{x.RevDate}}</p>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-default" onclick="location.href=''">Order</button>
+                <button type="button" class="btn btn-default" onclick="location.href='createorder.php'">Order</button>
             </div>
         </div>
     </div>
