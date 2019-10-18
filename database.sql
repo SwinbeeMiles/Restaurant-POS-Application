@@ -86,6 +86,7 @@ CREATE TABLE coupons (
 	CouponCode varchar(10) NOT NULL,
 	DiscountRate double(3,2) NOT NULL,
 	ExpiryDate date,
+	PRIMARY KEY(CouponCode)
 );
 
 INSERT INTO coupons (CouponCode, DiscountRate, ExpiryDate) 
