@@ -214,9 +214,28 @@
         $table = $input->tableStructure->tableName;
         $priKey = $input->tableStructure->priKey;
         $priVal = $input->$priKey;
+        
+        if($table == "orders")
+        {  
+            $rows = $db->query("SELECT * FROM orders WHERE $priKey='".$priVal."'");
 
+            if ($db->connect_error) {
+                return $db->connect_error;
+            } else if ($db->error) {
+                return $db->error;
+            } else {
+                while ($row = $rows->fetch_array(MYSQLI_ASSOC)) {
+                    $data = $row["TableID"];
+                }
+            }
+            $test = 5;
+            $db->query("UPDATE tables SET Status='available' WHERE TableID = $data");
+            $db->query("DELETE FROM orderpayment WHERE $priKey='".$priVal."'");
+            $db->query("DELETE FROM orderdetails WHERE $priKey='".$priVal."'");
+        }
+        
         $db->query("DELETE FROM $table WHERE $priKey='".$priVal."'");
-
+        
         print "Deleted";
     }
 
