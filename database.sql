@@ -79,7 +79,7 @@ CREATE TABLE reservation (
 	PRIMARY KEY(ReservationID, TableID)
 );
 
-INSERT INTO reservation (TableID, ReservationTime, ReservationDate, EndTime) 
+INSERT INTO reservation (TableID, ReservationDate, ReservationTime, EndTime) 
 VALUES (1,'2019-10-09', '07:07:07', '19:09:09');
 
 CREATE TABLE coupons (
@@ -90,4 +90,4 @@ CREATE TABLE coupons (
 );
 
 INSERT INTO coupons (CouponCode, DiscountRate, ExpiryDate) 
-VALUES ('testcode','0.50', '30-12-2020');
+VALUES ('testcode','0.50', '2020-12-30');
