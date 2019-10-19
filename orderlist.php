@@ -23,7 +23,7 @@
 <body>
     <h1>Order List</h1>
     <div class="container">
-        <pigeon-table query="SELECT * FROM account" editable="true" control="true"></pigeon-table>
+        <pigeon-table query="SELECT * FROM orders" editable="true" control="true"></pigeon-table>
     </div>
     <script src="pigeon-table/js/jquery.min.js"></script>
     <script src="pigeon-table/js/bootstrap.min.js"></script>
