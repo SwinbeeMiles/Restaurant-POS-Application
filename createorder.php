@@ -1,22 +1,41 @@
 ﻿<!DOCTYPE html>
-<html lang="en" data-ng-app="tableDispApp">
+<html lang="en" data-ng-app="orderSystem">
 <head>
     <title>Create Order</title>
     <meta charset="utf-8"/>
     <meta name="description" content="Creating new orders"/>
+    <link rel="stylesheet" href="style.css"/>
 </head>
-<body data-ng-controller="createOrder">
-    <h1>Create Order</h1>
-    <form action="createorder.php" method="get">
+<body data-ng-controller="orderControl">
+    <h1>Creating Order for Table {{tableID}}</h1>
+    
+    <form>
+        <p>Select an item or more from the following list</p>
+        <div data-ng-repeat="x in menuData track by $index">
+            <button data-ng-click="addToOrder(x.FoodName,x.FoodID)">{{x.FoodName}}</button>
+        </div>
+        
+        <p>Ordered items</p>
+        <ul class="orderedItem" data-ng-repeat="item in orderedItems track by $index">
+            <li>
+                {{$index + 1}}. {{item}} <button data-ng-click="removeItem($index)">Remove</button>
+            </li>
+        </ul>
+        
+        <input type="submit" value="Submit Order"/>
+	</form>
+    
+    <!--<form action="createorder.php" method="get">
 		<input type="hidden" name="tableid" value="{{takenTable}}"><br/>
 		Fried Rice Quantity: <input type="number" name="item[f15][quantity]" />
 		<input type="hidden" name="item[f15][food]" value="f15"/><br/>
 		Laksa Quantity: <input type="number" name="item[f14][quantity]" />
 		<input type="hidden" name="item[f14][food]" value="f14"/><br/>
-		<!--Tomato Quantity: <input type="number" name="item[f23][quantity]" />
-		<input type="hidden" name="item[f23][food]" value="tomato"/><br/> -->
+		Tomato Quantity: <input type="number" name="item[f23][quantity]" />
+		<input type="hidden" name="item[f23][food]" value="tomato"/><br/> 
 		<input type="submit" value="Order" />
-	</form>
+	</form>-->
+    
 	<?php
 		require_once 'includes/connectDB.php';
 		
@@ -168,7 +187,7 @@
     <script src="frameworks/js/bootstrap.min.js"></script>
     <script src="frameworks/js/angular.min.js"></script>
     <script src="frameworks/js/angular-route.min.js"></script>
-    <script src="frameworks/js/tableDisplayApp.js"></script>
+    <script src="frameworks/js/orderSystem.js"></script>
 </body>
 </html>
 

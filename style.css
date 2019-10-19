@@ -168,3 +168,9 @@ justify-content: center;
 .listTitle{
   margin-bottom: 3%;
 }
+
+.orderedItem{
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
