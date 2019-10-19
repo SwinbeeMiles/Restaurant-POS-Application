@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row" ng-show="ctrlPanel == true">
         <div class="form-group col-sm-5 col-md-5">
             <label class="control-label col-sm-4 col-md-3" for="exclude">Exclude: </label>
@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-    
+
     <div ng-if="data != null" class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -88,7 +88,7 @@
                 <tr ng-repeat="item in $parent.filtered = (data | filter:search:exactMatch | filter:exclusion) | orderBy:sortOrder:isReverse | offset: (currentPage-1)*itemsPerPage | limitTo: itemsPerPage">
                     <td ng-repeat="field in item">{{field}}</td>
                     <td class="actionCol" ng-show="btn == true && action == true">
-                        <button class="btn btn-warning" ng-click="editBtn(item)"><span class="glyphicon glyphicon-edit"></span></button>
+                        <button class="btn btn-secondary" ng-click="editBtn(item)"><span class="glyphicon glyphicon-edit"></span></button>
                         <button class="btn btn-danger" ng-click="delBtn(item)"><span class="glyphicon glyphicon-trash"></span></button>
                     </td>
                 </tr>

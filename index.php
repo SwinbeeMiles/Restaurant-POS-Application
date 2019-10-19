@@ -93,7 +93,7 @@
   <div style="height: 100vh">
     <div class="container h-100">
       <div class="row h-100 justify-content-center align-items-center">
-        <div class="card">
+        <div class="card cc">
           <div class="card-body">
             <div class="form-group">
 

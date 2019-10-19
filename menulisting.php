@@ -9,18 +9,18 @@
     <meta charset="utf-8"/>
     <meta name="description" content="Modify accounts database"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
+
     <!-- Bootstrap -->
     <link href="pigeon-table/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Pigeon Table -->
     <link href="pigeon-table/css/pigeon-table.css" rel="stylesheet" />
-    
+
 	<!-- The includes.php file is required to include all necessary dependencies-->
     <?php
 		include "pigeon-table/php/includes.php"
 	?>
-    
-</head> 
+
+</head>
 
 <body>
     <h1>Menu Listing (Non-admin)</h1>
@@ -31,7 +31,6 @@
     <script src="pigeon-table/js/bootstrap.min.js"></script>
     <script src="pigeon-table/js/angular.min.js"></script>
     <script src="pigeon-table/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
-    <script src="pigeon-table/js/pigeon-table.js"></script> 
+    <script src="pigeon-table/js/pigeon-table.js"></script>
 </body>
 </html>
-

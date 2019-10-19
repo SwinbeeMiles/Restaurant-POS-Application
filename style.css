@@ -75,16 +75,27 @@ justify-content: center;
 }
 
 .card-body{
-  padding: 50px 90px;
+  padding: 30px 60px;
 }
-.card {
+.cardTable
+{
+  padding: 10px 30px;
+}
+
+.card{
   /* Add shadows to create the "card" effect */
   background-color: rgba(255,255,255, 0.6) !important;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
 }
+.cardTableC{
+  background-color: rgba(255,255,255, 0.7) !important;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.1);
 }
 
 .flex-container {
@@ -152,4 +163,8 @@ justify-content: center;
 #tableOccupied:hover{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
   transition: 0.1s;
+}
+
+.listTitle{
+  margin-bottom: 3%;
 }

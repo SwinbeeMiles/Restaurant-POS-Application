@@ -5,23 +5,40 @@
     <title>Payment</title>
     <meta charset="utf-8" />
     <meta name="description" content="Customer Payment" />
-    <meta name="author" content="T.W.J" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <!-- Bootstrap -->
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body data-ng-controller="payment" data-ng-init="init()">
-    
-    <h1>Customer Bill Payment for Table: {{tableID}}</h1>
-    <h2>Order ID: {{order[0].orderID}}</h2>
+  <header>
+    <?php
+          include('includes/header.php');
+          include('includes/loginCheck.php');
+    ?>
+    <div class="menuNavigation">
+      <?php
+          include('includes/navMenu.php');
+      ?>
+    </div>
+  </header>
+<div class="container-fluid">
+  <div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+  <div class="card cardTableC">
+    <div class="card-body cardTable">
+
+    <h3>Customer Bill Payment for Table: {{tableID}}</h3>
+    <h4>Order ID: {{order[0].orderID}}</h4>
     <div ng-repeat="x in order">
-        <p>Food: {{x.foodID}} Quantity:{{x.quantity}} Total: RM {{x.total}}</p>
+        <p>Food: {{x.foodID}}     Quantity:{{x.quantity}}     Total: RM {{x.total}}</p>
     </div>
     <p>Total Price: {{total}} </p>
 
 	<form action="payment.php" method="get" novalidate>
-		<!-- Value of orderid & tableid changed 
+		<!-- Value of orderid & tableid changed
 		dynamically depending on user input -->
 		<input type="hidden" name="orderid" value="{{order[0].orderID}}"/>
 		<input type="hidden" name="tableid" value="{{tableID}}"/>
@@ -29,7 +46,11 @@
 		Coupon Code (Optional): <input type="text" name="code" />
 		<input type="submit" value="Pay" data-ng-click="validatePaymentInput()"/>
 	</form>
-
+  </div>
+  </div>
+  </div>
+    </div>
+      </div>
 	<?php
 		require_once 'includes/connectDB.php';
 
@@ -49,11 +70,11 @@
 			$date = date('Y-m-d');
 			//Database connection
 			$conn = connect();
-			
+
 			if($code != ""){
 				$code_isentered = true;
 			}
-			
+
 			if($code_isentered == true){
 				$sql = "SELECT DiscountRate, ExpiryDate FROM coupons WHERE CouponCode = ?";
 				if($stmt = mysqli_prepare($conn, $sql)){
@@ -84,7 +105,7 @@
 					}
 				}
 			}
-			
+
 			if($code_isentered == false || $code_isvalid == true){
 				$sql = "SELECT TotalPrice FROM orderpayment WHERE OrderID = ?";
 				if($stmt = mysqli_prepare($conn, $sql)){
@@ -104,10 +125,10 @@
 						}
 					}
 				}
-				
+
 				//Close previous statement
 				mysqli_stmt_close($stmt);
-				
+
 				if($balance >= 0){
 					$sql = "UPDATE orderpayment SET TotalPaid = ?, Balance = ?, PaidStatus = 1 WHERE OrderID = ?";
 					if($stmt = mysqli_prepare($conn, $sql)){
@@ -126,10 +147,10 @@
 					else{
 						echo "Update statement error.";
 					}
-					
+
 					//Close previous statement
 					mysqli_stmt_close($stmt);
-					
+
 					$sql = "UPDATE tables SET Status = 'available' WHERE TableID = ?";
 					if($stmt = mysqli_prepare($conn, $sql)){
 						//Replace ? in sql statement
@@ -146,7 +167,7 @@
 					else{
 						echo "Update tables statement error.";
 					}
-					
+
 					//Close previous statement
 					mysqli_stmt_close($stmt);
 				}
@@ -154,11 +175,11 @@
 					echo "Expected amount paid to be greater than total of order.";
 				}
 			}
-			
+
 			mysqli_close($conn);
-			
+
 			if($payment_success == true && $table_success == true){
-				header( "refresh:10; url=tablepage.php" ); 
+				header( "refresh:10; url=tablepage.php" );
 			}
 		}
 
