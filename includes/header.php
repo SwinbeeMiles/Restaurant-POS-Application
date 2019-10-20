@@ -1,8 +1,10 @@
 <html>
 <header>
   <div class ="container-fluid">
-  <img src="assets/foodsmithheader.png" id="headerlogo" alt="cafelogo">
+  <a href="homepage.php"><img src="assets/foodsmithheader.png" id="headerlogo" alt="cafelogo"></a>
 </div>
 </header>
+
+
 
 </html>

@@ -4,30 +4,48 @@
     <title>Create Order</title>
     <meta charset="utf-8"/>
     <meta name="description" content="Creating new orders"/>
-    <link rel="stylesheet" href="style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body data-ng-controller="orderControl">
+<body>
+  <header>
+    <?php
+          include('includes/header.php');
+          include('includes/loginCheck.php');
+    ?>
+    <div class="menuNavigation">
+      <?php
+          include('includes/navMenu.php');
+      ?>
+    </div>
+  </header>
+  <div ="container-fluid">
+    <div class="container">
+      <div class="card cardTableBody">
+        <div class="card-body cardTableBodies">
+    <div data-ng-controller="orderControl">
     <h1>Creating Order for Table {{tableID}}</h1>
-    
+
     <form>
         <p>Select an item or more from the following list</p>
         <div data-ng-repeat="x in menuData track by $index">
             <button data-ng-click="addToOrder(x.FoodName,x.FoodID,x.FoodPrice)">{{x.FoodName}}</button>
         </div>
-        
+
         <p>Ordered items</p>
         <ul class="orderedItem" data-ng-repeat="item in orderedItems track by $index">
             <li>
                 {{$index + 1}}. {{item}} <button data-ng-click="removeItem($index)">Remove</button>
             </li>
         </ul>
-        
+
         <input type="submit" value="Submit Order" data-ng-click="open()"/>
-        
+
         <p>{{count}}</p>
         <p>{{orderedItemsQuantity[0]}}</p>
 	</form>
-    
+
     <!--<form action="createorder.php" method="get">
 		<input type="hidden" name="tableid" value="{{takenTable}}"><br/>
 		Fried Rice Quantity: <input type="number" name="item[f15][quantity]" />
@@ -35,17 +53,17 @@
 		Laksa Quantity: <input type="number" name="item[f14][quantity]" />
 		<input type="hidden" name="item[f14][food]" value="f14"/><br/>
 		Tomato Quantity: <input type="number" name="item[f23][quantity]" />
-		<input type="hidden" name="item[f23][food]" value="tomato"/><br/> 
+		<input type="hidden" name="item[f23][food]" value="tomato"/><br/>
 		<input type="submit" value="Order" />
 	</form>-->
-    
+
 	<?php
 		require_once 'includes/connectDB.php';
-		
+
 		function order($i){
 			return "$i[food],$i[quantity]";
 		}
-		
+
 		//Must have table and item
 		if(!empty($_GET['tableid']) && !empty($_GET['item'])){
 			//Get tableid
@@ -63,14 +81,14 @@
 			$success_order = 0;
 			$success_orderdetails = 0;
 			$success_orderpayment = 0;
-			
+
 			//Create order instructions
 			$sql = "INSERT INTO orders (OrderDate, OrderTime, TableID) VALUES (?,?,?)";
 			$conn = connect();
 			if($stmt = mysqli_prepare($conn, $sql)){
 				//Replace ? in sql statement
 				mysqli_stmt_bind_param($stmt, 'ssi', $date, $time, $tableid);
-				
+
 				//Try to execute statement
 				if(mysqli_stmt_execute($stmt)){
 					//Retrieve the last auto generated id
@@ -82,7 +100,7 @@
 						$value_arr = explode(',',$value);
 						$valueid = $value_arr[0];
 						$valuequantity = $value_arr[1];
-						
+
 						if($valuequantity > 0){
 							$sql = "SELECT FoodID, FoodName, FoodPrice FROM menu WHERE FoodID = ?";
 							if($stmt = mysqli_prepare($conn, $sql)){
@@ -104,13 +122,13 @@
 							else{
 								echo "Food details statement error";
 							}
-							
+
 							//Close previous statement
 							mysqli_stmt_close($stmt);
-							
+
 							//Populate order details based on submitted values
 							$sql = "INSERT INTO `orderdetails` (`OrderID`, `FoodID`, `Quantity`, `Total`) VALUES (?,?,?,?)";
-							if($stmt = mysqli_prepare($conn, $sql)){	
+							if($stmt = mysqli_prepare($conn, $sql)){
 								//Replace ? in sql statement
 								mysqli_stmt_bind_param($stmt, 'isid', $lastid, $valueid, $valuequantity, $totalprice);
 								if(mysqli_stmt_execute($stmt)){
@@ -126,12 +144,12 @@
 							else{
 								echo "Order details statement error.";
 							}
-							
+
 							//Close previous statement
 							mysqli_stmt_close($stmt);
 						}
 					}
-					
+
 					//Update orderpayment as pending to be paid
 					$sql = "INSERT INTO orderpayment (OrderID, TotalPrice, PaidStatus) VALUES (?,?,0)";
 					if($stmt = mysqli_prepare($conn, $sql)){
@@ -150,19 +168,19 @@
 					else{
 						echo "Order payment statement error.";
 					}
-					
+
 					//Close previous statement
 					mysqli_stmt_close($stmt);
 				}
 				else{
 					echo "Data row could not be inserted into orders.";
 				}
-				
+
 			}
 			else{
 				echo "Orders statement error.";
 			}
-			
+
 			if($success_order == 1 && $success_orderdetails == 1 && $success_orderpayment == 1){
 				$sql = "UPDATE tables SET Status = 'occupied' WHERE TableID = ?";
 				if($stmt = mysqli_prepare($conn, $sql)){
@@ -180,11 +198,16 @@
 					echo "Update tables statement error.";
 				}
 			}
-			
-			mysqli_close($conn);			
+
+			mysqli_close($conn);
 		}
 	?>
-    
+</div>
+</div>
+</div>
+</div>
+</div>
+
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>
     <script src="frameworks/js/bootstrap.min.js"></script>
@@ -193,4 +216,3 @@
     <script src="frameworks/js/orderSystem.js"></script>
 </body>
 </html>
-

@@ -12,7 +12,7 @@
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<header>
+<header id="myHeader">
   <?php
         include('includes/header.php');
         include('includes/loginCheck.php');
@@ -25,8 +25,15 @@
 </header>
 <body data-ng-controller="tableControl">
   <div class="container-fluid">
-    <div class="flex-container">
-      <div data-ng-repeat="x in table track by $index">
+  <div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="card">
+        <div class="card-body cardTableBodies">
+          <button type="button" class="btn" id="adminButton" onclick="location.href='tablelist.php'">Edit Table</button>
+          <br><br>
+            <div class="flex-container">
+
+              <div data-ng-repeat="x in table track by $index">
 
           <span data-ng-if="x.Status=='available'">
             <button type="button" id="tableAvailable" data-ng-click="displayTableStatus($index)" onclick="location.href='createorder.php'">
@@ -47,11 +54,14 @@
                 Table No:{{x.TableID}} Chairs:{{x.Chairs}}
             </button>
 
-        </span>
+              </span>
+            </div>
+  </div>
+          </div>
         </div>
       </div>
     </div>
-
+</div>
     <data-order-Info></data-order-Info>
     <data-reserved-Info></data-reserved-Info>
 

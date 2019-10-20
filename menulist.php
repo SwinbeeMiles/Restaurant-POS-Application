@@ -37,8 +37,10 @@
 
   <div class="container-fluid">
     <div class="container">
-      <div class="card cardTableC">
-        <div class="card-body cardTable">
+      <div class="card cardTableBody">
+        <div class="card-body cardTableBodies">
+          <button type="button" class="btn" id="adminButton" onclick="location.href='menulisting.php'">Back to Menu</button>
+          <br><br>
         <h1 class="listTitle">Menu List</h1>
         <!-- View Data in table form -->
         <pigeon-table query="SELECT * FROM menu" editable="true" control="true"></pigeon-table>
