@@ -12,7 +12,7 @@
     <form>
         <p>Select an item or more from the following list</p>
         <div data-ng-repeat="x in menuData track by $index">
-            <button data-ng-click="addToOrder(x.FoodName,x.FoodID)">{{x.FoodName}}</button>
+            <button data-ng-click="addToOrder(x.FoodName,x.FoodID,x.FoodPrice)">{{x.FoodName}}</button>
         </div>
         
         <p>Ordered items</p>
@@ -22,7 +22,10 @@
             </li>
         </ul>
         
-        <input type="submit" value="Submit Order"/>
+        <input type="submit" value="Submit Order" data-ng-click="open()"/>
+        
+        <p>{{count}}</p>
+        <p>{{orderedItemsQuantity[0]}}</p>
 	</form>
     
     <!--<form action="createorder.php" method="get">
