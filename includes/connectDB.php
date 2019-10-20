@@ -7,9 +7,9 @@
 		if (!$conn)
 		{
 			$dbServername = 'localhost';
-			$dbUsername = 'root';
-			$dbPassword = '';
-			$dbName = 'restaurantdatabase';
+			$dbUsername = 'root'; // $dbUsername = 'id11040270_admin';
+			$dbPassword = ''; // $dbPassword = '*****';
+			$dbName = 'restaurantdatabase'; //dbName = 'id11040270_restaurantdatabase';
 			$conn = mysqli_connect($dbServername,$dbUsername,$dbPassword,$dbName);
 		}
 		
