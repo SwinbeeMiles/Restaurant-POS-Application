@@ -12,7 +12,7 @@ var app = angular.module("orderSystem", []);
 app.controller("orderControl", function ($scope,$http,$window) {
     "use strict";
     
-    $scope.tableID=$window.sessionStorage.tableNo;
+    $scope.tableID=$window.sessionStorage.orderTable;
     $scope.orderedItems = [];
     $scope.orderedItemsID = [];
     $scope.orderedItemsPrice = [];
@@ -52,9 +52,4 @@ app.controller("orderControl", function ($scope,$http,$window) {
             $scope.orderedItemsQuantity[i].push($scope.count);
         }
     };
-});
-
-app.controller("createOrder", function ($scope,$http,$window) {
-    "use strict";
-    $scope.takenTable=$window.sessionStorage.orderTable;
 });

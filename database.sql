@@ -54,7 +54,7 @@ CREATE TABLE orderpayment (
 );
 
 INSERT INTO orderpayment (OrderID, TotalPrice, TotalPaid, Balance, PaidStatus) 
-VALUES (1,50.00,50.00,0.00,1);
+VALUES (1,10.00,10.00,0.00,1);
 
 CREATE TABLE orderdetails (
 	OrderID int(3) NOT NULL,
