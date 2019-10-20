@@ -36,9 +36,9 @@
   </header>
   <div class="container-fluid">
     <div class="container">
-      <div class="card cardTableC">
-        <div class="card-body cardTable">
-        <h1 class="listTitle">Account List</h1>
+      <div class="card cardTableBody">
+        <div class="card-body cardTableBodies">
+        <h2 class="listTitle">Account List</h2>
         <pigeon-table query="SELECT * FROM account" editable="true" control="true"></pigeon-table>
     </div>
     </div>

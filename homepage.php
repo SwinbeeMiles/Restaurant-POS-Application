@@ -27,9 +27,9 @@
   <div class="container-fluid">
     <div class="row justify-content-around">
       <div class="col-xl-6"><button type="button" id="mainbutton" onclick=location.href="tablepage.php">Table</button></div>
-      <div class="col-xl-6"><button type="button" id="mainbutton">Menu</button></div>
+      <div class="col-xl-6"><button type="button" id="mainbutton" onclick=location.href="menulisting.php">Menu</button></div>
       <div class="col-xl-6"><button type="button" id="mainbutton">Reservation</button></div>
-      <div class="col-xl-6"><button type="button" id="mainbutton">Account</button></div>
+      <div class="col-xl-6"><button type="button" id="mainbutton" onclick=location.href="accountlist.php">Account</button></div>
     </div>
   </div>
 

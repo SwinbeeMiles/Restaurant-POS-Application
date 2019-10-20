@@ -37,14 +37,22 @@
 
   <div class="container-fluid">
     <div class="container">
-      <div class="card cardTableC">
-        <div class="card-body cardTable">
-        <h1 class="listTitle">Table List</h1>
+      <div class="card cardTableBody">
+        <div class="card-body cardTableBodies">
+          <button type="button" class="btn" id="adminButton" onclick="location.href='tablepage.php'">Back to Table</button>
+          <br><br>
+        <h2 class="listTitle">Table List</h2>
+
         <pigeon-table query="SELECT * FROM tables" editable="true" control="true"></pigeon-table>
     </div>
     </div>
     </div>
     </div>
+    <script>
+    window.onscroll = function() {myFunction()};
+
+
+    </script>
     <script src="pigeon-table/js/jquery.min.js"></script>
     <script src="pigeon-table/js/bootstrap.min.js"></script>
     <script src="pigeon-table/js/angular.min.js"></script>
