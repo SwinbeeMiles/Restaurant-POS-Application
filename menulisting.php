@@ -42,7 +42,7 @@
     <div class="container">
       <div class="card cardTableBody">
         <div class="card-body cardTableBodies">
-          <button type="button" class="btn" id="adminButton" onclick="location.href='menulist.php'">Edit Menu</button>
+          <button type="button" class="btn" id="adminButton"  onclick="location.href='menulist.php'">Edit Menu</button>
           <br><br>
 
           <h2 class="listTitle">Menu Listing</h2>
