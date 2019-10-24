@@ -1,9 +1,12 @@
 <?php
-	if(isset($_SESSION["privilege"]) && $_SESSION["privilege"] === true){
-		
+	if(isset($_SESSION["privilege"]) && $_SESSION["privilege"] === 1){
+
 	}
 	else{
-		header("location: homepage.php");
-		exit;
+
+	header('Location: '.$_SERVER['HTTP_REFERER']);
+				exit;
 	}
+
+
 ?>
