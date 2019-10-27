@@ -32,10 +32,20 @@
 
     <h3>Customer Bill Payment for Table: {{tableID}}</h3>
     <h4>Order ID: {{order[0].orderID}}</h4>
-    <div ng-repeat="x in order">
-        <p>Food: {{x.foodID}}     Quantity:{{x.quantity}}     Total: RM {{x.total}}</p>
-    </div>
-    <p>Total Price: {{total}} </p>
+    <table class="table table-striped table-hover">   
+        <tr>
+            <th>Food ID</th>
+            <th>Quantitiy</th>
+            <th>Total</th>
+         </tr>
+                    
+        <tr data-ng-repeat="x in order">
+            <td>{{x.foodID}}</td>
+            <td>{{x.quantity}}</td>
+            <td>RM {{x.total}}</td>
+        </tr>
+    </table>
+    <h4>Total Price: RM{{total}}</h4>
 
 	<form action="payment.php" method="get" novalidate>
 		<!-- Value of orderid & tableid changed

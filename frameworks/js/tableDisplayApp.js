@@ -8,63 +8,59 @@
 
 var app = angular.module("tableDispApp", []);
 
-app.controller("tableControl", function ($scope, $http,$window) {
+app.factory('getData',function($http){
     "use strict";
-    $scope.tableData = $http({
-        method: 'GET',
-        url: 'includes/tableData.php'
-    }).then(function onFulfilledHandler(response) {
+    return{
+        sqlFetch: function(SQL,row)
+        {
+            return $http.post('includes/tableDataFetch.php',{sql: SQL, numOfRow: row}).then(function(response){
+                    return response.data;
+                });
+        }
+    };
+});
 
-        $scope.table = response.data;
-        return $scope.table;
-
+app.controller("tableControl", function ($scope, $http, $window, getData) {
+    "use strict";
+    var tableData,tableOrder,orderPayment,orderDetails,reservation;
+    
+    $scope.orderPaymentCondition="";
+    //Get current date
+    $scope.DateObj = new Date();
+    //Convert date to yyyy-mm-dd
+    $scope.date = $scope.DateObj.getFullYear() + '-' + ('0' + ($scope.DateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + $scope.DateObj.getDate()).slice(-2);
+    
+    //Fetching data start
+    tableData = getData.sqlFetch("SELECT * FROM tables", 1);
+    tableData.then(function (result) {
+        $scope.table = result;
     });
 
-    $scope.tableOrder = $http({
-        method: 'GET',
-        url: 'includes/tableOrder.php'
-    }).then(function onFulfilledHandler(response) {
-
-        $scope.tableOrders = response.data;
-        return $scope.tableOrders;
-
+    tableOrder = getData.sqlFetch("SELECT * FROM orders WHERE OrderDate = " + "'" + $scope.date + "'", 1);
+    tableOrder.then(function (result) {
+        $scope.tableOrders = result;
     });
     
-    $scope.paymentData = $http({
-        method: 'GET',
-        url: 'includes/orderPayment.php'
-    }).then(function onFulfilledHandler(response) {
-    $scope.paymentInfo = response.data;
-        return $scope.paymentInfo;
+    orderPayment = getData.sqlFetch("SELECT * FROM orderpayment", 1);
+    orderPayment.then(function (result) {
+        $scope.paymentInfo = result;
     });
     
-    $scope.tableOrderDetails = $http({
-        method: 'GET',
-        url: 'includes/tableOrderDetails.php'
-    }).then(function onFulfilledHandler(response) {
-
-        $scope.tableOrdersDetails = response.data;
-        return $scope.tableOrdersDetails;
+    orderDetails = getData.sqlFetch("SELECT * FROM orderDetails", 1);
+    orderDetails.then(function (result) {
+        $scope.tableOrdersDetails = result;
     });
     
-    $scope.tableRevDetails = $http({
-        method: 'GET',
-        url: 'includes/tableReservationDetails.php'
-    }).then(function onFulfilledHandler(response) {
-
-        $scope.tableRevDetails = response.data;
-        return $scope.tableRevDetails;
+    reservation = getData.sqlFetch("SELECT * FROM reservation WHERE ReservationDate = " + "'" + $scope.date + "'", 1);
+    reservation.then(function (result) {
+        $scope.tableRevDetails = result;
     });
-
+    //Fetching data end
+    
     $scope.displayTableStatus = function (tableId) {
         var a = 0,b=0,e=0, x=$scope.paymentInfo.length-1;
         $scope.occupiedTable = $scope.table[tableId].TableID;
         a = $scope.tableOrders.length - 1;
-        
-        //Get current date
-        $scope.DateObj = new Date();
-        //Convert date to yyyy-mm-dd
-        $scope.date = $scope.DateObj.getFullYear() + '-' + ('0' + ($scope.DateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + $scope.DateObj.getDate()).slice(-2);
         
         if($scope.table[tableId].Status === "available") 
         {
@@ -76,12 +72,13 @@ app.controller("tableControl", function ($scope, $http,$window) {
             $scope.tableRevArray = [];
             while (e <= $scope.tableRevDetails.length-1) 
             {
-                if (($scope.table[tableId].TableID === $scope.tableRevDetails[e].TableID)&&($scope.date === $scope.tableRevDetails[e].RevDate)) {
+                if ($scope.table[tableId].TableID === $scope.tableRevDetails[e].TableID)
+                {
                     $scope.tableRevArray.push({
-                        RevID: $scope.tableRevDetails[e].RevID,
-                        RevTime: $scope.tableRevDetails[e].RevTime,
-                        RevDate: $scope.tableRevDetails[e].RevDate,
-                        RevEnd: $scope.tableRevDetails[e].RevEndTime
+                        RevID: $scope.tableRevDetails[e].ReservationID,
+                        RevTime: $scope.tableRevDetails[e].ReservationTime,
+                        RevDate: $scope.tableRevDetails[e].ReservationDate,
+                        RevEnd: $scope.tableRevDetails[e].EndTime
                     });
                 }
                 e += 1;

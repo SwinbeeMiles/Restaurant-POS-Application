@@ -36,6 +36,10 @@
         <pigeon-table query="SELECT * FROM orderpayment" editable="true" control="true"></pigeon-table>
         <br/>
         
+        <h2>Order Payment Table</h2>
+        <pigeon-table query="SELECT * FROM orderpayment INNER JOIN orders ON orders.OrderID = orderpayment.OrderID WHERE orders.OrderID IN(1,7)" editable="true" control="true"></pigeon-table>
+        <br/>
+        
     </div>
     <script src="pigeon-table/js/jquery.min.js"></script>
     <script src="pigeon-table/js/bootstrap.min.js"></script>
