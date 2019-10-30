@@ -78,8 +78,6 @@ app.controller("orderControl", function ($scope, $http, $window) {
         
     };
     
-    
-    
     $scope.removeItem = function(index) {
         $scope.orderedItems.splice(index,1);
     };
@@ -147,7 +145,10 @@ app.controller("orderControl", function ($scope, $http, $window) {
         var requestDetails = $http({
             method: 'POST',
             url: 'includes/orderDetailPost.php',
-            data: JSON.stringify($scope.orderedItems),
+            data: { 
+                OrderedItems: JSON.stringify($scope.orderedItems),
+                OrderID: (parseInt($scope.orderData[$scope.orderData.length-1].OrderID,10)) + 1
+            },
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -166,7 +167,7 @@ app.controller("orderControl", function ($scope, $http, $window) {
         });
         
         requestDetails.success(function (data) {
-           $scope.detailsToast = data;
+            $scope.detailsToast = data;
         });
     };
 });

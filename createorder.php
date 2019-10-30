@@ -66,10 +66,6 @@
                         
                         <button class="float-right" data-ng-click = "postData()">Submit Order</button>
                         <button class="float-right" data-ng-click = "resetAll()">Reset</button>
-                        
-                        
-                        
-                        
                     </div>
                 </div>
             </div>
