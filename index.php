@@ -105,7 +105,7 @@
                 <span style="color: red;"><?php echo $username_err; ?></span>
                 <span style="color: red;"><?php echo $nousername; ?></span>
                 <br><br><label for="_password">Password: </label>
-                <input type="text" name="password" id="_password" class="form-control"><br>
+                <input type="password" name="password" id="_password" class="form-control"><br>
 
                 <span style="color: red;"><?php echo $password_err; ?></span>
                 <span style="color: red;"><?php echo $nopassword; ?></span>
