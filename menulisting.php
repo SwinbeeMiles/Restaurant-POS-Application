@@ -27,8 +27,6 @@
     <?php
 		      include('includes/header.php');
 		      include('includes/loginCheck.php');
-          include('includes/loginAdminCheck.php');
-
     ?>
     <div class="menuNavigation">
       <?php
@@ -41,7 +39,7 @@
     <div class="container">
       <div class="card cardTableBody">
         <div class="card-body cardTableBodies">
-          <button type="button" class="btn" id="adminButton" onclick="location.href='menulisting.php'">Back to Menu</button>
+          <button type="button" class="btn" id="adminButton"  onclick="location.href='menulist.php'">Edit Menu</button>
           <br><br>
         <h2 class="listTitle">Menu Listing</h2>
         <!-- View Data in table form -->
