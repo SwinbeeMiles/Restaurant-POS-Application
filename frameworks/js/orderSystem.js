@@ -1,5 +1,5 @@
 /*jslint vars: true*/
-/*jslint white:true */
+/*jslint white: true */
 /*jslint plusplus: true */
 /*jslint devel: true */
 /*global angular */
@@ -11,10 +11,28 @@
 
 var app = angular.module("orderSystem", []);
 
+/* eslint-disable */
+app.directive("orderSummary", function () {
+    "use strict";
+    var product = {};
+    product.restrict = "E";
+    product.controller = "orderControl";
+    product.templateUrl = "frameworks/template/orderSummaryConfirmation.html";
+    product.compile = function () {
+        var linkFunction = function (scope, element, attributes) {
+            //Initialize the default settings
+            scope.init();
+        };
+        return linkFunction;
+    };
+    return product;
+});
+/* eslint-enable */
+
 app.controller("orderControl", function ($scope, $http, $window) {
     "use strict";
 
-    $scope.tableID=$window.sessionStorage.orderTable;
+    $scope.tableID = $window.sessionStorage.orderTable;
     $scope.orderedItems = [];
     
     //Courtesy of Tan
@@ -23,6 +41,7 @@ app.controller("orderControl", function ($scope, $http, $window) {
     //Convert date to yyyy-mm-dd
     $scope.date = $scope.DateObj.getFullYear() + '-' + ('0' + ($scope.DateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + $scope.DateObj.getDate()).slice(-2);
     $scope.time = ('0'  + $scope.DateObj.getHours()).slice(-2)+':'+('0'  + $scope.DateObj.getMinutes()).slice(-2)+':'+('0' + $scope.DateObj.getSeconds()).slice(-2);
+    
     $scope.fetchMenu = $http({
         method: 'GET',
         url: 'includes/orderMenu.php'
@@ -39,8 +58,11 @@ app.controller("orderControl", function ($scope, $http, $window) {
         return $scope.orderData;
     });
     
+    $scope.orderToModal = function () {
+        $scope.orderedModal = ["apple","pie"];
+    };
+    
     $scope.addToOrder = function (item, itemID, itemFoodPrice) {
-        $scope.test3 = (parseInt($scope.orderData[$scope.orderData.length-1].OrderID,10)) + 1;
         var i, isIn;
         if ($scope.orderedItems.length === 0) {
             $scope.orderedItems.push({
@@ -72,10 +94,7 @@ app.controller("orderControl", function ($scope, $http, $window) {
                 window.alert("That item has already been selected."); 
                 /* eslint-enable */
             }
-            
-            
         }
-        
     };
     
     $scope.removeItem = function(index) {
@@ -116,8 +135,6 @@ app.controller("orderControl", function ($scope, $http, $window) {
             }
         });
 
-        
-        
         var requestTable = $http({
             method: 'POST',
             url: 'includes/orderTablePost.php',

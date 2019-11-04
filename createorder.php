@@ -61,16 +61,17 @@
                             <li>{{tableToast}}</li>
                             <li>{{detailsToast}}</li>
                         </ul>
-
-                        <button class="float-left" onclick="location.href='tablepage.php'">Quit</button>
                         
-                        <button class="float-right" data-ng-click = "postData()">Submit Order</button>
-                        <button class="float-right" data-ng-click = "resetAll()">Reset</button>
+                        <button class="float-left btn btn-default" onclick="location.href='tablepage.php'">Quit</button>
+                        
+                        <button class="float-right btn btn-default" data-toggle="modal" data-target="#orderSummary" data-ng-click = "orderToModal()">Order</button>
+                        <button class="float-right btn btn-default" data-ng-click = "resetAll()">Reset</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <data-order-Summary></data-order-Summary>
 
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>

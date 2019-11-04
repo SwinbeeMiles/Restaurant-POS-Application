@@ -1,0 +1,23 @@
+<!-- Modal -->
+<div class="modal fade" id="orderSummary" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Order Confirmation</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>The following order will be sent to the kitchen: </p>
+                <ol data-ng-repeat="item in orderedItems track by $index">
+                    <li>{{item.name}} Quantity: {{item.quantity}}</li>
+                </ol>
+                {{orderedModal}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss = "modal">Close</button>
+                <button type="button" class="btn btn-default" data-ng-click = "postData()" onclick="location.href='tablepage.php'">Submit Order</button>
+            </div>
+        </div>
+    </div>
+</div>
