@@ -317,7 +317,7 @@ app.controller("EditModalInstanceCtrl", function ($scope, $http, $uibModalInstan
         form.sqlType = "UPDATE";
         form.tableStructure = tableStructure;
 
-        $http.post("pigeon-core/get-data-with-crud.php", JSON.stringify(form))
+        $http.post("pigeon-core/get-data-with-crud-reservation.php", JSON.stringify(form))
             .then(function (response) {
                 if (response.data === "Updated") {
                     $uibModalInstance.close($scope.selectedData);

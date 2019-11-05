@@ -54,19 +54,35 @@
         $colField = "";
         $updateValue = "";
         $result = $db->query("DESCRIBE $table");
-
+		
+		$startTime = "";
+		$endTime = "";
+		$reservedDate = "";
+		
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
 
             foreach($input as $key => $value) {
 
                 if ($key != "sqlType" && $key == $row['Field']) {
-
+					
+					if($key == 'ReservationTime'){
+						$startTime = $value;
+					}
+					
+					if($key == 'ReservationDate'){
+						$reservedDate = $value;
+					}
+					
+					if($key == 'EndTime'){
+						$endTime = $value;
+					}
+					
                     //Check if the column is null
                     if ($value == "" && $row['Null'] == "YES") {
                         $value = "NULL";
                     } else if ($value == "" && $row['Null'] == "NO") {
 						if($key == 'ReservationID'){
-							$msg[] = "";
+							$msg[] = "Validated";
 							continue;
 						}
 						else{
@@ -115,9 +131,9 @@
                             continue;
                         }
                     } else if (preg_match("/(time)/i", $row['Type'])) {
-                        if (!preg_match("/^(([0-7][0-9]{2}|8[0-2][0-9]|83[0-8]|\d{2})|(-[0-7][0-9]{2}|-8[0-2][0-9]|-83[0-8]|-\d{2})):([0-5][0-9]):([0-5][0-9])$/", $value)) {
-                            $msg[] = "Please insert valid time within range -838:59:59 to 838:59:59";
-                            continue;
+                        if (!preg_match("/^(([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?)$/", $value)) {
+							$msg[] = "Please insert valid time within range 00:00:00 to 23:59:59";
+							continue;
                         }
                     } else if (preg_match("/(year)/i", $row['Type'])) {
                         if (!preg_match("/^(190[1-9]|19[1-9][0-9]|20[0-9]{2}|21[0-4][0-9]|215[0-5])$/", $value)) {
@@ -181,7 +197,48 @@
                 }
             }
         }
-
+		
+		$myReservedDate = $reservedDate;
+		
+		$mySqlReservation = "SELECT ReservationTime FROM reservation WHERE ReservationDate = '$myReservedDate'";
+		$myResult = mysqli_query($db, $mySqlReservation);
+		$myRow = mysqli_fetch_array($myResult,MYSQLI_NUM);
+		
+		$mySqlEnd = "SELECT EndTime FROM reservation WHERE ReservationDate = '$myReservedDate'";
+		$myResult2 = mysqli_query($db, $mySqlEnd);
+		$myRow2 = mysqli_fetch_array($myResult2,MYSQLI_NUM);
+					
+		for($x = 0; $x < sizeof($msg); $x++){
+			if($msg[$x] == "Validated"){
+				if ($x == 2){
+					$myStartTime = $startTime;
+					
+					for($y = 0; $y < sizeof($myRow); $y++){
+						if($myStartTime > $myRow[0] && $myStartTime < $myRow2[0]){
+							$msg[$x] = "Overlapping Start Time!";
+						}
+					}
+					
+				}
+				else if ($x == 4) {
+					$myEndTime = $endTime;
+					
+					if($myEndTime < $startTime){
+						$msg[$x] = "End Time must be greater than Reserved Time.";
+					} else if ($myEndTime - $startTime < 1){
+						$msg[$x] = "Reservation must be have at least a 1 hour interval.";
+					} else {
+						for($z = 0; $z < sizeof($myRow); $z++){
+							if($myEndTime > $myRow[0] && $myEndTime < $myRow2[0]){
+								$msg[$x] = "Overlapping End Time!";
+							}
+						}
+					}
+					
+				}
+			}
+		}
+			
         $queryMode = true;
         for ($i = 0; $i < sizeof($msg); $i++) {
             if ($msg[$i] != "Validated") {
