@@ -23,7 +23,6 @@ app.factory('getData',function($http){
 app.controller("tableControl", function ($scope, $http, $window, getData) {
     "use strict";
     var tableData,tableOrder,orderPayment,orderDetails,reservation;
-    
     $scope.orderPaymentCondition="";
     //Get current date
     $scope.DateObj = new Date();
@@ -125,7 +124,21 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
             $window.sessionStorage.totalCost = $scope.total;
         }
     };
-           
+    
+    $scope.deleteOrder = function ()
+    {    
+        $http({
+            method: 'POST',
+            url: 'includes/tableDataDelete.php',
+            data: {
+                tableID: $scope.occupiedTable,
+                orderID: $scope.orderID
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+    };
         
 });
 
@@ -134,7 +147,7 @@ app.directive("orderInfo", function () {
     var product = {};
     product.restrict = "E";
     product.controller = "tableControl";
-    product.templateUrl = "frameworks/template/tableOrderModal.html";
+    product.templateUrl = "frameworks/template/tableOrderModal.php";
     product.compile = function () {
         var linkFunction = function (scope, element, attributes) {
 

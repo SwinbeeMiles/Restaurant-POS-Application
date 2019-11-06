@@ -13,55 +13,56 @@
 </head>
 
 <header id="myHeader">
-  <?php
+    <?php
         include('includes/header.php');
         include('includes/loginCheck.php');
   ?>
-  <div class="menuNavigation">
-    <?php
+    <div class="menuNavigation">
+        <?php
         include('includes/navMenu.php');
     ?>
-  </div>
-</header>
-<body data-ng-controller="tableControl">
-  <div class="container-fluid">
-  <div class="container h-100">
-  <div class="row h-100 justify-content-center align-items-center">
-    <div class="card">
-        <div class="card-body cardTableBodies">
-          <button type="button" class="btn" id="adminButton" onclick="location.href='tablelist.php'">Edit Table</button>
-          <br><br>
-            <div class="flex-container">
-
-              <div data-ng-repeat="x in table track by $index">
-
-          <span data-ng-if="x.Status=='available'">
-            <button type="button" id="tableAvailable" data-ng-click="displayTableStatus($index)" onclick="location.href='createorder.php'">
-                Table No:{{x.TableID}} Chairs:{{x.Chairs}}
-            </button>
-        </span>
-
-        <span data-ng-if="x.Status=='reserved'">
-            <button type="button" id="tableReserved" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#reservedModal">
-                Table No:{{x.TableID}} Chairs:{{x.Chairs}}
-            </button>
-
-        </span>
-
-
-        <span data-ng-if="x.Status=='occupied'">
-            <button type="button" id="tableOccupied" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#orderModal">
-                Table No:{{x.TableID}} Chairs:{{x.Chairs}}
-            </button>
-
-              </span>
-            </div>
-  </div>
-          </div>
-        </div>
-      </div>
     </div>
-</div>
+</header>
+
+<body data-ng-controller="tableControl">
+    <div class="container-fluid">
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="card">
+                    <div class="card-body cardTableBodies">
+                        <button type="button" class="btn" id="adminButton" onclick="location.href='tablelist.php'">Edit Table</button>
+                        <br><br>
+                        <div class="flex-container">
+
+                            <div data-ng-repeat="x in table track by $index">
+
+                                <span data-ng-if="x.Status=='available'">
+                                    <button type="button" id="tableAvailable" data-ng-click="displayTableStatus($index)" onclick="location.href='createorder.php'">
+                                        Table No:{{x.TableID}} Chairs:{{x.Chairs}}
+                                    </button>
+                                </span>
+
+                                <span data-ng-if="x.Status=='reserved'">
+                                    <button type="button" id="tableReserved" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#reservedModal">
+                                        Table No:{{x.TableID}} Chairs:{{x.Chairs}}
+                                    </button>
+
+                                </span>
+
+
+                                <span data-ng-if="x.Status=='occupied'">
+                                    <button type="button" id="tableOccupied" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#orderModal">
+                                        Table No:{{x.TableID}} Chairs:{{x.Chairs}}
+                                    </button>
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <data-order-Info></data-order-Info>
     <data-reserved-Info></data-reserved-Info>
 
