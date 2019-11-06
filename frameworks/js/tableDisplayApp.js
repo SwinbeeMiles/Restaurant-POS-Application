@@ -213,3 +213,59 @@ app.controller("createOrder", function ($scope, $http,$window) {
     "use strict";
     $scope.takenTable=$window.sessionStorage.orderTable;
 });
+
+app.controller("editOrder", function ($scope, $http,$window, getData) {
+    "use strict";
+    var x=0,b=0,menuData;
+    $scope.orderEditArray=[];
+    menuData = getData.sqlFetch("SELECT * FROM menu", 1);
+    menuData.then(function (result) {
+        $scope.menu = result;
+    
+        while(x<$scope.order.length)
+        {
+            while(b<$scope.menu.length)
+            {
+                
+                if($scope.order[x].foodID === $scope.menu[b].FoodID)
+                {
+                    //$window.alert($scope.menu[b].FoodName);
+                    //$window.alert($scope.menu[b].FoodID);
+                    $scope.orderEditArray.push({
+                        foodID: $scope.menu[x].FoodID,
+                        foodName: $scope.menu[x].FoodName,
+                        quantity: $scope.order[x].quantity,
+                        price: $scope.menu[x].FoodPrice
+                    });
+                }
+                b += 1;
+            }
+            x += 1;
+        }
+    });
+    
+    $scope.tableNo = $window.sessionStorage.tableNo; 
+    $scope.order = JSON.parse($window.sessionStorage.orders);
+    $scope.orderID = $scope.order[0].orderID;
+    
+    $scope.addQuantity = function (rowSelected)
+    {
+        if($scope.orderEditArray[rowSelected].quantity>=0)
+        {
+            $scope.temp = parseInt($scope.orderEditArray[rowSelected].quantity)
+            $scope.temp += 1;
+            $scope.orderEditArray[rowSelected].quantity = $scope.temp
+        }
+    }
+    
+    $scope.removeQuantity = function(rowSelected)
+    {
+        if($scope.orderEditArray[rowSelected].quantity>=1)
+        {
+            $scope.temp = parseInt($scope.orderEditArray[rowSelected].quantity)
+            $scope.temp -= 1;
+            $scope.orderEditArray[rowSelected].quantity = $scope.temp
+        }
+    }
+
+});
