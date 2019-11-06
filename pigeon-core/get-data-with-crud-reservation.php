@@ -58,12 +58,16 @@
 		$startTime = "";
 		$endTime = "";
 		$reservedDate = "";
+		$reservationID = "";
 		
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
 
             foreach($input as $key => $value) {
 
                 if ($key != "sqlType" && $key == $row['Field']) {
+					if($key == 'ReservationID'){
+						$reservationID = $value;
+					}
 					
 					if($key == 'ReservationTime'){
 						$startTime = $value;
@@ -199,42 +203,49 @@
         }
 		
 		$myReservedDate = $reservedDate;
+		$myReservationID = $reservationID;
+		$myStartTime = $startTime;
+		$myEndTime = $endTime;
+		$retrievedID = null;
+		$retrievedTime = null;
+		$retrievedEnd = null;
 		
-		$mySqlReservation = "SELECT ReservationTime FROM reservation WHERE ReservationDate = '$myReservedDate'";
+		$mySqlReservation = "SELECT ReservationID, ReservationTime, EndTime FROM reservation WHERE ReservationDate = '$myReservedDate'";
 		$myResult = mysqli_query($db, $mySqlReservation);
-		$myRow = mysqli_fetch_array($myResult,MYSQLI_NUM);
-		
-		$mySqlEnd = "SELECT EndTime FROM reservation WHERE ReservationDate = '$myReservedDate'";
-		$myResult2 = mysqli_query($db, $mySqlEnd);
-		$myRow2 = mysqli_fetch_array($myResult2,MYSQLI_NUM);
 					
+		while($row = mysqli_fetch_assoc($myResult)){
+			foreach($row as $key => $value){
+				if($key == 'ReservationID'){
+					$retrievedID = $value;
+				} else if($key == 'ReservationTime'){
+					$retrievedTime = $value;
+				} else if($key == 'EndTime'){
+					$retrievedEnd = $value;
+				}
+			}
+		}
+		
 		for($x = 0; $x < sizeof($msg); $x++){
 			if($msg[$x] == "Validated"){
 				if ($x == 2){
-					$myStartTime = $startTime;
-					
-					for($y = 0; $y < sizeof($myRow); $y++){
-						if($myStartTime > $myRow[0] && $myStartTime < $myRow2[0]){
+					if($myStartTime >= $retrievedTime && $myStartTime <= $retrievedEnd){
+						if($myReservationID != $retrievedID){
 							$msg[$x] = "Overlapping Start Time!";
 						}
 					}
-					
 				}
-				else if ($x == 4) {
-					$myEndTime = $endTime;
-					
+				if ($x == 4){
 					if($myEndTime < $startTime){
 						$msg[$x] = "End Time must be greater than Reserved Time.";
-					} else if ($myEndTime - $startTime < 1){
-						$msg[$x] = "Reservation must be have at least a 1 hour interval.";
+					} else if ((strtotime($myEndTime) - strtotime($startTime))/60 < 59){
+						$msg[$x] = "Reservation must be have at least a 59 minutes interval.";
 					} else {
-						for($z = 0; $z < sizeof($myRow); $z++){
-							if($myEndTime > $myRow[0] && $myEndTime < $myRow2[0]){
+						if($myEndTime >= $retrievedTime && $myEndTime <= $retrievedEnd){
+							if($myReservationID != $retrievedID){
 								$msg[$x] = "Overlapping End Time!";
 							}
 						}
 					}
-					
 				}
 			}
 		}
