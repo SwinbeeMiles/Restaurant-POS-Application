@@ -51,7 +51,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-default" onclick="location.href=" data-ng-click = deleteOrder() >Yes</button>
+                <button type="button" class="btn btn-default" onclick="window.location.reload();" data-ng-click = deleteOrder() data-dismiss="modal">Yes</button>
             </div>
         </div>
     </div>
