@@ -16,6 +16,7 @@
     <?php
         include('includes/header.php');
         include('includes/loginCheck.php');
+		include('includes/reservationCheck.php');
   ?>
     <div class="menuNavigation">
         <?php
