@@ -72,13 +72,13 @@
         </tr>
     </table>
     
-    <p>Table No {{tableNo}}</p>
+    <!--<p>Table No {{tableNo}}</p>
     <p>Orders {{order}}</p>
     <p>orderID {{orderID}}</p>
     <p>Menu {{menu}}</p>
     <p>Current order {{orderEditArray}}</p>
     <p>New order {{newItemArray}}</p>
-    <p>Current Order to be removed {{currentItemRemove}}</p>
+    <p>Current Order to be removed {{currentItemRemove}}</p>-->
     <button data-ng-click="submit()">Submit</button>
     <button onclick="location.href='tablepage.php'">Cancel</button>
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
