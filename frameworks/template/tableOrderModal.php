@@ -8,7 +8,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <h5>Table no: {{occupiedTable}}</h5>
+                <h5>Table No: {{occupiedTable}}</h5>
                 <h5>Order Id: {{orderDetailsArray[0].orderID}}</h5>
                 <table class="table table-striped table-hover">
                     <tr>
@@ -22,13 +22,17 @@
                         <td>{{x.quantity}}</td>
                         <td>RM{{x.total}}</td>
                       </tr>
-                    <p>test</p>
-                    <p>{{adminCheck}}</p>
                 </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" onclick="location.href='editOrder.php'">Edit</button>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete" data-dismiss="modal">Delete</button> 
+                <?php
+                    session_start();
+                    if($_SESSION["privilege"] === 1)
+                    {
+                        echo '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete" data-dismiss="modal">Delete</button>';
+                    }
+                ?>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-default" onclick="location.href='payment.php'">Pay</button>
             </div>

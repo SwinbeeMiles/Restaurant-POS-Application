@@ -96,8 +96,8 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
                 a -= 1;
             }
             $scope.orderDetailsArray = [];
-            b = $scope.tableOrdersDetails.length - 1;
-            while (b >= 0) 
+            b = 0;
+            while (b < $scope.tableOrdersDetails.length) 
             {
                 if ($scope.orderID === $scope.tableOrdersDetails[b].OrderID) {
                     $scope.orderDetailsArray.push({
@@ -107,7 +107,7 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
                         total: $scope.tableOrdersDetails[b].Total
                     });
                 }
-                b -= 1;
+                b += 1;
             }
             $window.sessionStorage.orders=JSON.stringify($scope.orderDetailsArray);
             $window.sessionStorage.tableNo=$scope.table[tableId].TableID;
@@ -217,20 +217,19 @@ app.controller("createOrder", function ($scope, $http,$window) {
 app.controller("editOrder", function ($scope, $http,$window, getData) {
     "use strict";
     var x=0,b=0,menuData;
-    $scope.orderEditArray=[];
+    $scope.newItemArray =[];
+    $scope.currentItemRemove = [];
     menuData = getData.sqlFetch("SELECT * FROM menu", 1);
     menuData.then(function (result) {
         $scope.menu = result;
-    
+        
+        $scope.orderEditArray=[];
         while(x<$scope.order.length)
         {
             while(b<$scope.menu.length)
             {
-                
                 if($scope.order[x].foodID === $scope.menu[b].FoodID)
                 {
-                    //$window.alert($scope.menu[b].FoodName);
-                    //$window.alert($scope.menu[b].FoodID);
                     $scope.orderEditArray.push({
                         foodID: $scope.menu[x].FoodID,
                         foodName: $scope.menu[x].FoodName,
@@ -240,6 +239,7 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
                 }
                 b += 1;
             }
+            b= 0;
             x += 1;
         }
     });
@@ -248,24 +248,83 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
     $scope.order = JSON.parse($window.sessionStorage.orders);
     $scope.orderID = $scope.order[0].orderID;
     
-    $scope.addQuantity = function (rowSelected)
+    $scope.ModifyCurrentQuantity = function(rowSelected,operator)
     {
-        if($scope.orderEditArray[rowSelected].quantity>=0)
-        {
-            $scope.temp = parseInt($scope.orderEditArray[rowSelected].quantity)
-            $scope.temp += 1;
-            $scope.orderEditArray[rowSelected].quantity = $scope.temp
-        }
-    }
+        var condition = operator;
+            $scope.temp = Number($scope.orderEditArray[rowSelected].quantity);
+            if(condition === "add")
+            {
+                $scope.temp += 1;   
+            }
+            
+            else if(condition === "remove" && $scope.orderEditArray[rowSelected].quantity>=1)
+            {
+                $scope.temp -= 1;
+            }
+            $scope.orderEditArray[rowSelected].quantity = $scope.temp;
+    };
     
-    $scope.removeQuantity = function(rowSelected)
+    $scope.ModifyNewQuantity = function(rowSelected,operator)
     {
-        if($scope.orderEditArray[rowSelected].quantity>=1)
+        var condition = operator;
+            $scope.temp = Number($scope.newItemArray[rowSelected].quantity);
+            if(condition === "add")
+            {
+                $scope.temp += 1;   
+            }
+            
+            else if(condition === "remove" && $scope.newItemArray[rowSelected].quantity>=1)
+            {
+                $scope.temp -= 1;
+            }
+            $scope.newItemArray[rowSelected].quantity = $scope.temp;
+    };
+    
+    $scope.addNewItem = function(rowSelected)
+    {
+        var e=0,d=0,itemCheck = true;
+ 
+        while(e<$scope.orderEditArray.length)
         {
-            $scope.temp = parseInt($scope.orderEditArray[rowSelected].quantity)
-            $scope.temp -= 1;
-            $scope.orderEditArray[rowSelected].quantity = $scope.temp
+            if($scope.menu[rowSelected].FoodID === $scope.orderEditArray[e].foodID)
+                {
+                    $window.alert("Item is already in current order.");
+                    itemCheck = false;
+                    break;
+                }
+            e+=1;
         }
-    }
-
+        
+        while(d<$scope.newItemArray.length)
+        {
+            if($scope.menu[rowSelected].FoodID === $scope.newItemArray[d].foodID)
+                {
+                    $window.alert("Item has already been added in current order.");
+                    itemCheck = false;
+                    break;
+                }
+            d+=1;
+        }
+        
+        if(itemCheck)
+        {
+            $scope.newItemArray.push({
+                foodID: $scope.menu[rowSelected].FoodID,
+                foodName: $scope.menu[rowSelected].FoodName,
+                quantity: 1,
+                price: $scope.menu[rowSelected].FoodPrice
+            });
+        }
+    };
+    
+    $scope.removeCurrentItem = function (rowSelected)
+    {
+        $scope.currentItemRemove.push($scope.orderEditArray[rowSelected].foodID);
+        $scope.orderEditArray.splice([rowSelected],1);
+    };
+    
+    $scope.removeNewItem = function (rowSelected)
+    {
+        $scope.newItemArray.splice([rowSelected],1);
+    };
 });

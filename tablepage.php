@@ -12,20 +12,19 @@
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<header id="myHeader">
-    <?php
-        include('includes/header.php');
-        include('includes/loginCheck.php');
-		include('includes/reservationCheck.php');
-  ?>
-    <div class="menuNavigation">
-        <?php
-        include('includes/navMenu.php');
-    ?>
-    </div>
-</header>
-
 <body data-ng-controller="tableControl">
+        <header id="myHeader">
+        <?php
+            include('includes/header.php');
+            include('includes/loginCheck.php');
+            include('includes/reservationCheck.php');
+        ?>
+        <div class="menuNavigation">
+            <?php
+                include('includes/navMenu.php');
+            ?>
+        </div>
+    </header>
     <div class="container-fluid">
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
