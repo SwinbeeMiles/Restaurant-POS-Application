@@ -59,6 +59,7 @@
 		$endTime = "";
 		$reservedDate = "";
 		$reservationID = "";
+		$tableID = "";
 		
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
 
@@ -67,6 +68,10 @@
                 if ($key != "sqlType" && $key == $row['Field']) {
 					if($key == 'ReservationID'){
 						$reservationID = $value;
+					}
+					
+					if($key == 'TableID'){
+						$tableID = $value;
 					}
 					
 					if($key == 'ReservationTime'){
@@ -93,7 +98,13 @@
 							$msg[] = "Please insert your data.";
 							continue;
 						}
-                    }
+                    } else {
+						if($key == 'ReservationID'){
+							$msg[] = "Leave empty because this field is auto-generated";
+							continue;
+						}
+					}
+						
 
                     $colTitle .= $key. ', ';
                     $length = preg_replace("/[^0-9]/","",$row['Type']);
@@ -206,13 +217,17 @@
 		$myReservationID = $reservationID;
 		$myStartTime = $startTime;
 		$myEndTime = $endTime;
+		$myTableID = $tableID;
 		$retrievedID = null;
 		$retrievedTime = null;
 		$retrievedEnd = null;
 		
 		$mySqlReservation = "SELECT ReservationID, ReservationTime, EndTime FROM reservation WHERE ReservationDate = '$myReservedDate'";
 		$myResult = mysqli_query($db, $mySqlReservation);
-					
+			
+		$mySqlTable = "SELECT * FROM tables WHERE TableID = $tableID";
+		$myTableStmt = mysqli_prepare($db, $mySqlTable);
+
 		while($row = mysqli_fetch_assoc($myResult)){
 			foreach($row as $key => $value){
 				if($key == 'ReservationID'){
@@ -227,11 +242,24 @@
 		
 		for($x = 0; $x < sizeof($msg); $x++){
 			if($msg[$x] == "Validated"){
+				if($x == 1){
+					mysqli_stmt_execute($myTableStmt);
+					//Stores new statement
+					mysqli_stmt_store_result($myTableStmt);
+					if(mysqli_stmt_num_rows($myTableStmt) == 0){
+						$msg[$x] = "Table does not exist";
+					}
+				}
 				if ($x == 2){
 					if($myStartTime >= $retrievedTime && $myStartTime <= $retrievedEnd){
 						if($myReservationID != $retrievedID){
 							$msg[$x] = "Overlapping Start Time!";
 						}
+					}
+				}
+				if ($x == 3){
+					if($myReservedDate < date("Y-m-d")){
+						$msg[$x] = "Unable to reserve a past date!";
 					}
 				}
 				if ($x == 4){
