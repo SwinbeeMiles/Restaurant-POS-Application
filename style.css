@@ -50,7 +50,7 @@ header{
 }
 
 #mainbutton{
-  background-color: #a2a1a9;
+    background-image: linear-gradient( #abaab1 0%, #d8d8da 50%,#abaab1  100%);
   color:white;
   font-size: 35px;
   width:90%;
@@ -171,4 +171,22 @@ padding: 2.5% 5%;
 float:right;
 background-color:#337ab7;
 color: white;
+}
+
+.orderButton{
+  background-color:#337ab7;
+  color: white;
+  margin:auto 5px;
+  width: 7%;
+}
+.resetButton{
+  background-color: #d95350;
+  color: white;
+  margin:auto 5px;
+  width: 7%;
+}
+.exitButton{
+  background-color: #5bc1df;
+  color: white;
+  width: 7%;
 }
