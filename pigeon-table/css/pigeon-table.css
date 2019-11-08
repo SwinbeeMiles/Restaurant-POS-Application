@@ -116,11 +116,11 @@
 
 /* For mobile view */
 @media (max-width: 768px) {
-    #insertBtn  { 
+    #insertBtn  {
         float: none;
         display: flex;
         justify-content: center;
-    } 
+    }
     #pagBtn {
         float: none;
         display: flex;
@@ -134,4 +134,11 @@
     .xs-margin-bottom   {
         margin-bottom: 15px;
     }
+}
+.closeX{
+  float:right;
+}
+
+.modal-title{
+float:left;
 }

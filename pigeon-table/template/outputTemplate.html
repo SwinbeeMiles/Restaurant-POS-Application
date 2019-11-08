@@ -88,7 +88,7 @@
                 <tr ng-repeat="item in $parent.filtered = (data | filter:search:exactMatch | filter:exclusion) | orderBy:sortOrder:isReverse | offset: (currentPage-1)*itemsPerPage | limitTo: itemsPerPage">
                     <td ng-repeat="field in item">{{field}}</td>
                     <td class="actionCol" ng-show="btn == true && action == true">
-                        <button class="btn btn-secondary" ng-click="editBtn(item)"><span class="glyphicon glyphicon-edit"></span></button>
+                        <button class="btn btn-primary" ng-click="editBtn(item)"><span class="glyphicon glyphicon-edit"></span></button>
                         <button class="btn btn-danger" ng-click="delBtn(item)"><span class="glyphicon glyphicon-trash"></span></button>
                     </td>
                 </tr>
@@ -102,8 +102,9 @@
 
 <script type="text/ng-template" id="insertModal">
     <div class="modal-header">
-        <button type="button" class="close" ng-click="close()">&times;</button>
+
         <h4 class="modal-title">Insert</h4>
+        <button type="button" class="close closeX" ng-click="close()">&times;</button>
     </div>
     <div class="modal-body">
         <div class="spinner" ng-show="modalLoading == true"></div>
