@@ -21,7 +21,6 @@
     <?php
           include('includes/header.php');
           include('includes/loginCheck.php');
-          include('includes/loginAdminCheck.php');
     ?>
     <div class="menuNavigation">
       <?php

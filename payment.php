@@ -56,11 +56,7 @@
 		Coupon Code (Optional): <input type="text" name="code" />
 		<input type="submit" value="Pay" data-ng-click="validatePaymentInput()"/>
 	</form>
-  </div>
-  </div>
-  </div>
-    </div>
-      </div>
+	
 	<?php
 		require_once 'includes/connectDB.php';
 
@@ -194,6 +190,12 @@
 		}
 
 	?>
+  </div>
+  </div>
+  </div>
+    </div>
+      </div>
+	
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>
     <script src="frameworks/js/bootstrap.min.js"></script>
