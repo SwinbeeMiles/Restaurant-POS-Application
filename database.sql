@@ -46,6 +46,7 @@ VALUES ('2019-10-09', '07:07:07', 1);
 CREATE TABLE orderpayment (
 	OrderID int(3) NOT NULL,
 	TotalPrice double(6,2) NOT NULL,
+	DiscountPrice double(6,2),
 	TotalPaid double(6,2),
 	Balance double(6,2),
 	PaidStatus boolean NOT NULL,
@@ -53,8 +54,8 @@ CREATE TABLE orderpayment (
 	PRIMARY KEY (OrderID)
 );
 
-INSERT INTO orderpayment (OrderID, TotalPrice, TotalPaid, Balance, PaidStatus) 
-VALUES (1,10.00,10.00,0.00,1);
+INSERT INTO orderpayment (OrderID, TotalPrice, DiscountPrice, TotalPaid, Balance, PaidStatus) 
+VALUES (1,10.00, 5.00, 5.00,0.00,1);
 
 CREATE TABLE orderdetails (
 	OrderID int(3) NOT NULL,

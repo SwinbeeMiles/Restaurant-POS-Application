@@ -97,37 +97,58 @@
 							mysqli_stmt_fetch($stmt);
 							//Check expiry date
 							if($date > $expirydate){
-								echo "Coupon Expired";
+								echo "<p>Coupon Expired</p>";
 							}
 							else{
 								//Confirmation Message, delete this line if not needed
 								echo "<p>Coupon Valid</p>";
-								$code_isvalid = true;
+								
+								$sql = "SELECT TotalPrice FROM orderpayment WHERE OrderID = ?";
+								if($stmt = mysqli_prepare($conn, $sql)){
+									//Replace ? in sql statement
+									mysqli_stmt_bind_param($stmt, 'i', $orderid);
+									if(mysqli_stmt_execute($stmt)){
+										//Save the data from database to respective variables
+										mysqli_stmt_bind_result($stmt, $totalprice);
+										//Fetch the saved data
+										mysqli_stmt_fetch($stmt);
+										//Calculate Balance With Coupon Code
+										$discountprice = $totalprice * (1 - $discount);
+									}
+								}
+								
+								//Close previous statement
+								mysqli_stmt_close($stmt);
+								
+								$sql = "UPDATE orderpayment SET DiscountPrice = ? WHERE OrderID = ?";
+								if($stmt = mysqli_prepare($conn, $sql)){
+									//Replace ? in sql statement
+									mysqli_stmt_bind_param($stmt, 'di', $discountprice, $orderid);
+									mysqli_stmt_execute($stmt);
+								}
 							}
 						}
 						else{
-							echo "Invalid Coupon";
+							echo "<p>Invalid Coupon</p>";
 						}
 					}
 				}
-			}
-
-			if($code_isentered == false || $code_isvalid == true){
-				$sql = "SELECT TotalPrice FROM orderpayment WHERE OrderID = ?";
+			} else if($code_isentered == false){
+				$sql = "SELECT TotalPrice, DiscountPrice FROM orderpayment WHERE OrderID = ?";
 				if($stmt = mysqli_prepare($conn, $sql)){
 					//Replace ? in sql statement
 					mysqli_stmt_bind_param($stmt, 'i', $orderid);
 					if(mysqli_stmt_execute($stmt)){
 						//Save the data from database to respective variables
-						mysqli_stmt_bind_result($stmt, $totalprice);
+						mysqli_stmt_bind_result($stmt, $totalprice, $discountprice);
 						//Fetch the saved data
 						mysqli_stmt_fetch($stmt);
-						if($code_isvalid == true){
+						if($discountprice == null){
 							//Calculate Balance With Coupon Code
-							$balance = $amount - ($totalprice* (1 - $discount));
+							$balance = $amount - $totalprice;
 						}else{
 							//Calculate Balance
-							$balance = $amount - $totalprice;
+							$balance = $amount - $discountprice;
 						}
 					}
 				}
@@ -147,11 +168,11 @@
 							$payment_success = true;
 						}
 						else{
-							echo "Payment could not be updated.";
+							echo "<p>Payment could not be updated.</p>";
 						}
 					}
 					else{
-						echo "Update statement error.";
+						echo "<p>Update statement error.</p>";
 					}
 
 					//Close previous statement
@@ -167,18 +188,18 @@
 							$table_success = true;
 						}
 						else{
-							echo "Table could not be updated.";
+							echo "<p>Table could not be updated.</p>";
 						}
 					}
 					else{
-						echo "Update tables statement error.";
+						echo "<p>Update tables statement error.</p>";
 					}
 
 					//Close previous statement
 					mysqli_stmt_close($stmt);
 				}
 				else{
-					echo "Expected amount paid to be greater than total of order.";
+					echo "<p>Expected amount paid to be greater than total of order.</p>";
 				}
 			}
 
