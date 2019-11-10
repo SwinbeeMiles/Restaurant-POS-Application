@@ -334,7 +334,7 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
     
     $scope.submit = function()
     {
-        $window.alert($scope.isModified);
+        //$window.alert($scope.isModified);
         $http({
             method: 'POST',
             url: 'includes/amendOrder.php',
