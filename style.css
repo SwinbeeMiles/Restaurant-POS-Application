@@ -49,15 +49,6 @@ header{
   border-radius: 6px;
 }
 
-.btn {
-  text-align: center;
-  text-transform: uppercase;
-  background-size: 200% auto;
-  color: white;
- /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
-  box-shadow: 0 0 20px #eee;
-
- }
  .main:hover {
   background-position: right center; /* change the direction of the change here */
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
@@ -200,7 +191,6 @@ color: white;
 .resetButton{
   background-color: #D41220;
   color: white;
-  margin:auto 5px;
   width: 7%;
 }
 .exitButton{
