@@ -7,7 +7,7 @@ CREATE TABLE account (
   PRIMARY KEY (Username)
 );
 
-INSERT INTO account (Username, Password, AdminPrivilege) 
+INSERT INTO account (Username, Password, AdminPrivilege)
 VALUES ('admin', 'admin', TRUE);
 
 CREATE TABLE menu (
@@ -17,8 +17,21 @@ CREATE TABLE menu (
 	PRIMARY KEY (FoodID)
 );
 
-INSERT INTO menu (FoodID, FoodName, FoodPrice) 
-VALUES ('f15', 'Fried Rice', 5.00);
+INSERT INTO menu (FoodID, FoodName, FoodPrice)
+VALUES ('F1', 'Lobster Benedict', 55.00);
+VALUES ('F2', 'Croque Madame', 23.00);
+VALUES ('F3', 'Angus Beef Burger', 60.00);
+VALUES ('F4', 'Trufle Mushroom Potato Hash', 20.00);
+VALUES ('F5', 'Tamarind Prawn Toast', 28.00);
+VALUES ('F6', 'Orange Duck Sausages', 30.00);
+VALUES ('F7', 'Hanged Caciocavallo', 35.00);
+VALUES ('F8', 'Greek Doughnut Twist with Nutella', 20.00);
+VALUES ('F9', 'Raspberry Ricotta Hotcakes', 35.00);
+VALUES ('F10', 'Lemon Myrtle Kombucha', 10.00);
+VALUES ('F12', 'Mule-Tide', 12.00);
+VALUES ('F13', 'Bounty Monarch Hot Chocolate',15.00);
+VALUES ('F14', 'LoupTown Earl Grey Tea', 10.00);
+
 
 CREATE TABLE tables (
 	TableID int(3) NOT NULL,
@@ -28,8 +41,12 @@ CREATE TABLE tables (
 	PRIMARY KEY (TableID)
 );
 
-INSERT INTO tables (TableID, Chairs, Status) 
+INSERT INTO tables (TableID, Chairs, Status)
 VALUES (1, 8, 'available');
+VALUES (2, 8, 'available');
+VALUES (3, 8, 'available');
+VALUES (4, 8, 'available');
+VALUES (5, 8, 'available');
 
 CREATE TABLE orders (
 	OrderID int(3) NOT NULL AUTO_INCREMENT,
@@ -40,7 +57,7 @@ CREATE TABLE orders (
 	PRIMARY KEY (OrderID)
 );
 
-INSERT INTO orders (OrderDate, OrderTime, TableID) 
+INSERT INTO orders (OrderDate, OrderTime, TableID)
 VALUES ('2019-10-09', '07:07:07', 1);
 
 CREATE TABLE orderpayment (
@@ -53,7 +70,7 @@ CREATE TABLE orderpayment (
 	PRIMARY KEY (OrderID)
 );
 
-INSERT INTO orderpayment (OrderID, TotalPrice, TotalPaid, Balance, PaidStatus) 
+INSERT INTO orderpayment (OrderID, TotalPrice, TotalPaid, Balance, PaidStatus)
 VALUES (1,10.00,10.00,0.00,1);
 
 CREATE TABLE orderdetails (
@@ -66,8 +83,8 @@ CREATE TABLE orderdetails (
 	PRIMARY KEY (OrderID, FoodID)
 );
 
-INSERT INTO orderdetails (OrderID, FoodID, Quantity, Total) 
-VALUES (1,'f15',2,10.00);
+INSERT INTO orderdetails (OrderID, FoodID, Quantity, Total)
+VALUES (1,'F15',2,10.00);
 
 CREATE TABLE reservation (
 	ReservationID int(3) NOT NULL AUTO_INCREMENT,
@@ -79,7 +96,7 @@ CREATE TABLE reservation (
 	PRIMARY KEY(ReservationID, TableID)
 );
 
-INSERT INTO reservation (TableID, ReservationDate, ReservationTime, EndTime) 
+INSERT INTO reservation (TableID, ReservationDate, ReservationTime, EndTime)
 VALUES (1,'2019-10-09', '07:07:07', '19:09:09');
 
 CREATE TABLE coupons (
@@ -89,5 +106,5 @@ CREATE TABLE coupons (
 	PRIMARY KEY(CouponCode)
 );
 
-INSERT INTO coupons (CouponCode, DiscountRate, ExpiryDate) 
+INSERT INTO coupons (CouponCode, DiscountRate, ExpiryDate)
 VALUES ('testcode','0.50', '2020-12-30');
