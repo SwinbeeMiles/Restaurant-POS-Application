@@ -44,14 +44,14 @@
             <td>{{x.foodID}}</td>
             <td>{{x.foodName}}</td>
             <td>{{x.quantity}} <button data-ng-click="ModifyCurrentQuantity($index,'add')">+</button> <button data-ng-click="ModifyCurrentQuantity($index,'remove')">-</button></td>
-            <td><button data-ng-click="removeCurrentItem($index)">Remove</button></td>
+            <td><button class="btn btn-danger" data-ng-click="removeCurrentItem($index)">Remove</button></td>
         </tr >
         
         <tr data-ng-repeat="i in newItemArray track by $index">
             <td>{{i.foodID}}</td>
             <td>{{i.foodName}}</td>
             <td>{{i.quantity}} <button data-ng-click="ModifyNewQuantity($index,'add')">+</button> <button data-ng-click="ModifyNewQuantity($index,'remove')">-</button></td>
-            <td><button data-ng-click="removeNewItem($index)">Remove</button></td>
+            <td><button class="btn btn-danger" data-ng-click="removeNewItem($index)">Remove</button></td>
         </tr>
     </table>
     
@@ -63,8 +63,8 @@
     <p>New order {{newItemArray}}</p>
     <p>Current Order to be removed {{currentItemRemove}}</p>-->
     
-    <button data-toggle="modal" data-target="#editModal">Submit</button>
-    <button onclick="location.href='tablepage.php'">Cancel</button>
+    <button class="btn btn-info" data-toggle="modal" data-target="#editModal">Submit</button>
+    <button class="btn btn-danger" onclick="location.href='tablepage.php'">Cancel</button>
     
     <!-- Modal -->
     <div class="modal fade" id="editModal" role="dialog">
@@ -100,8 +100,8 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-default" data-ng-click="submit()" onclick="location.href='tablepage.php'">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-info" data-ng-click="submit()" onclick="location.href='tablepage.php'">Yes</button>
                 </div>
             </div>
         </div>

@@ -54,7 +54,6 @@
                                     <button type="button" id="tableOccupied" data-ng-click="displayTableStatus($index)" data-toggle="modal" data-target="#orderModal">
                                         Table No:{{x.TableID}} Chairs:{{x.Chairs}}
                                     </button>
-
                                 </span>
                             </div>
                         </div>

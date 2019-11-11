@@ -116,6 +116,7 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
             {
                 if($scope.orderID===$scope.paymentInfo[x].OrderID)
                 {
+                    
                     $scope.total = $scope.paymentInfo[x].TotalPrice;  
                     break;
                 }
@@ -180,30 +181,154 @@ app.directive("reservedInfo", function () {
     return product;
 });
 
-app.controller("payment", function ($scope, $http,$window) {
+app.controller("payment", function ($scope, $http,$window,getData) {
     "use strict";
-    
+    var couponData,regExNum = /^[0-9]*(\.[0-9]+)?$/,x=0;
+    $scope.totalValid=false;
+    $scope.discountValid=false;
+    $scope.couponCode="";
+    $scope.couponValidity=false;
     $scope.tableID=$window.sessionStorage.tableNo;
     $scope.order=JSON.parse($window.sessionStorage.orders);
     $scope.total = parseFloat($window.sessionStorage.totalCost);
+    $scope.discountedTotal=0;
+    couponData = getData.sqlFetch("SELECT * FROM coupons", 1);
+    couponData.then(function (result) {
+        $scope.coupon = result;
+    });
     
     $scope.errorMsg = "";
-    var regExNum = /^[0-9]*(\.[0-9]+)?$/;
+    
+    //Get current date
+    $scope.DateObj = new Date();
+    //Convert date to yyyy-mm-dd
+    $scope.date = $scope.DateObj.getFullYear() + '-' + ('0' + ($scope.DateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + $scope.DateObj.getDate()).slice(-2);
+    
     $scope.validatePaymentInput=function()
     {
+        
+        $scope.totalValid=false;
+        $scope.discountValid=false;
+    
         if(!regExNum.test($scope.enteredAmount))
         {
             $window.alert("Invalid payment input!");
         }
         
-        else if($scope.enteredAmount < $scope.total)
+        else if(($scope.enteredAmount < $scope.discountedTotal) && ($scope.couponValidity))
+        {
+            $window.alert("Expected amount paid to be greater than discounted total of order.");
+        }
+        
+        else if(($scope.enteredAmount < $scope.total) && (!$scope.couponValidity))
         {
             $window.alert("Expected amount paid to be greater than total of order.");
         }
         
+        
         else if(regExNum.test($scope.enteredAmount))
         {
             $window.alert("Transaction success!");
+            if(($scope.enteredAmount > $scope.discountedTotal) && ($scope.couponValidity))
+            {
+                $scope.discountValid=true;
+            }
+            else if(($scope.enteredAmount > $scope.total) && (!$scope.couponValidity))
+            {
+                $scope.totalValid=true; 
+            }
+        }
+        
+        if(($scope.totalValid)||($scope.discountValid))
+        {
+            if(($scope.discountedTotal>0)&&($scope.enteredAmount > 0))
+            {
+                $http({
+                    method: 'POST',
+                    url: 'includes/coupon.php',
+                    data: {
+                        OrderID: $scope.order[0].orderID,
+                        TableID: $scope.tableID,
+                        CouponCode: $scope.couponCode
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+                
+                $http({
+                    method: 'POST',
+                    url: 'includes/payment.php',
+                    data: {
+                        OrderID: $scope.order[0].orderID,
+                        TableID: $scope.tableID,
+                        AmountPaid: $scope.enteredAmount
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+                
+            }
+            /*
+            else if($scope.discountedTotal > 0)
+            {
+                $window.alert("coupon -> run coupon php script");
+                $window.alert("OrderID: " + $scope.order[0].orderID + "\n" + "TableID: " + $scope.tableID + "\n" + "Coupon: " + $scope.couponCode);
+                $http({
+                    method: 'POST',
+                    url: 'includes/coupon.php',
+                    data: {
+                        OrderID: $scope.order[0].orderID,
+                        TableID: $scope.tableID,
+                        CouponCode: $scope.couponCode
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            }*/
+            else if($scope.enteredAmount > 0)
+            {
+
+                $http({
+                    method: 'POST',
+                    url: 'includes/payment.php',
+                    data: {
+                        OrderID: $scope.order[0].orderID,
+                        TableID: $scope.tableID,
+                        AmountPaid: $scope.enteredAmount
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            }
+        }
+    };
+    
+    $scope.validateCoupon = function()
+    {
+        $scope.couponValidity=false;
+        $scope.discountedTotal = 0;
+        x=0;
+        while(x<$scope.coupon.length)
+        {
+  
+            if($scope.couponCode === $scope.coupon[x].CouponCode)  
+            {
+                if(Date.parse($scope.coupon[x].ExpiryDate) > Date.parse($scope.date))
+                {
+                    $scope.discountedTotal = parseFloat($scope.total) - (parseFloat($scope.total)*parseFloat($scope.coupon[x].DiscountRate));
+                    $scope.couponValidity=true;
+                }
+                else
+                {
+                    $window.alert("Coupon has expired. Expiry date: " + $scope.coupon[x].ExpiryDate); 
+                }
+                break;
+            }
+            x+=1;
         }
     };
 
