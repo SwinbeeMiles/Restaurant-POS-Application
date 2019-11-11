@@ -9,9 +9,20 @@
             </div>
             <div class="modal-body">
                 <p>The following order will be sent to the kitchen: </p>
-                <ol data-ng-repeat="item in confirmedItems track by $index">
-                    <li>{{item.name}} Quantity: {{item.quantity}}</li>
-                </ol>
+                <table class="table table-bordered">
+                    <tr>
+                        <th></th>
+                        <th>Ordered Items</th>
+                        <th>Item ID</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <tr data-ng-repeat="item in confirmedItems track by $index">
+                        <td>{{$index + 1}}.</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.quantity}}</td>
+                    </tr>
+                </table>
             </div>
             
             <ul style="list-style-type:none">
@@ -23,7 +34,7 @@
             
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss = "modal">Close</button>
-                <button type="button" class="btn btn-default" data-ng-click = "postData()" onclick="location.href='tablepage.php'">Submit Order</button>
+                <button type="button" class="btn btn-default" data-ng-click = "postData()" >Submit Order</button>
             </div>
         </div>
     </div>
