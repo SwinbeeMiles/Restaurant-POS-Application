@@ -11,10 +11,27 @@
 
 var app = angular.module("orderSystem", []);
 
-app.controller("orderControl", function ($scope, $http, $window, $rootScope) {
+app.controller("orderControl", function ($scope, $http, $window, $rootScope, $timeout) {
     "use strict";
+    
+    //10 seconds delay
+    $timeout(function () {
+        $scope.test1 = "Hello World!";
+    }, 5000);
 
-    $scope.apple = "apple";
+    //time
+    $scope.time = 0;
+
+    //timer callback
+    var timer = function () {
+        if ($scope.time < 5000) {
+            $scope.time += 1000;
+            $timeout(timer, 1000);
+        }
+    };
+
+    //run!!
+    //$timeout(timer, 1000);
     
     $scope.tableID = $window.sessionStorage.orderTable;
     $scope.orderedItems = [];
@@ -120,6 +137,8 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
+        
+        
 
         var requestTable = $http({
             method: 'POST',
