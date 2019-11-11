@@ -20,7 +20,7 @@
       ?>
         </div>
     </header>
-    <div="container-fluid">
+    <div class="container-fluid">
         <div class="container">
             <div class="card cardTableBody">
                 <div class="card-body cardTableBodies">
@@ -29,40 +29,53 @@
 
                         <p>Select an item or more from the following list</p>
                         <p>Search Filter: <input type="text" data-ng-model="query"/></p>
-                        <div data-ng-repeat="x in menuData | filter: query track by $index ">
-                            <button data-ng-click="addToOrder(x.FoodName,x.FoodID,x.FoodPrice)">{{x.FoodName}}</button>
+
+                        <div class="container h-100">
+                            <div class="row h-100 justify-content-center align-items-center">
+                              <div class="flex-container">
+                                <div data-ng-repeat="x in menuData | filter: query track by $index " >
+                                  <button id="foodButton" data-ng-click="addToOrder(x.FoodName,x.FoodID,x.FoodPrice)">{{x.FoodName}}</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <br/>
+
+                        <div  class="table-responsive">
+                          <table class="table table-striped tableOrder">
+                          <thead>
+                              <tr>
+                                  <th></th>
+                                  <th>Ordered Items</th>
+                                  <th>Item ID</th>
+                                  <th>Price per Item</th>
+                                  <th>Quantity</th>
+                                  <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr data-ng-repeat="item in orderedItems track by $index">
+                                  <td>{{$index + 1}}.</td>
+                                  <td>{{item.name}}</td>
+                                  <td>{{item.id}}</td>
+                                  <td>{{item.price}}</td>
+                                  <td><button data-ng-click="minusQuantity($index)">-</button> {{item.quantity}} <button data-ng-click="addQuantity($index)">+</button></td>
+                                  <td><button data-ng-click="removeItem($index)">Remove</button></td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <button class="float-left btn btn-outline-secondary exitButton" onclick="location.href='tablepage.php'">Quit</button>
+                          <button class="float-right btn orderButton" data-toggle="modal" data-target="#orderSummary" data-ng-click = "orderToModal()">Order</button>
+                          <button class="float-right btn resetButton" data-ng-click = "resetAll()">Reset</button>
+
                         </div>
-                        
-                        <hr/>
-                        
-                        <table class="table table-bordered">
-                            <tr>
-                                <th></th>
-                                <th>Ordered Items</th>
-                                <th>Item ID</th>
-                                <th>Price per Item</th>
-                                <th>Quantity</th>
-                                <th></th>
-                            </tr>
-                            <tr data-ng-repeat="item in orderedItems track by $index">
-                                <td>{{$index + 1}}.</td>
-                                <td>{{item.name}}</td>
-                                <td>{{item.id}}</td>
-                                <td>{{item.price}}</td>
-                                <td><button data-ng-click="minusQuantity($index)">-</button> {{item.quantity}} <button data-ng-click="addQuantity($index)">+</button></td>
-                                <td><button data-ng-click="removeItem($index)">Remove</button></td>
-                            </tr>
-                        </table>
-                        
-                        <button class="float-left btn btn-default" onclick="location.href='tablepage.php'">Quit</button>
-                        
-                        <button class="float-right btn btn-default" data-toggle="modal" data-target="#orderSummary" data-ng-click = "orderToModal()">Order</button>
-                        <button class="float-right btn btn-default" data-ng-click = "resetAll()">Reset</button>
                     </div>
                 </div>
-            </div>
+             </div>
+          </div>
         </div>
-    </div>
+
     <data-order-Summary></data-order-Summary>
 
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->

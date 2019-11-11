@@ -49,26 +49,44 @@ header{
   border-radius: 6px;
 }
 
-#mainbutton{
-    background-image: linear-gradient( #abaab1 0%, #d8d8da 50%,#abaab1  100%);
-  color:white;
-  font-size: 35px;
-  width:90%;
+.btn {
+  text-align: center;
+  text-transform: uppercase;
+  background-size: 200% auto;
+  color: white;
+ /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+  box-shadow: 0 0 20px #eee;
 
-  padding-top: 25%;
-  padding-bottom: 25%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top:5%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  display: flex;
-  justify-content: center;
-  border-radius: 10px;
-}
-#mainbutton:hover{
+ }
+ .main:hover {
+  background-position: right center; /* change the direction of the change here */
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
 }
+ .mainButton {
+   background-image: linear-gradient(to right, #314755 0%, #b6b5bb 51%, #314755 100%);}
+
+ .main {
+   color:white;
+   font-size: 35px;
+   flex: 1 1 auto;
+   margin-top: 3%;
+   padding: 30px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.5s;
+   background-size: 200% auto;
+   justify-content: center;
+   display: flex;
+   width:95%;
+   padding-top: 25%;
+   padding-bottom: 25%;
+   margin-left: auto;
+   margin-right: auto;
+  /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   transition: 0.5s;
+   border-radius: 10px;
+  }
 
 #loginbutton {
 display:flex;
@@ -102,7 +120,7 @@ padding: 2.5% 5%;
   flex-wrap: wrap;
 }
 #tableAvailable{
-  background-color: #28a745;
+  background-color: #38AB20;
   color:white;
   font-size: 18px;
   border-radius: 10px;
@@ -123,7 +141,7 @@ padding: 2.5% 5%;
 }
 
 #tableReserved{
-  background-color: #ffc108;
+  background-color: #EBB71B;
   color:white;
   font-size: 18px;
   border-radius: 10px;
@@ -144,7 +162,7 @@ padding: 2.5% 5%;
 }
 
 #tableOccupied{
-  background-color: #dc3545;
+  background-color: #D41220;
   color:white;
   font-size: 18px;
   border-radius: 10px;
@@ -180,13 +198,37 @@ color: white;
   width: 7%;
 }
 .resetButton{
-  background-color: #d95350;
+  background-color: #D41220;
   color: white;
   margin:auto 5px;
   width: 7%;
 }
 .exitButton{
-  background-color: #5bc1df;
-  color: white;
+ color:black;
   width: 7%;
+}
+#foodButton{
+  background-color: #337ab7;
+  color:white;
+  font-size: 15px;
+  border-radius: 10px;
+  height:80px !important;
+  width: 144px !important;;
+  margin-left: 11px;
+  margin-right: 11px;
+  margin-top:10%;
+margin-top: 5%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  display: wrap;
+  justify-content: center;
+
+}
+.tableOrder thead >tr{
+  color:#337ab7;
+  font-size: 15px;
+}
+.tableOrder tbody > tr > td {
+  font-size: 13px;
+
 }

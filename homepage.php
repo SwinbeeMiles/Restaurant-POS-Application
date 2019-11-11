@@ -26,12 +26,13 @@
   <body>
   <div class="container-fluid">
     <div class="row justify-content-around">
-      <div class="col-xl-4"><button type="button" id="mainbutton" onclick=location.href="tablepage.php">Table</button></div>
-      <div class="col-xl-4"><button type="button" id="mainbutton" onclick=location.href="menulisting.php">Menu</button></div>
-      <div class="col-xl-4"><button type="button" id="mainbutton" onclick=location.href="reservation.php">Reservation</button></div>
-      <div class="col-xl-4"><button type="button" id="mainbutton" onclick=location.href="couponlist.php">Coupon</button></div>
-      <div class="col-xl-4"><button type="button" id="mainbutton" onclick=location.href="#.php">Report</button></div>
-      <div class="col-xl-4"><button type="button" id="mainbutton" onclick=location.href="accountlist.php">Account</button></div>
+      
+      <div class="col-xl-4"><button type="button" class="main mainButton" onclick=location.href="tablepage.php">Table</button></div>
+      <div class="col-xl-4"><button type="button" class="main mainButton" onclick=location.href="menulisting.php">Menu</button></div>
+      <div class="col-xl-4"><button type="button" class="main mainButton" onclick=location.href="reservation.php">Reservation</button></div>
+      <div class="col-xl-4"><button type="button" class="main mainButton" onclick=location.href="couponlist.php">Coupon</button></div>
+      <div class="col-xl-4"><button type="button" class="main mainButton" onclick=location.href="#.php">Report</button></div>
+      <div class="col-xl-4"><button type="button" class="main mainButton" onclick=location.href="accountlist.php">Account</button></div>
     </div>
   </div>
 
