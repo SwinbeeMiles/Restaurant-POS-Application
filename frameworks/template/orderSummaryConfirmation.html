@@ -14,14 +14,12 @@
                         <th></th>
                         <th>Ordered Items</th>
                         <th>Item ID</th>
-                        <th>Price per Item</th>
                         <th>Quantity</th>
                     </tr>
                     <tr data-ng-repeat="item in confirmedItems track by $index">
                         <td>{{$index + 1}}.</td>
                         <td>{{item.name}}</td>
                         <td>{{item.id}}</td>
-                        <td>{{item.price}}</td>
                         <td>{{item.quantity}}</td>
                     </tr>
                 </table>
