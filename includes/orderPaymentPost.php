@@ -16,7 +16,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO orderpayment (OrderID, TotalPrice, TotalPaid, Balance, PaidStatus) VALUES ($OrderID, $TotalPrice, NULL, NULL, $PaidStatus)";
+    $sql = "INSERT INTO orderpayment (OrderID, TotalPrice, DiscountPrice, TotalPaid, Balance, PaidStatus) VALUES ($OrderID, $TotalPrice, 0, NULL, NULL, $PaidStatus)";
     
     if ($conn->query($sql) === TRUE) {
     echo "New record created successfully in Payment";
