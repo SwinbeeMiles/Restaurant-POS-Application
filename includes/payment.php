@@ -25,7 +25,7 @@
 			mysqli_stmt_bind_result($stmt, $totalprice, $discountprice);
 			//Fetch the saved data
 			mysqli_stmt_fetch($stmt);
-			if($discountprice > 0){
+			if($discountprice <= 0){
 				//Calculate Balance With Coupon Code
 				$balance = $amount - $totalprice;
 			}else{
