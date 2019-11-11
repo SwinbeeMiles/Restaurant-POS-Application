@@ -18,19 +18,19 @@ CREATE TABLE menu (
 );
 
 INSERT INTO menu (FoodID, FoodName, FoodPrice)
-VALUES ('F1', 'Lobster Benedict', 55.00);
-VALUES ('F2', 'Croque Madame', 23.00);
-VALUES ('F3', 'Angus Beef Burger', 60.00);
-VALUES ('F4', 'Trufle Mushroom Potato Hash', 20.00);
-VALUES ('F5', 'Tamarind Prawn Toast', 28.00);
-VALUES ('F6', 'Orange Duck Sausages', 30.00);
-VALUES ('F7', 'Hanged Caciocavallo', 35.00);
-VALUES ('F8', 'Greek Doughnut Twist with Nutella', 20.00);
-VALUES ('F9', 'Raspberry Ricotta Hotcakes', 35.00);
-VALUES ('F10', 'Lemon Myrtle Kombucha', 10.00);
-VALUES ('F12', 'Mule-Tide', 12.00);
-VALUES ('F13', 'Bounty Monarch Hot Chocolate',15.00);
-VALUES ('F14', 'LoupTown Earl Grey Tea', 10.00);
+VALUES ('f1', 'Lobster Benedict', 55.00),
+('f2', 'Croque Madame', 23.00),
+('f3', 'Angus Beef Burger', 60.00),
+('f4', 'Trufle Mushroom Potato Hash', 20.00),
+('f5', 'Tamarind Prawn Toast', 28.00),
+('f6', 'Orange Duck Sausages', 30.00),
+('f7', 'Hanged Caciocavallo', 35.00),
+('f8', 'Greek Doughnut Twist with Nutella', 20.00),
+('f9', 'Raspberry Ricotta Hotcakes', 35.00),
+('f10', 'Lemon Myrtle Kombucha', 10.00),
+('f11', 'Mule-Tide', 12.00),
+('f12', 'Bounty Monarch Hot Chocolate',15.00),
+('f13', 'LoupTown Earl Grey Tea', 10.00);
 
 
 CREATE TABLE tables (
@@ -42,11 +42,11 @@ CREATE TABLE tables (
 );
 
 INSERT INTO tables (TableID, Chairs, Status)
-VALUES (1, 8, 'available');
-VALUES (2, 8, 'available');
-VALUES (3, 8, 'available');
-VALUES (4, 8, 'available');
-VALUES (5, 8, 'available');
+VALUES (1, 8, 'available'),
+(2, 8, 'available'),
+(3, 8, 'available'),
+(4, 8, 'available'),
+(5, 8, 'available');
 
 CREATE TABLE orders (
 	OrderID int(3) NOT NULL AUTO_INCREMENT,
@@ -85,7 +85,7 @@ CREATE TABLE orderdetails (
 );
 
 INSERT INTO orderdetails (OrderID, FoodID, Quantity, Total)
-VALUES (1,'F15',2,10.00);
+VALUES (1,'f13',2,10.00);
 
 CREATE TABLE reservation (
 	ReservationID int(3) NOT NULL AUTO_INCREMENT,
