@@ -11,29 +11,35 @@
 
 var app = angular.module("orderSystem", []);
 
-/* eslint-disable */
-app.directive("orderSummary", function () {
+app.controller("orderControl", function ($scope, $http, $window, $rootScope, $timeout) {
     "use strict";
-    var product = {};
-    product.restrict = "E";
-    product.controller = "orderControl";
-    product.templateUrl = "frameworks/template/orderSummaryConfirmation.html";
-    product.compile = function () {
-        var linkFunction = function (scope, element, attributes) {
-            //Initialize the default settings
-            scope.init();
-        };
-        return linkFunction;
+    
+    //10 seconds delay
+    $timeout(function () {
+        $scope.test1 = "Hello World!";
+    }, 5000);
+
+    //time
+    $scope.time = 0;
+
+    //timer callback
+    var timer = function () {
+        if ($scope.time < 5000) {
+            $scope.time += 1000;
+            $timeout(timer, 1000);
+        }
     };
-    return product;
-});
-/* eslint-enable */
 
-app.controller("orderControl", function ($scope, $http, $window) {
-    "use strict";
-
+    //run!!
+    //$timeout(timer, 1000);
+    
     $scope.tableID = $window.sessionStorage.orderTable;
     $scope.orderedItems = [];
+    $rootScope.confirmedItems = [];
+    
+    $scope.orderToModal = function () {
+        $rootScope.confirmedItems = $scope.orderedItems;
+    };
     
     //Courtesy of Tan
     //Get current date
@@ -57,10 +63,6 @@ app.controller("orderControl", function ($scope, $http, $window) {
         $scope.orderData = response.data;
         return $scope.orderData;
     });
-    
-    $scope.orderToModal = function () {
-        $scope.orderedModal = ["apple","pie"];
-    };
     
     $scope.addToOrder = function (item, itemID, itemFoodPrice) {
         var i, isIn;
@@ -103,6 +105,7 @@ app.controller("orderControl", function ($scope, $http, $window) {
     
     $scope.resetAll = function() { //resets everything
         $scope.orderedItems = [];
+        $rootScope.confirmedItems = [];
     };
     
     $scope.addQuantity = function(index) {
@@ -118,8 +121,8 @@ app.controller("orderControl", function ($scope, $http, $window) {
     $scope.postData = function () {
         var i;
         $scope.total = 0;
-        for (i = 0; i < $scope.orderedItems.length; i++) {
-            $scope.total += ($scope.orderedItems[i].price * $scope.orderedItems[i].quantity);
+        for (i = 0; i < $rootScope.confirmedItems.length; i++) {
+            $scope.total += ($rootScope.confirmedItems[i].price * $rootScope.confirmedItems[i].quantity);
         }
         
         var requestOrders = $http({
@@ -134,6 +137,8 @@ app.controller("orderControl", function ($scope, $http, $window) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
+        
+        
 
         var requestTable = $http({
             method: 'POST',
@@ -163,7 +168,7 @@ app.controller("orderControl", function ($scope, $http, $window) {
             method: 'POST',
             url: 'includes/orderDetailPost.php',
             data: { 
-                OrderedItems: JSON.stringify($scope.orderedItems),
+                OrderedItems: JSON.stringify($rootScope.confirmedItems),
                 OrderID: (parseInt($scope.orderData[$scope.orderData.length-1].OrderID,10)) + 1
             },
             headers: {
@@ -189,3 +194,20 @@ app.controller("orderControl", function ($scope, $http, $window) {
     };
 });
 
+/* eslint-disable */
+app.directive("orderSummary", function () {
+    "use strict";
+    var product = {};
+    product.restrict = "E";
+    product.controller = "orderControl";
+    product.templateUrl = "frameworks/template/orderSummaryConfirmation.html";
+    product.compile = function () {
+        var linkFunction = function (scope, element, attributes) {
+            //Initialize the default settings
+            scope.init();
+        };
+        return linkFunction;
+    };
+    return product;
+});
+/* eslint-enable */
