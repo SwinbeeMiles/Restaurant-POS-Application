@@ -1,0 +1,170 @@
+[
+	{
+		"unitCode": "ICT10001",
+		"unitName": "Problem Solving with ICT",
+		"unitPoint": "12.5",
+		"unitType": "Core",
+		"unitShow": "#ShowDetails/ICT10001"
+	},
+	{
+		"unitCode": "COS10005",
+		"unitName": "Web Development",
+		"unitPoint": "12.5",
+		"unitType": "Core",
+		"unitShow": "#ShowDetails/COS10005"
+	},
+	{
+		"unitCode": "INF10003",
+		"unitName": "Introduction to Business Information System",
+		"unitPoint": "12.5",
+		"unitType": "Core",
+		"unitShow": "#ShowDetails/INF10003"
+	},
+	{
+		"unitCode": "INF10002",
+		"unitName": "Database Analysis and Design",
+		"unitPoint": "12.5",
+		"unitType": "Core",
+		"unitShow": "#ShowDetails/INF10002"
+	},
+	{
+		"unitCode": "COS10009",
+		"unitName": "Introduction to Programming",
+		"unitPoint": "12.5",
+		"unitType": "Core",
+		"unitShow": "#ShowDetails/COS10009"
+	},
+	{
+		"unitCode": "INF30029",
+		"unitName": "Information Technology Project Management",
+		"unitPoint": "12.5",
+		"unitType": "Core",
+		"unitShow": "#ShowDetails/INF30029"
+	},
+	{
+		"unitCode": "ICT30005",
+		"unitName": "Professional Issues in Information Technology",
+		"unitPoint": "12.5",
+		"unitType": "Core",
+		"unitShow": "#ShowDetails/ICT30005"
+	},
+	{
+		"unitCode": "ICT30001",
+		"unitName": "Information Technology Project",
+		"unitPoint": "12.5",
+		"unitType": "Core",
+		"unitShow": "#ShowDetails/ICT30001"
+	},
+	{
+		"unitCode": "COS20001",
+		"unitName": "User-Centred Design",
+		"unitPoint": "12.5",
+		"unitType": "Software Development",
+		"unitShow": "#ShowDetails/COS20001"
+	},
+	{
+		"unitCode": "TNE10005",
+		"unitName": "Network Administration",
+		"unitPoint": "12.5",
+		"unitType": "Software Development",
+		"unitShow": "#ShowDetails/TNE10005"
+	},
+	{
+		"unitCode": "COS20016",
+		"unitName": "Operating System Configuration",
+		"unitPoint": "12.5",
+		"unitType": "Software Development",
+		"unitShow": "#ShowDetails/COS20016"
+	},
+	{
+		"unitCode": "SWE20001",
+		"unitName": "Development Project - Tools and Practices",
+		"unitPoint": "12.5",
+		"unitType": "Software Development",
+		"unitShow": "#ShowDetails/SWE20001"
+			},
+	{
+		"unitCode": "COS20007",
+		"unitName": "Object Oriented Programming",
+		"unitPoint": "12.5",
+		"unitType": "Software Development",
+		"unitShow": "#ShowDetails/COS20007"
+	},
+	{
+		"unitCode": "COS30015",
+		"unitName": "IT Security",
+		"unitPoint": "12.5",
+		"unitType": "Software Development",
+		"unitShow": "#ShowDetails/COS30015"
+	},
+	{
+		"unitCode": "COS30043",
+		"unitName": "Interface Design and Development",
+		"unitPoint": "12.5",
+		"unitType": "Software Development",
+		"unitShow": "#ShowDetails/COS30043"
+	},
+	{
+		"unitCode": "COS30017",
+		"unitName": "Software Development for Mobile Devices",
+		"unitPoint": "12.5",
+		"unitType": "Software Development",
+		"unitShow": "#ShowDetails/COS30017"
+	},
+	{
+		"unitCode": "INF20012",
+		"unitName": "Enterprise Systems",
+		"unitPoint": "12.5",
+		"unitType": "System Analysis",
+		"unitShow": "#ShowDetails/INF20012"
+	},
+	{
+		"unitCode": "ACC10007",
+		"unitName": "Financial Information for Decision Making",
+		"unitPoint": "12.5",
+		"unitType": "System Analysis",
+		"unitShow": "#ShowDetails/ACC10007"
+	},
+	{
+		"unitCode": "INF20003",
+		"unitName": "Requirements Analaysis and Modelling",
+		"unitPoint": "12.5",
+		"unitType": "System Analysis",
+		"unitShow": "#ShowDetails/INF20003"
+	},
+	{
+		"unitCode": "ACC20014",
+		"unitName": "Management Decision Making",
+		"unitPoint": "12.5",
+		"unitType": "System Analysis",
+		"unitShow": "#ShowDetails/ACC20014"
+	},
+	{
+		"unitCode": "INF30005",
+		"unitName": "Business Process Management",
+		"unitPoint": "12.5",
+		"unitType": "System Analysis",
+		"unitShow": "#ShowDetails/INF30005"
+	},
+	{
+		"unitCode": "INF30003",
+		"unitName": "Business Information System Analysis",
+		"unitPoint": "12.5",
+		"unitType": "System Analysis",
+		"unitShow": "#ShowDetails/INF30003"
+	},
+	{
+		"unitCode": "INF30020",
+		"unitName": "Information System Risk and Security",
+		"unitPoint": "12.5",
+		"unitType": "System Analysis",
+		"unitShow": "#ShowDetails/INF30020"
+	},
+	{
+		"unitCode": "INF30001",
+		"unitName": "Systems Acquisition & Implementation Management",
+		"unitPoint": "12.5",
+		"unitType": "System Analysis",
+		"unitShow": "#ShowDetails/INF30001"
+	}
+]
