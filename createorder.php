@@ -16,8 +16,8 @@
     ?>
         <div class="menuNavigation">
             <?php
-                  include('includes/navMenu.php');
-            ?>
+          include('includes/navMenu.php');
+      ?>
         </div>
     </header>
     <div="container-fluid">
@@ -32,9 +32,9 @@
                         <div data-ng-repeat="x in menuData | filter: query track by $index ">
                             <button data-ng-click="addToOrder(x.FoodName,x.FoodID,x.FoodPrice)">{{x.FoodName}}</button>
                         </div>
-
+                        
                         <hr/>
-
+                        
                         <table class="table table-bordered">
                             <tr>
                                 <th></th>
@@ -52,20 +52,12 @@
                                 <td><button data-ng-click="minusQuantity($index)">-</button> {{item.quantity}} <button data-ng-click="addQuantity($index)">+</button></td>
                                 <td><button data-ng-click="removeItem($index)">Remove</button></td>
                             </tr>
-
                         </table>
-
-                        <ul style="list-style-type:none">
-                            <li>{{ordersToast}}</li>
-                            <li>{{paymentToast}}</li>
-                            <li>{{tableToast}}</li>
-                            <li>{{detailsToast}}</li>
-                        </ul>
-
-                        <button class="float-left btn exitButton" onclick="location.href='tablepage.php'">Exit</button>
-
-                        <button class="float-right btn orderButton" data-toggle="modal" data-target="#orderSummary" data-ng-click = "orderToModal()">Order</button>
-                        <button class="float-right btn resetButton" data-ng-click = "resetAll()">Reset</button>
+                        
+                        <button class="float-left btn btn-default" onclick="location.href='tablepage.php'">Quit</button>
+                        
+                        <button class="float-right btn btn-default" data-toggle="modal" data-target="#orderSummary" data-ng-click = "orderToModal()">Order</button>
+                        <button class="float-right btn btn-default" data-ng-click = "resetAll()">Reset</button>
                     </div>
                 </div>
             </div>
