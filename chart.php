@@ -48,16 +48,10 @@
 
     <h5>Total Earned: RM{{orderTotal.TOTALAmount}}</h5>
     <h5>Total Menu Item Ordered: {{orderTotal.TotalOrder}}</h5>
-    <!--<p>{{selectedReportDate}}</p>
-    <p>{{orderData}}</p>
-    <p>{{itemQuantity}}</p>
-    <p>{{foodID}}</p>
-    <p>{{foodIDQuantity}}</p>
-    <p>{{test}}</p>
-    <p>{{TimeSessionOrders}}</p>
-    <p>{{TimeSessionSold}}</p>-->
+
     <div id ="numOfEachFoodSold"></div>
     <div id ="foodSoldDuringSpecificTime"></div>
+    
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>
     <script src="frameworks/js/bootstrap.min.js"></script>

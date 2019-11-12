@@ -55,7 +55,7 @@ app.controller("chartControl", function ($scope, $http, $window, getData) {
         $scope.orderTotal = result;
     });
 
-    orderItemQuantityFetch = getData.sqlFetch("SELECT od.FoodID, count(od.FoodID) As TotalOrdered, m.FoodName FROM orders AS o JOIN orderdetails AS od on o.OrderID = od.OrderID JOIN menu AS m on m.FoodID = od.FoodID WHERE o.OrderDate =" + "'" + $scope.selectedReportDate + "'" + " GROUP BY FoodID", 1);
+    orderItemQuantityFetch = getData.sqlFetch("SELECT DISTINCT od.FoodID, SUM(od.Quantity) As TotalOrdered, m.FoodName FROM orders AS o JOIN orderdetails AS od on o.OrderID = od.OrderID JOIN menu AS m on m.FoodID = od.FoodID WHERE o.OrderDate =" + "'" + $scope.selectedReportDate + "'" + " GROUP BY FoodID", 1);
     orderItemQuantityFetch.then(function (result) {
         $scope.itemQuantity = result;
         $scope.foodID = [];
@@ -99,8 +99,9 @@ app.controller("chartControl", function ($scope, $http, $window, getData) {
         });
         /* eslint-enable */
     });
-    
-    orderTimeSessionFetch = getData.sqlFetch("SELECT (SELECT COUNT(od.FoodID) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '08:00:00' AND '09:59:59') AS Morning,(SELECT COUNT(od.FoodID) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '10:00:00' AND '16:59:59') AS Afternoon,(SELECT COUNT(od.FoodID) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '17:00:00' AND '22:00:00') AS Evening", 0);
+
+
+    orderTimeSessionFetch = getData.sqlFetch("SELECT (SELECT COALESCE(SUM(od.Quantity),0) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '08:00:00' AND '09:59:59' AND OrderDate = '" + $scope.selectedReportDate + "'" + ") AS Morning," + "(SELECT COALESCE(SUM(od.Quantity),0) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '10:00:00' AND '16:59:59' AND OrderDate = '" + $scope.selectedReportDate + "'" + ") AS Afternoon," + "(SELECT COALESCE(SUM(od.Quantity),0) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '17:00:00' AND '23:00:00' AND OrderDate = '" + $scope.selectedReportDate + "'" + ") AS Evening", 0);
     orderTimeSessionFetch.then(function (result) {
         $scope.TimeSessionOrders = result;
         $scope.TimeSessionSold = [];
