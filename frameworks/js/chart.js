@@ -41,7 +41,7 @@ app.controller("chartControl", function ($scope, $http, $window, getData) {
     "use strict";
     $scope.selectedReportDate = $window.sessionStorage.reportDate;
 
-    var orderFetch, orderSumFetch, orderItemQuantityFetch;
+    var orderFetch, orderSumFetch, orderItemQuantityFetch, orderTimeSessionFetch;
     $scope.orderData = [];
     $scope.orderTotal = 0;
     $scope.itemQuantity = [];
@@ -50,25 +50,23 @@ app.controller("chartControl", function ($scope, $http, $window, getData) {
         $scope.orderData = result;
     });
 
-    orderSumFetch = getData.sqlFetch("SELECT SUM(op.Balance) AS TOTAL FROM orders AS o JOIN orderpayment AS op on o.OrderID = op.OrderID WHERE o.OrderDate=" + "'" + $scope.selectedReportDate + "'" + " AND op.PaidStatus != 0", 0);
+    orderSumFetch = getData.sqlFetch("SELECT SUM(op.TotalPaid - op.Balance) AS TOTALAmount, COUNT(od.FoodID) AS TotalOrder FROM orders AS o JOIN orderpayment AS op on o.OrderID = op.OrderID JOIN orderdetails AS od on o.OrderID = od.OrderID WHERE o.OrderDate=" + "'" + $scope.selectedReportDate + "'" + " AND op.PaidStatus != 0", 0);
     orderSumFetch.then(function (result) {
         $scope.orderTotal = result;
     });
-    $scope.test = [];
-    $scope.test.push("sad");
-    $scope.test.push("fasd");
-    $scope.test.push("sads");
-    orderItemQuantityFetch = getData.sqlFetch("SELECT od.FoodID, count(od.FoodID) As TotalOrdered FROM orders AS o JOIN orderdetails AS od on o.OrderID = od.OrderID WHERE o.OrderDate =" + "'" + $scope.selectedReportDate + "'" + " GROUP BY FoodID", 1);
+
+    orderItemQuantityFetch = getData.sqlFetch("SELECT od.FoodID, count(od.FoodID) As TotalOrdered, m.FoodName FROM orders AS o JOIN orderdetails AS od on o.OrderID = od.OrderID JOIN menu AS m on m.FoodID = od.FoodID WHERE o.OrderDate =" + "'" + $scope.selectedReportDate + "'" + " GROUP BY FoodID", 1);
     orderItemQuantityFetch.then(function (result) {
         $scope.itemQuantity = result;
         $scope.foodID = [];
         $scope.foodIDQuantity = [];
         var x = 0;
         while (x < $scope.itemQuantity.length) {
-            $scope.foodID.push($scope.itemQuantity[x].FoodID);
+            $scope.foodID.push($scope.itemQuantity[x].FoodID + ", " + $scope.itemQuantity[x].FoodName);
             $scope.foodIDQuantity.push(parseInt($scope.itemQuantity[x].TotalOrdered, 10));
             x += 1;
         }
+
         Highcharts.chart('numOfEachFoodSold', {
             title: {
                 text: "Number of each menu item sold"
@@ -84,20 +82,64 @@ app.controller("chartControl", function ($scope, $http, $window, getData) {
                     text: 'Number of menu item sold'
                 },
                 min: 0,
-                tickInterval: 2
+                tickInterval: 5
             },
             plotOptions: {
                 column: {
                     colorByPoint: true
                 }
             },
-            
+
             series: [{
                 type: "column",
-                showInLegend: false, 
+                name:"Menu Item",
+                showInLegend: false,
                 data: $scope.foodIDQuantity
             }]
         });
     });
 
+    orderTimeSessionFetch = getData.sqlFetch("SELECT (SELECT COUNT(od.FoodID) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '08:00:00' AND '09:59:59') AS Morning,(SELECT COUNT(od.FoodID) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '10:00:00' AND '16:59:59') AS Afternoon,(SELECT COUNT(od.FoodID) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '17:00:00' AND '22:00:00') AS Evening", 0);
+    orderTimeSessionFetch.then(function (result) {
+        $scope.TimeSessionOrders = result;
+        $scope.TimeSessionSold = [];
+        $scope.TimeSessionSold.push(parseInt($scope.TimeSessionOrders.Morning,10));
+        $scope.TimeSessionSold.push(parseInt($scope.TimeSessionOrders.Afternoon,10));
+        $scope.TimeSessionSold.push(parseInt($scope.TimeSessionOrders.Evening,10));
+        
+        Highcharts.chart('foodSoldDuringSpecificTime', {
+            title: {
+                text: "Number of menu item sold during three different time"
+            },
+            xAxis: {
+                title: {
+                    text: 'Type of menu item'
+                },
+                categories: ["Morning","Afternoon","Evening"]
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of menu item sold'
+                },
+                min: 0,
+                tickInterval: 5
+            },
+            plotOptions: {
+                column: {
+                    colorByPoint: true
+                }
+            },
+
+            series: [{
+                type: "pie",
+                showInLegend: false,
+                name:"Number of menu item sold",
+                data: [
+                    ["Morning (8am-10am)",parseInt($scope.TimeSessionOrders.Morning,10)],
+                    ["Afternoon (10am-5pm)",parseInt($scope.TimeSessionOrders.Afternoon,10)],
+                    ["Evening (5pm-10pm)",parseInt($scope.TimeSessionOrders.Evening,10)]
+                ]
+            }]
+        });
+    });
 });
