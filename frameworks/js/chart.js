@@ -8,92 +8,96 @@
 
 var app = angular.module("chartApp", []);
 
-app.factory('getData',function($http){
+app.factory('getData', function ($http) {
     "use strict";
-    return{
-        sqlFetch: function(SQL,row)
-        {
-            return $http.post('includes/tableDataFetch.php',{sql: SQL, numOfRow: row}).then(function(response){
-                    return response.data;
-                });
+    return {
+        sqlFetch: function (SQL, row) {
+            return $http.post('includes/tableDataFetch.php', {
+                sql: SQL,
+                numOfRow: row
+            }).then(function (response) {
+                return response.data;
+            });
         }
+    };
+});
+
+app.controller("chartArchiveControl", function ($scope, $http, $window, getData) {
+    "use strict";
+    var orderDate;
+    $scope.dateArchive = [];
+
+    orderDate = getData.sqlFetch("SELECT DISTINCT OrderDate FROM orders", 1);
+    orderDate.then(function (result) {
+        $scope.dateArchive = result;
+    });
+
+    $scope.date = function (index) {
+        $window.sessionStorage.reportDate = $scope.dateArchive[index].OrderDate;
     };
 });
 
 app.controller("chartControl", function ($scope, $http, $window, getData) {
     "use strict";
-    var tableData;
-    $scope.startDate = "";
-    $scope.endDate = "";
-    $scope.idDate = [];
-    $scope.orderID = "";
-    $scope.test = function () {
-        $scope.start = $scope.formatDate($scope.startDate);
-        $scope.end = $scope.formatDate($scope.endDate);
-        $scope.fetchOrderID();
-    };
+    $scope.selectedReportDate = $window.sessionStorage.reportDate;
 
-    $scope.formatDate = function (date) {
-        var formatedDate;
+    var orderFetch, orderSumFetch, orderItemQuantityFetch;
+    $scope.orderData = [];
+    $scope.orderTotal = 0;
+    $scope.itemQuantity = [];
+    orderFetch = getData.sqlFetch("SELECT o.OrderID, o.OrderTime, op.TotalPrice, op.DiscountPrice, op.TotalPaid, op.Balance FROM orders AS o JOIN orderpayment AS op on o.OrderID = op.OrderID WHERE o.OrderDate=" + "'" + $scope.selectedReportDate + "'", 1);
+    orderFetch.then(function (result) {
+        $scope.orderData = result;
+    });
 
-        formatedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-        return formatedDate;
-    };
-    
-    $scope.fetchOrderID = function()
-    {
-        $scope.table = [];
-        var sql="",x=0,a=0;
-        sql = "SELECT OrderID,OrderDate FROM orders WHERE OrderDate between " + "'" + $scope.start + "'" + " and " + "'" + $scope.end + "'";
-        $window.alert(sql);
-        tableData = getData.sqlFetch(sql, 1);
-        tableData.then(function (result) {
-            $scope.table = result;
-            
-            while(a<$scope.table.length)
-            {
-                //$window.alert($scope.idDate.indexOf($scope.table[a].OrderDate));
-                if($scope.idDate.indexOf($scope.table[a].OrderDate) === -1)
-                {
-                    $scope.idDate.push($scope.table[a].OrderDate);
+    orderSumFetch = getData.sqlFetch("SELECT SUM(op.Balance) AS TOTAL FROM orders AS o JOIN orderpayment AS op on o.OrderID = op.OrderID WHERE o.OrderDate=" + "'" + $scope.selectedReportDate + "'" + " AND op.PaidStatus != 0", 0);
+    orderSumFetch.then(function (result) {
+        $scope.orderTotal = result;
+    });
+    $scope.test = [];
+    $scope.test.push("sad");
+    $scope.test.push("fasd");
+    $scope.test.push("sads");
+    orderItemQuantityFetch = getData.sqlFetch("SELECT od.FoodID, count(od.FoodID) As TotalOrdered FROM orders AS o JOIN orderdetails AS od on o.OrderID = od.OrderID WHERE o.OrderDate =" + "'" + $scope.selectedReportDate + "'" + " GROUP BY FoodID", 1);
+    orderItemQuantityFetch.then(function (result) {
+        $scope.itemQuantity = result;
+        $scope.foodID = [];
+        $scope.foodIDQuantity = [];
+        var x = 0;
+        while (x < $scope.itemQuantity.length) {
+            $scope.foodID.push($scope.itemQuantity[x].FoodID);
+            $scope.foodIDQuantity.push(parseInt($scope.itemQuantity[x].TotalOrdered, 10));
+            x += 1;
+        }
+        Highcharts.chart('numOfEachFoodSold', {
+            title: {
+                text: "Number of each menu item sold"
+            },
+            xAxis: {
+                title: {
+                    text: 'Type of menu item'
+                },
+                categories: $scope.foodID
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of menu item sold'
+                },
+                min: 0,
+                tickInterval: 2
+            },
+            plotOptions: {
+                column: {
+                    colorByPoint: true
                 }
-                a+=1;
-            }
+            },
             
-            $scope.orderID = "(";
-        
-
-            while(x<$scope.table.length)
-            {
-                $scope.orderID = $scope.orderID + $scope.table[x].OrderID + ",";
-                x+=1;
-            }
-            $scope.orderID = $scope.orderID.substring(0,$scope.orderID.lastIndexOf(","));
-            $scope.orderID = $scope.orderID + ")";
+            series: [{
+                type: "column",
+                showInLegend: false, 
+                data: $scope.foodIDQuantity
+            }]
         });
-    };
+    });
 
-
-
-
-
-});
-
-app.directive("orderInfo", function () {
-    "use strict";
-    var product = {};
-    product.restrict = "E";
-    product.controller = "tableControl";
-    product.templateUrl = "frameworks/template/tableOrderModal.php";
-    product.compile = function () {
-        var linkFunction = function (scope, element, attributes) {
-
-            //Initialize the default settings
-            scope.init();
-
-        };
-
-        return linkFunction;
-    };
-    return product;
 });

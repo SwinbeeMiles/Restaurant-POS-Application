@@ -12,7 +12,7 @@
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body data-ng-controller="chartControl">
+<body data-ng-controller="chartArchiveControl">
         <header id="myHeader">
         <?php
             include('includes/header.php');
@@ -25,36 +25,14 @@
             ?>
         </div>
     </header>
-    <h4>Date: {{selectedReportDate}}</h4>
-    <table class="table table-striped table-hover">
-        <tr>
-            <td>Order ID</td>
-            <td>Order Time</td>
-            <td>Total Price (No Discount)</td>
-            <td>Total Price (Discount)</td>
-            <td>Amount Paid</td>
-            <td>Balance</td>
-        </tr>
-    
-        <tr data-ng-repeat="x in orderData">
-            <td>{{x.OrderID}}</td>
-            <td>{{x.OrderTime}}</td> 
-            <td>{{x.TotalPrice}}</td>
-            <td>{{x.DiscountPrice}}</td>
-            <td>{{x.TotalPaid}}</td>
-            <td>{{x.Balance}}</td>
-        </tr>
-    </table>
+    <p>{{dateArchive}}</p>
+    <h2>Reports</h2>
+    <ol>
+        <li data-ng-repeat="x in dateArchive track by $index">
+            <a href="chart.php" data-ng-click="date($index)">{{x.OrderDate}}</a>
+        </li>
+    </ol>
 
-    <h5>Total Earned: RM{{orderTotal.TOTAL}}</h5>
-    <p>{{selectedReportDate}}</p>
-    <p>{{orderData}}</p>
-    <p>{{itemQuantity[0].FoodID}}</p>
-    <p>{{itemQuantity[0].TotalOrdered}}</p>
-    <p>{{foodID}}</p>
-    <p>{{foodIDQuantity}}</p>
-    <p>{{test}}</p>
-    <div id ="numOfEachFoodSold"></div>
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>
     <script src="frameworks/js/bootstrap.min.js"></script>
