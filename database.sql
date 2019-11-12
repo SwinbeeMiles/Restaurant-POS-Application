@@ -93,8 +93,8 @@ CREATE TABLE reservation (
 	PRIMARY KEY(ReservationID, TableID)
 );
 
-INSERT INTO reservation (TableID, ReservationTime, ReservationDate, EndTime)
-VALUES (1,'07:07:07', '2019-10-01', '09:09:09');
+INSERT INTO reservation (TableID, ReservationDate, ReservationTime, EndTime)
+VALUES (1,'2019-10-09', '07:07:07', '19:09:09');
 
 CREATE TABLE coupons (
 	CouponCode varchar(10) NOT NULL,

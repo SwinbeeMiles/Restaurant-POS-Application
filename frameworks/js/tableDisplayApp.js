@@ -40,12 +40,12 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
         $scope.tableOrders = result;
     });
     
-    orderPayment = getData.sqlFetch("SELECT * FROM orderpayment", 1);
+    orderPayment = getData.sqlFetch("SELECT o.OrderID,op.TotalPrice,op.DiscountPrice,op.TotalPaid,op.Balance,op.PaidStatus FROM orders AS o JOIN orderpayment AS op on o.OrderID = op.OrderID WHERE o.OrderDate = " + "'" + $scope.date + "'", 1);
     orderPayment.then(function (result) {
         $scope.paymentInfo = result;
     });
     
-    orderDetails = getData.sqlFetch("SELECT * FROM orderDetails", 1);
+    orderDetails = getData.sqlFetch("SELECT o.OrderID,od.FoodID,od.Quantity,od.Total FROM orders AS o JOIN orderdetails AS od on o.OrderID = od.OrderID WHERE o.OrderDate = " + "'" + $scope.date + "'", 1);
     orderDetails.then(function (result) {
         $scope.tableOrdersDetails = result;
     });
@@ -143,44 +143,6 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
         
 });
 
-app.directive("orderInfo", function () {
-    "use strict";
-    var product = {};
-    product.restrict = "E";
-    product.controller = "tableControl";
-    product.templateUrl = "frameworks/template/tableOrderModal.php";
-    product.compile = function () {
-        var linkFunction = function (scope, element, attributes) {
-
-            //Initialize the default settings
-            scope.init();
-
-        };
-
-        return linkFunction;
-    };
-    return product;
-});
-
-app.directive("reservedInfo", function () {
-    "use strict";
-    var product = {};
-    product.restrict = "E";
-    product.controller = "tableControl";
-    product.templateUrl = "frameworks/template/tableReservedModal.html";
-    product.compile = function () {
-        var linkFunction = function (scope, element, attributes) {
-
-            //Initialize the default settings
-            scope.init();
-
-        };
-
-        return linkFunction;
-    };
-    return product;
-});
-
 app.controller("payment", function ($scope, $http,$window,getData) {
     "use strict";
     var couponData,regExNum = /^[0-9]*(\.[0-9]+)?$/,x=0;
@@ -232,10 +194,12 @@ app.controller("payment", function ($scope, $http,$window,getData) {
             if(($scope.enteredAmount > $scope.discountedTotal) && ($scope.couponValidity))
             {
                 $scope.discountValid=true;
+                $window.alert("Balance: RM" + (parseFloat($scope.enteredAmount) - parseFloat($scope.discountedTotal)));
             }
             else if(($scope.enteredAmount > $scope.total) && (!$scope.couponValidity))
             {
                 $scope.totalValid=true; 
+                $window.alert("Balance: RM" + (parseFloat($scope.enteredAmount) - parseFloat($scope.total)));
             }
         }
         
@@ -270,27 +234,9 @@ app.controller("payment", function ($scope, $http,$window,getData) {
                 });
                 
             }
-            /*
-            else if($scope.discountedTotal > 0)
-            {
-                $window.alert("coupon -> run coupon php script");
-                $window.alert("OrderID: " + $scope.order[0].orderID + "\n" + "TableID: " + $scope.tableID + "\n" + "Coupon: " + $scope.couponCode);
-                $http({
-                    method: 'POST',
-                    url: 'includes/coupon.php',
-                    data: {
-                        OrderID: $scope.order[0].orderID,
-                        TableID: $scope.tableID,
-                        CouponCode: $scope.couponCode
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            }*/
+
             else if($scope.enteredAmount > 0)
             {
-
                 $http({
                     method: 'POST',
                     url: 'includes/payment.php',
@@ -476,3 +422,43 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
         });
     };
 });
+
+/* eslint-disable */
+app.directive("orderInfo", function () {
+    "use strict";
+    var product = {};
+    product.restrict = "E";
+    product.controller = "tableControl";
+    product.templateUrl = "frameworks/template/tableOrderModal.php";
+    product.compile = function () {
+        var linkFunction = function (scope, element, attributes) {
+
+            //Initialize the default settings
+            scope.init();
+
+        };
+
+        return linkFunction;
+    };
+    return product;
+});
+
+app.directive("reservedInfo", function () {
+    "use strict";
+    var product = {};
+    product.restrict = "E";
+    product.controller = "tableControl";
+    product.templateUrl = "frameworks/template/tableReservedModal.html";
+    product.compile = function () {
+        var linkFunction = function (scope, element, attributes) {
+
+            //Initialize the default settings
+            scope.init();
+
+        };
+
+        return linkFunction;
+    };
+    return product;
+});
+/* eslint-enable */

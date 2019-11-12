@@ -25,10 +25,11 @@
             ?>
         </div>
     </header>
-    <p>{{dateArchive}}</p>
+    
     <h2>Reports</h2>
+    <p>Search Date Filter: <input type="text" data-ng-model="query"/></p>
     <ol>
-        <li data-ng-repeat="x in dateArchive track by $index">
+        <li data-ng-repeat="x in dateArchive | filter: query track by $index">
             <a href="chart.php" data-ng-click="date($index)">{{x.OrderDate}}</a>
         </li>
     </ol>
