@@ -59,7 +59,6 @@ CREATE TABLE orders (
 	PRIMARY KEY (OrderID)
 );
 
-INSERT INTO orders (OrderDate, OrderTime, TableID)
 
 
 CREATE TABLE orderpayment (
@@ -73,7 +72,6 @@ CREATE TABLE orderpayment (
 	PRIMARY KEY (OrderID)
 );
 
-INSERT INTO orderpayment (OrderID, TotalPrice, DiscountPrice, TotalPaid, Balance, PaidStatus)
 
 CREATE TABLE orderdetails (
 	OrderID int(3) NOT NULL,
@@ -85,7 +83,7 @@ CREATE TABLE orderdetails (
 	PRIMARY KEY (OrderID, FoodID)
 );
 
-INSERT INTO orderdetails (OrderID, FoodID, Quantity, Total)
+
 
 CREATE TABLE reservation (
 	ReservationID int(3) NOT NULL AUTO_INCREMENT,
@@ -96,9 +94,6 @@ CREATE TABLE reservation (
 	FOREIGN KEY(TableID) REFERENCES tables(TableID),
 	PRIMARY KEY(ReservationID, TableID)
 );
-
-INSERT INTO reservation (TableID, ReservationDate, ReservationTime, EndTime)
-VALUES (1,'2019-10-09', '07:07:07', '19:09:09');
 
 CREATE TABLE coupons (
 	CouponCode varchar(10) NOT NULL,
