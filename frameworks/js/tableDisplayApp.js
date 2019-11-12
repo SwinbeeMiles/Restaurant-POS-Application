@@ -28,7 +28,7 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
     $scope.DateObj = new Date();
     //Convert date to yyyy-mm-dd
     $scope.date = $scope.DateObj.getFullYear() + '-' + ('0' + ($scope.DateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + $scope.DateObj.getDate()).slice(-2);
-    
+
     //Fetching data start
     tableData = getData.sqlFetch("SELECT * FROM tables", 1);
     tableData.then(function (result) {
@@ -39,37 +39,38 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
     tableOrder.then(function (result) {
         $scope.tableOrders = result;
     });
-    
+
     orderPayment = getData.sqlFetch("SELECT * FROM orderpayment", 1);
     orderPayment.then(function (result) {
         $scope.paymentInfo = result;
     });
-    
+
     orderDetails = getData.sqlFetch("SELECT * FROM orderDetails", 1);
     orderDetails.then(function (result) {
         $scope.tableOrdersDetails = result;
     });
-    
+
     reservation = getData.sqlFetch("SELECT * FROM reservation WHERE ReservationDate = " + "'" + $scope.date + "'", 1);
     reservation.then(function (result) {
         $scope.tableRevDetails = result;
+
     });
     //Fetching data end
-    
+
     $scope.displayTableStatus = function (tableId) {
         var a = 0,b=0,e=0, x=$scope.paymentInfo.length-1;
         $scope.occupiedTable = $scope.table[tableId].TableID;
         a = $scope.tableOrders.length - 1;
-        
-        if($scope.table[tableId].Status === "available") 
+
+        if($scope.table[tableId].Status === "available")
         {
             $window.sessionStorage.orderTable=$scope.table[tableId].TableID;
-        } 
-        
-        else if($scope.table[tableId].Status === "reserved") 
+        }
+
+        else if($scope.table[tableId].Status === "reserved")
         {
             $scope.tableRevArray = [];
-            while (e <= $scope.tableRevDetails.length-1) 
+            while (e <= $scope.tableRevDetails.length-1)
             {
                 if ($scope.table[tableId].TableID === $scope.tableRevDetails[e].TableID)
                 {
@@ -83,21 +84,22 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
                 e += 1;
             }
             $window.sessionStorage.orderTable=$scope.table[tableId].TableID;
-        } 
-        else if($scope.table[tableId].Status === "occupied") 
+        }
+        else if($scope.table[tableId].Status === "occupied")
         {
-            while (a >= 0) 
+            while (a >= 0)
             {
-                if($scope.occupiedTable === $scope.tableOrders[a].TableID) 
+                if($scope.occupiedTable === $scope.tableOrders[a].TableID)
                 {
                     $scope.orderID = $scope.tableOrders[a].OrderID;
                     break;
                 }
                 a -= 1;
             }
+
             $scope.orderDetailsArray = [];
             b = 0;
-            while (b < $scope.tableOrdersDetails.length) 
+            while (b < $scope.tableOrdersDetails.length)
             {
                 if ($scope.orderID === $scope.tableOrdersDetails[b].OrderID) {
                     $scope.orderDetailsArray.push({
@@ -109,15 +111,16 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
                 }
                 b += 1;
             }
+            $scope.test = "test";
             $window.sessionStorage.orders=JSON.stringify($scope.orderDetailsArray);
             $window.sessionStorage.tableNo=$scope.table[tableId].TableID;
-            
+
             while(x>=0)
             {
                 if($scope.orderID===$scope.paymentInfo[x].OrderID)
                 {
-                    
-                    $scope.total = $scope.paymentInfo[x].TotalPrice;  
+
+                    $scope.total = $scope.paymentInfo[x].TotalPrice;
                     break;
                 }
                 x-=1;
@@ -125,9 +128,9 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
             $window.sessionStorage.totalCost = $scope.total;
         }
     };
-    
+
     $scope.deleteOrder = function ()
-    {    
+    {
         $http({
             method: 'POST',
             url: 'includes/tableDataDelete.php',
@@ -140,7 +143,7 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
             }
         });
     };
-        
+
 });
 
 app.controller("payment", function ($scope, $http,$window,getData) {
@@ -158,36 +161,36 @@ app.controller("payment", function ($scope, $http,$window,getData) {
     couponData.then(function (result) {
         $scope.coupon = result;
     });
-    
+
     $scope.errorMsg = "";
-    
+
     //Get current date
     $scope.DateObj = new Date();
     //Convert date to yyyy-mm-dd
     $scope.date = $scope.DateObj.getFullYear() + '-' + ('0' + ($scope.DateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + $scope.DateObj.getDate()).slice(-2);
-    
+
     $scope.validatePaymentInput=function()
     {
-        
+
         $scope.totalValid=false;
         $scope.discountValid=false;
-    
+
         if(!regExNum.test($scope.enteredAmount))
         {
             $window.alert("Invalid payment input!");
         }
-        
+
         else if(($scope.enteredAmount < $scope.discountedTotal) && ($scope.couponValidity))
         {
             $window.alert("Expected amount paid to be greater than discounted total of order.");
         }
-        
+
         else if(($scope.enteredAmount < $scope.total) && (!$scope.couponValidity))
         {
             $window.alert("Expected amount paid to be greater than total of order.");
         }
-        
-        
+
+
         else if(regExNum.test($scope.enteredAmount))
         {
             $window.alert("Transaction success!");
@@ -198,11 +201,11 @@ app.controller("payment", function ($scope, $http,$window,getData) {
             }
             else if(($scope.enteredAmount > $scope.total) && (!$scope.couponValidity))
             {
-                $scope.totalValid=true; 
+                $scope.totalValid=true;
                 $window.alert("Balance: RM" + (parseFloat($scope.enteredAmount) - parseFloat($scope.total)));
             }
         }
-        
+
         if(($scope.totalValid)||($scope.discountValid))
         {
             if(($scope.discountedTotal>0)&&($scope.enteredAmount > 0))
@@ -219,7 +222,7 @@ app.controller("payment", function ($scope, $http,$window,getData) {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 });
-                
+
                 $http({
                     method: 'POST',
                     url: 'includes/payment.php',
@@ -232,7 +235,7 @@ app.controller("payment", function ($scope, $http,$window,getData) {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 });
-                
+
             }
 
             else if($scope.enteredAmount > 0)
@@ -252,7 +255,7 @@ app.controller("payment", function ($scope, $http,$window,getData) {
             }
         }
     };
-    
+
     $scope.validateCoupon = function()
     {
         $scope.couponValidity=false;
@@ -260,8 +263,8 @@ app.controller("payment", function ($scope, $http,$window,getData) {
         x=0;
         while(x<$scope.coupon.length)
         {
-  
-            if($scope.couponCode === $scope.coupon[x].CouponCode)  
+
+            if($scope.couponCode === $scope.coupon[x].CouponCode)
             {
                 if(Date.parse($scope.coupon[x].ExpiryDate) > Date.parse($scope.date))
                 {
@@ -270,7 +273,7 @@ app.controller("payment", function ($scope, $http,$window,getData) {
                 }
                 else
                 {
-                    $window.alert("Coupon has expired. Expiry date: " + $scope.coupon[x].ExpiryDate); 
+                    $window.alert("Coupon has expired. Expiry date: " + $scope.coupon[x].ExpiryDate);
                 }
                 break;
             }
@@ -294,9 +297,9 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
     menuData = getData.sqlFetch("SELECT * FROM menu", 1);
     menuData.then(function (result) {
         $scope.menu = result;
-        
+
         $scope.orderEditArray=[];
-        
+
         while(x<$scope.order.length)
         {
             while(b<$scope.menu.length)
@@ -308,7 +311,7 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
                         foodName: $scope.menu[b].FoodName,
                         quantity: $scope.order[x].quantity,
                         price: $scope.menu[b].FoodPrice
-                    }); 
+                    });
                     break;
                 }
                 b+=1;
@@ -317,20 +320,20 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
             x+=1;
         }
     });
-    
-    $scope.tableNo = $window.sessionStorage.tableNo; 
+
+    $scope.tableNo = $window.sessionStorage.tableNo;
     $scope.order = JSON.parse($window.sessionStorage.orders);
     $scope.orderID = $scope.order[0].orderID;
-    
+
     $scope.ModifyCurrentQuantity = function(rowSelected,operator)
     {
         var condition = operator;
             $scope.temp = Number($scope.orderEditArray[rowSelected].quantity);
             if(condition === "add")
             {
-                $scope.temp += 1;   
+                $scope.temp += 1;
             }
-            
+
             else if(condition === "remove" && $scope.orderEditArray[rowSelected].quantity>1)
             {
                 $scope.temp -= 1;
@@ -338,27 +341,27 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
             $scope.orderEditArray[rowSelected].quantity = $scope.temp;
         $scope.isModified = true;
     };
-    
+
     $scope.ModifyNewQuantity = function(rowSelected,operator)
     {
         var condition = operator;
             $scope.temp = Number($scope.newItemArray[rowSelected].quantity);
             if(condition === "add")
             {
-                $scope.temp += 1;   
+                $scope.temp += 1;
             }
-            
+
             else if(condition === "remove" && $scope.newItemArray[rowSelected].quantity>1)
             {
                 $scope.temp -= 1;
             }
             $scope.newItemArray[rowSelected].quantity = $scope.temp;
     };
-    
+
     $scope.addNewItem = function(rowSelected)
     {
         var e=0,d=0,itemCheck = true;
- 
+
         while(e<$scope.orderEditArray.length)
         {
             if($scope.menu[rowSelected].FoodID === $scope.orderEditArray[e].foodID)
@@ -369,7 +372,7 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
                 }
             e+=1;
         }
-        
+
         while(d<$scope.newItemArray.length)
         {
             if($scope.menu[rowSelected].FoodID === $scope.newItemArray[d].foodID)
@@ -380,7 +383,7 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
                 }
             d+=1;
         }
-        
+
         if(itemCheck)
         {
             $scope.newItemArray.push({
@@ -391,18 +394,18 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
             });
         }
     };
-    
+
     $scope.removeCurrentItem = function (rowSelected)
     {
         $scope.currentItemRemove.push($scope.orderEditArray[rowSelected].foodID);
         $scope.orderEditArray.splice([rowSelected],1);
     };
-    
+
     $scope.removeNewItem = function (rowSelected)
     {
         $scope.newItemArray.splice([rowSelected],1);
     };
-    
+
     $scope.submit = function()
     {
         //$window.alert($scope.isModified);

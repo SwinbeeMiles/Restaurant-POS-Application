@@ -59,8 +59,8 @@
                                   <td>{{item.name}}</td>
                                   <td>{{item.id}}</td>
                                   <td>{{item.price}}</td>
-                                  <td><button data-ng-click="minusQuantity($index)">-</button> {{item.quantity}} <button data-ng-click="addQuantity($index)">+</button></td>
-                                  <td><button data-ng-click="removeItem($index)">Remove</button></td>
+                                  <td><button data-ng-click="minusQuantity($index)" class="countButton">-</button>   {{item.quantity}}   <button data-ng-click="addQuantity($index)" class="countButton">+</button></td>
+                                  <td><button data-ng-click="removeItem($index)" class="removeButton">Remove</button></td>
                               </tr>
                             </tbody>
                           </table>

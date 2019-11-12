@@ -1,3 +1,4 @@
+
 body{
   background-image:url("assets/bg-marble.png");
   background-repeat: repeat;
@@ -33,7 +34,6 @@ header{
 .menuNavigation li {
   display: inline;
   text-shadow:2px 2px 4px #000000;
-
 }
 .menuNavigation li a {
   display: inline-block;
@@ -60,7 +60,7 @@ header{
    color:white;
    font-size: 35px;
    flex: 1 1 auto;
-   margin-top: 3%;
+   margin-top: 5%;
    padding: 30px;
    text-align: center;
    text-transform: uppercase;
@@ -151,7 +151,6 @@ padding: 2.5% 5%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
   transition: 0.1s;
 }
-
 #tableOccupied{
   background-color: #D41220;
   color:white;
@@ -182,21 +181,69 @@ background-color:#337ab7;
 color: white;
 }
 
+.editSquare{
+  background-color:#337ab7;
+  color: white;
+  padding:8px 12px;
+  border-radius: 5px;
+}
+ .editSquare:hover{
+   filter: brightness(85%);
+ }
+.deleteSquare{
+  background-color: #D41220;
+  color: white;
+  padding:8px 12px;
+  border-radius: 5px;
+}
+.deleteSquare:hover{
+  filter: brightness(85%);
+}
 .orderButton{
   background-color:#38AB20;
   color: white;
   margin:auto 5px;
-  width: 7%;
+  width: 8%;
 }
 .resetButton{
   background-color: #D41220;
   color: white;
-  width: 7%;
+  width: 8%;
 }
 .exitButton{
  color:black;
-  width: 7%;
+  width: 8%;
 }
+.deleteButton{
+
+}
+.countButton{
+  background-color:#b6b5bb;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: white;
+  padding:5px 10px;
+  border-radius: 5px;
+}
+.countButton:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  color:black;
+  transition: 0.5s;
+}
+.removeButton{
+  background-color:#EBB71B;
+  color: white;
+  padding:7px 5px;
+  border-radius: 5px;
+  text-size:12px;
+  width:70%;
+}
+.removeButton:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  color:black;
+  transition: 0.5s;
+}
+
 #foodButton{
   background-color: #337ab7;
   color:white;
@@ -220,5 +267,4 @@ margin-top: 5%;
 }
 .tableOrder tbody > tr > td {
   font-size: 13px;
-
 }

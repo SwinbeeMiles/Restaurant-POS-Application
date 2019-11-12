@@ -9,19 +9,23 @@
             </div>
             <div class="modal-body">
                 <h5>Table No: {{occupiedTable}}</h5>
-                <h5>Order Id: {{orderDetailsArray[0].orderID}}</h5>
-                <table class="table table-striped table-hover">
+                <h5>Order ID: {{orderDetailsArray[0].orderID}}</h5>
+                <p> testing:{{orderDetailsArray}} <p>
+                <table class="table table-striped tableOrder">
+                <thead>
                     <tr>
                          <th>Food ID</th>
                          <th>Quantity</th>
                          <th>Total</th>
                      </tr>
-                    
+                </thead>
+                <tbody>
                     <tr data-ng-repeat="x in orderDetailsArray">
                         <td>{{x.foodID}}</td>
                         <td>{{x.quantity}}</td>
                         <td>RM{{x.total}}</td>
                       </tr>
+                </tbody>
                 </table>
             </div>
             <div class="modal-footer">
@@ -51,8 +55,8 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Table no: {{occupiedTable}}</p>
-                <p>Order Id: {{orderDetailsArray[0].orderID}}</p>
+                <p>Table No: {{occupiedTable}}</p>
+                <p>Order ID: {{orderDetailsArray[0].orderID}}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
