@@ -14,6 +14,9 @@ var app = angular.module("orderSystem", []);
 app.controller("orderControl", function ($scope, $http, $window, $rootScope, $timeout) {
     "use strict";
     
+    $scope.menuData = [];
+    $scope.orderData = [];
+    
     //10 seconds delay
     $timeout(function () {
         $scope.test1 = "Hello World!";
@@ -120,16 +123,22 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
     
     $scope.postData = function () {
         var i;
+        
         $scope.total = 0;
         for (i = 0; i < $rootScope.confirmedItems.length; i++) {
             $scope.total += ($rootScope.confirmedItems[i].price * $rootScope.confirmedItems[i].quantity);
+        }
+    
+        $scope.id = 1;
+        if ($scope.orderData.length !== 0) {
+            $scope.id = parseInt($scope.orderData[$scope.orderData.length-1].OrderID,10) + 1;
         }
         
         var requestOrders = $http({
             method: 'POST',
             url: 'includes/orderPost.php',
             data: {
-				OrderID: (parseInt($scope.orderData[$scope.orderData.length-1].OrderID,10)) + 1,
+				OrderID: $scope.id,
                 OrderDate: $scope.date,
                 OrderTime: $scope.time,
                 TableID: $scope.tableID
@@ -139,8 +148,6 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
             }
         });
         
-        
-
         var requestTable = $http({
             method: 'POST',
             url: 'includes/orderTablePost.php',
@@ -156,7 +163,7 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
             method: 'POST',
             url: 'includes/orderPaymentPost.php',
             data: {
-                OrderID: (parseInt($scope.orderData[$scope.orderData.length-1].OrderID,10)) + 1,
+                OrderID: $scope.id,
                 TotalPrice: $scope.total,
                 PaidStatus: 0
             },
@@ -170,7 +177,7 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
             url: 'includes/orderDetailPost.php',
             data: { 
                 OrderedItems: JSON.stringify($rootScope.confirmedItems),
-                OrderID: (parseInt($scope.orderData[$scope.orderData.length-1].OrderID,10)) + 1
+                OrderID: $scope.id
             },
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -192,6 +199,10 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
         requestDetails.success(function (data) {
             $scope.detailsToast = data;
         });
+        
+        /* eslint-disable */
+        window.location.replace("tablepage.php");
+        /* eslint-enable */
     };
 });
 
