@@ -14,27 +14,10 @@ var app = angular.module("orderSystem", []);
 app.controller("orderControl", function ($scope, $http, $window, $rootScope, $timeout) {
     "use strict";
     
+    $scope.spinnerShow = false;
+    
     $scope.menuData = [];
     $scope.orderData = [];
-    
-    //10 seconds delay
-    $timeout(function () {
-        $scope.test1 = "Hello World!";
-    }, 5000);
-
-    //time
-    $scope.time = 0;
-
-    //timer callback
-    var timer = function () {
-        if ($scope.time < 5000) {
-            $scope.time += 1000;
-            $timeout(timer, 1000);
-        }
-    };
-
-    //run!!
-    //$timeout(timer, 1000);
     
     $scope.tableID = $window.sessionStorage.orderTable;
     $scope.orderedItems = [];
@@ -122,6 +105,8 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
     };
     
     $scope.postData = function () {
+        $scope.spinnerShow = true;
+        
         var i;
         
         $scope.total = 0;
@@ -148,61 +133,65 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
             }
         });
         
-        var requestTable = $http({
-            method: 'POST',
-            url: 'includes/orderTablePost.php',
-            data: {
-                TableID: $scope.tableID
-            },
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
-    
-        var requestPayment = $http({
-            method: 'POST',
-            url: 'includes/orderPaymentPost.php',
-            data: {
-                OrderID: $scope.id,
-                TotalPrice: $scope.total,
-                PaidStatus: 0
-            },
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
-        
-        var requestDetails = $http({
-            method: 'POST',
-            url: 'includes/orderDetailPost.php',
-            data: { 
-                OrderedItems: JSON.stringify($rootScope.confirmedItems),
-                OrderID: $scope.id
-            },
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
-        
-        requestOrders.success(function (data) {
-           $scope.ordersToast = data;
-        });
-        
-        requestTable.success(function (data) {
-            $scope.tableToast = data;
-        });
+        function initiateCRUD() {
+            var requestTable = $http({
+                method: 'POST',
+                url: 'includes/orderTablePost.php',
+                data: {
+                    TableID: $scope.tableID
+                },
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
 
-        requestPayment.success(function (data) {
-            $scope.paymentToast = data;
-        });
+            var requestPayment = $http({
+                method: 'POST',
+                url: 'includes/orderPaymentPost.php',
+                data: {
+                    OrderID: $scope.id,
+                    TotalPrice: $scope.total,
+                    PaidStatus: 0
+                },
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            var requestDetails = $http({
+                method: 'POST',
+                url: 'includes/orderDetailPost.php',
+                data: {
+                    OrderedItems: JSON.stringify($rootScope.confirmedItems),
+                    OrderID: $scope.id
+                },
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            requestOrders.success(function (data) {
+                $scope.ordersToast = data;
+            });
+
+            requestTable.success(function (data) {
+                $scope.tableToast = data;
+            });
+
+            requestPayment.success(function (data) {
+                $scope.paymentToast = data;
+            });
+
+            requestDetails.success(function (data) {
+                $scope.detailsToast = data;
+            });
+            
+            /* eslint-disable */
+            window.location.replace("tablepage.php");
+            /* eslint-enable */
+        }
         
-        requestDetails.success(function (data) {
-            $scope.detailsToast = data;
-        });
-        
-        /* eslint-disable */
-        window.location.replace("tablepage.php");
-        /* eslint-enable */
+        $timeout(initiateCRUD, 4000);
     };
 });
 

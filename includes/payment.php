@@ -16,6 +16,8 @@
 	$payment_success = false;
 	$table_success = false;
 	
+	sleep(1);
+	
 	$sql = "SELECT TotalPrice, DiscountPrice FROM orderpayment WHERE OrderID = ?";
 	if($stmt = mysqli_prepare($conn, $sql)){
 		//Replace ? in sql statement
