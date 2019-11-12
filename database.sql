@@ -83,8 +83,6 @@ CREATE TABLE orderdetails (
 	PRIMARY KEY (OrderID, FoodID)
 );
 
-
-
 CREATE TABLE reservation (
 	ReservationID int(3) NOT NULL AUTO_INCREMENT,
 	TableID int(3) NOT NULL,
@@ -94,6 +92,9 @@ CREATE TABLE reservation (
 	FOREIGN KEY(TableID) REFERENCES tables(TableID),
 	PRIMARY KEY(ReservationID, TableID)
 );
+
+INSERT INTO reservation (TableID, ReservationTime, ReservationDate, EndTime)
+VALUES (1,'07:07:07', '2019-10-01', '09:09:09');
 
 CREATE TABLE coupons (
 	CouponCode varchar(10) NOT NULL,
