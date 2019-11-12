@@ -12,8 +12,6 @@
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-
-
 <body data-ng-controller="editOrder">
     <header id="myHeader">
         <?php
@@ -27,7 +25,8 @@
             ?>
         </div>
     </header>
-    <div data-ng-repeat="a in menu track by $index">
+    <p>Search Filter: <input type="text" data-ng-model="query"/></p>
+    <div data-ng-repeat="a in menu | filter: query track by $index">
         <button data-ng-click="addNewItem($index)">{{a.FoodName}}</button>
     </div>
     
@@ -63,7 +62,8 @@
     <p>New order {{newItemArray}}</p>
     <p>Current Order to be removed {{currentItemRemove}}</p>-->
     
-    <button class="btn btn-info" data-toggle="modal" data-target="#editModal">Submit</button>
+    <button data-ng-if = "orderEditArray.length > 0" class="btn btn-info" data-toggle="modal" data-target="#editModal">Submit</button>
+    <button data-ng-if = "newItemArray.length > 0 && orderEditArray.length === 0" class="btn btn-info" data-toggle="modal" data-target="#editModal">Submit</button>
     <button class="btn btn-danger" onclick="location.href='tablepage.php'">Cancel</button>
     
     <!-- Modal -->
