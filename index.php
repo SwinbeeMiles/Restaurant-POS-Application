@@ -22,7 +22,16 @@
   $user = $pass = "";
   $username_err = $password_err = "";
   $nousername = $nopassword = "";
-
+  $login_err = "";
+  
+  if(isset($_GET["loginerror"])){
+	  $login = $_GET["loginerror"];
+	  
+	  if($login == 1){
+		  $login_err = "<p>Login Required!</p>";
+	  }
+  }
+  
   if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     //Ensures username and password is not empty
@@ -100,6 +109,7 @@
 
               <form action="index.php" method="post" novalidate="novalidate">
                 <img src="assets/foodsmith.png" id="loginlogo" alt="cafelogo">
+				<span style="color: red;"><?php echo $login_err; ?></span>
                 <label for="_username">Username:</label>
                 <input type="text" name="username" id="_username" class="form-control"><br>
                 <span style="color: red;"><?php echo $username_err; ?></span>
