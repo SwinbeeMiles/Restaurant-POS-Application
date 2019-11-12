@@ -40,12 +40,12 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
         $scope.tableOrders = result;
     });
     
-    orderPayment = getData.sqlFetch("SELECT * FROM orderpayment", 1);
+    orderPayment = getData.sqlFetch("SELECT o.OrderID,op.TotalPrice,op.DiscountPrice,op.TotalPaid,op.Balance,op.PaidStatus FROM orders AS o JOIN orderpayment AS op on o.OrderID = op.OrderID WHERE o.OrderDate = " + "'" + $scope.date + "'", 1);
     orderPayment.then(function (result) {
         $scope.paymentInfo = result;
     });
     
-    orderDetails = getData.sqlFetch("SELECT * FROM orderDetails", 1);
+    orderDetails = getData.sqlFetch("SELECT o.OrderID,od.FoodID,od.Quantity,od.Total FROM orders AS o JOIN orderdetails AS od on o.OrderID = od.OrderID WHERE o.OrderDate = " + "'" + $scope.date + "'", 1);
     orderDetails.then(function (result) {
         $scope.tableOrdersDetails = result;
     });
