@@ -129,6 +129,7 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
             method: 'POST',
             url: 'includes/orderPost.php',
             data: {
+				OrderID: (parseInt($scope.orderData[$scope.orderData.length-1].OrderID,10)) + 1,
                 OrderDate: $scope.date,
                 OrderTime: $scope.time,
                 TableID: $scope.tableID

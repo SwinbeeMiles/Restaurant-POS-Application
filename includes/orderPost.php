@@ -1,6 +1,7 @@
 <?php
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
+	@$OrderID = $request->OrderID;
     @$OrderDate = $request->OrderDate;
     @$OrderTime = $request->OrderTime;
     @$TableID = $request->TableID;
@@ -16,7 +17,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO orders (OrderDate, OrderTime, TableID) VALUES ('$OrderDate', '$OrderTime', $TableID)";
+    $sql = "INSERT INTO orders (OrderID, OrderDate, OrderTime, TableID) VALUES ('$OrderID', '$OrderDate', '$OrderTime', $TableID)";
     
     if ($conn->query($sql) === TRUE) {
     echo "New record created successfully in Orders";
