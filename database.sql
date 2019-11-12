@@ -8,7 +8,8 @@ CREATE TABLE account (
 );
 
 INSERT INTO account (Username, Password, AdminPrivilege)
-VALUES ('admin', 'admin', TRUE);
+VALUES ('admin', 'admin', TRUE),
+('user', 'user', FALSE);
 
 CREATE TABLE menu (
 	FoodID varchar(3) NOT NULL,
@@ -46,7 +47,8 @@ VALUES (1, 8, 'available'),
 (2, 8, 'available'),
 (3, 8, 'available'),
 (4, 8, 'available'),
-(5, 8, 'available');
+(5, 8, 'available'),
+(6, 8, 'available');
 
 CREATE TABLE orders (
 	OrderID int(3) NOT NULL AUTO_INCREMENT,
@@ -58,7 +60,7 @@ CREATE TABLE orders (
 );
 
 INSERT INTO orders (OrderDate, OrderTime, TableID)
-VALUES ('2019-10-09', '07:07:07', 1);
+
 
 CREATE TABLE orderpayment (
 	OrderID int(3) NOT NULL,
@@ -72,7 +74,6 @@ CREATE TABLE orderpayment (
 );
 
 INSERT INTO orderpayment (OrderID, TotalPrice, DiscountPrice, TotalPaid, Balance, PaidStatus)
-VALUES (1,10.00, 5.00, 5.00,0.00,1);
 
 CREATE TABLE orderdetails (
 	OrderID int(3) NOT NULL,
@@ -85,7 +86,6 @@ CREATE TABLE orderdetails (
 );
 
 INSERT INTO orderdetails (OrderID, FoodID, Quantity, Total)
-VALUES (1,'f13',2,10.00);
 
 CREATE TABLE reservation (
 	ReservationID int(3) NOT NULL AUTO_INCREMENT,
