@@ -32,6 +32,10 @@
                 <li>{{detailsToast}}</li>
             </ul>
             
+            <div data-ng-if = "spinnerShow === true" class="spinner-border text-dark" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss = "modal">Close</button>
                 <button type="button" class="btn btn-default" data-ng-click = "postData()" >Submit Order</button>
