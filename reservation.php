@@ -38,7 +38,7 @@
 					echo '<pigeon-table query="SELECT * FROM reservation" editable="true" control="true"></pigeon-table>';
 				}
 				else{
-					echo '<pigeon-table query="SELECT * FROM reservation></pigeon-table>';
+					echo '<pigeon-table query="SELECT * FROM reservation"></pigeon-table>';
 				}
 			?>		
 		</div>
