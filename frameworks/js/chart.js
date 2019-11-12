@@ -66,7 +66,7 @@ app.controller("chartControl", function ($scope, $http, $window, getData) {
             $scope.foodIDQuantity.push(parseInt($scope.itemQuantity[x].TotalOrdered, 10));
             x += 1;
         }
-
+        /* eslint-disable */
         Highcharts.chart('numOfEachFoodSold', {
             title: {
                 text: "Number of each menu item sold"
@@ -97,8 +97,9 @@ app.controller("chartControl", function ($scope, $http, $window, getData) {
                 data: $scope.foodIDQuantity
             }]
         });
+        /* eslint-enable */
     });
-
+    
     orderTimeSessionFetch = getData.sqlFetch("SELECT (SELECT COUNT(od.FoodID) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '08:00:00' AND '09:59:59') AS Morning,(SELECT COUNT(od.FoodID) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '10:00:00' AND '16:59:59') AS Afternoon,(SELECT COUNT(od.FoodID) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE o.OrderTime BETWEEN '17:00:00' AND '22:00:00') AS Evening", 0);
     orderTimeSessionFetch.then(function (result) {
         $scope.TimeSessionOrders = result;
@@ -106,7 +107,7 @@ app.controller("chartControl", function ($scope, $http, $window, getData) {
         $scope.TimeSessionSold.push(parseInt($scope.TimeSessionOrders.Morning,10));
         $scope.TimeSessionSold.push(parseInt($scope.TimeSessionOrders.Afternoon,10));
         $scope.TimeSessionSold.push(parseInt($scope.TimeSessionOrders.Evening,10));
-        
+        /* eslint-disable */
         Highcharts.chart('foodSoldDuringSpecificTime', {
             title: {
                 text: "Number of menu item sold during three different time"
@@ -141,5 +142,6 @@ app.controller("chartControl", function ($scope, $http, $window, getData) {
                 ]
             }]
         });
+        /* eslint-enable */
     });
 });
