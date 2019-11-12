@@ -83,8 +83,6 @@ CREATE TABLE orderdetails (
 	PRIMARY KEY (OrderID, FoodID)
 );
 
-
-
 CREATE TABLE reservation (
 	ReservationID int(3) NOT NULL AUTO_INCREMENT,
 	TableID int(3) NOT NULL,
