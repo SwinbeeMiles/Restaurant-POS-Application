@@ -194,12 +194,12 @@ app.controller("payment", function ($scope, $http,$window,getData) {
         else if(regExNum.test($scope.enteredAmount))
         {
             $window.alert("Transaction success!");
-            if(($scope.enteredAmount > $scope.discountedTotal) && ($scope.couponValidity))
+            if(($scope.enteredAmount >= $scope.discountedTotal) && ($scope.couponValidity))
             {
                 $scope.discountValid=true;
                 $window.alert("Balance: RM" + (parseFloat($scope.enteredAmount) - parseFloat($scope.discountedTotal)));
             }
-            else if(($scope.enteredAmount > $scope.total) && (!$scope.couponValidity))
+            else if(($scope.enteredAmount >= $scope.total) && (!$scope.couponValidity))
             {
                 $scope.totalValid=true;
                 $window.alert("Balance: RM" + (parseFloat($scope.enteredAmount) - parseFloat($scope.total)));
