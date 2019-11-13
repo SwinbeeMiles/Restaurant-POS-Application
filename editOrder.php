@@ -56,17 +56,7 @@
             <td><button class="btn btn-danger" data-ng-click="removeNewItem($index)">Remove</button></td>
         </tr>
     </table>
-    <p>Current Order {{orderEditArray}}</p>
-    <p>Backup {{orderEditArrayBackup}}</p>
-    <p>New item {{newItemArray}}</p>
-    <p>Current item remove {{currentItemRemove}}</p>
-    <!--<p>Table No {{tableNo}}</p>
-    <p>Orders {{order}}</p>
-    <p>orderID {{orderID}}</p>
-    <p>Menu {{menu}}</p>
-    <p>Current order {{orderEditArray}}</p>
-    <p>New order {{newItemArray}}</p>
-    <p>Current Order to be removed {{currentItemRemove}}</p>-->
+
     <button class="float-left btn btn-info" onclick="location.href='tablepage.php'">Quit</button>
     <div data-ng-if="isModified">
         <button data-ng-if = "orderEditArray.length > 0" class="btn btn-info" data-toggle="modal" data-target="#editModal">Submit</button>
