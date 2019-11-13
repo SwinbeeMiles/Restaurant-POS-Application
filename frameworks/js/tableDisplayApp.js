@@ -322,6 +322,7 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
             b=0;
             x+=1;
         }
+        $scope.orderEditArrayBackup = angular.copy($scope.orderEditArray);
     });
 
     $scope.tableNo = $window.sessionStorage.tableNo;
@@ -341,7 +342,7 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
             {
                 $scope.temp -= 1;
             }
-            $scope.orderEditArray[rowSelected].quantity = $scope.temp;
+        $scope.orderEditArray[rowSelected].quantity = $scope.temp;
         $scope.isModified = true;
     };
 
@@ -396,12 +397,14 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
                 price: $scope.menu[rowSelected].FoodPrice
             });
         }
+        $scope.isModified = true;
     };
 
     $scope.removeCurrentItem = function (rowSelected)
     {
         $scope.currentItemRemove.push($scope.orderEditArray[rowSelected].foodID);
         $scope.orderEditArray.splice([rowSelected],1);
+        $scope.isModified = true;
     };
 
     $scope.removeNewItem = function (rowSelected)
@@ -426,6 +429,14 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
+    };
+    
+    $scope.reset = function()
+    {
+        $scope.orderEditArray = angular.copy($scope.orderEditArrayBackup);
+        $scope.newItemArray = [];
+        $scope.currentItemRemove =[];
+        $scope.isModified = false;
     };
 });
 

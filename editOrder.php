@@ -35,6 +35,7 @@
         <tr>
             <th>Food ID</th>
             <th>Food Name</th>
+            <th>Price Per Item</th>
             <th>Quantity</th>
             <th></th>
         </tr>
@@ -42,6 +43,7 @@
         <tr data-ng-repeat="x in orderEditArray track by $index">
             <td>{{x.foodID}}</td>
             <td>{{x.foodName}}</td>
+            <td>RM{{x.price}}</td>
             <td>{{x.quantity}} <button data-ng-click="ModifyCurrentQuantity($index,'add')">+</button> <button data-ng-click="ModifyCurrentQuantity($index,'remove')">-</button></td>
             <td><button class="btn btn-danger" data-ng-click="removeCurrentItem($index)">Remove</button></td>
         </tr >
@@ -49,11 +51,15 @@
         <tr data-ng-repeat="i in newItemArray track by $index">
             <td>{{i.foodID}}</td>
             <td>{{i.foodName}}</td>
+            <td>RM{{i.price}}</td>
             <td>{{i.quantity}} <button data-ng-click="ModifyNewQuantity($index,'add')">+</button> <button data-ng-click="ModifyNewQuantity($index,'remove')">-</button></td>
             <td><button class="btn btn-danger" data-ng-click="removeNewItem($index)">Remove</button></td>
         </tr>
     </table>
-    
+    <p>Current Order {{orderEditArray}}</p>
+    <p>Backup {{orderEditArrayBackup}}</p>
+    <p>New item {{newItemArray}}</p>
+    <p>Current item remove {{currentItemRemove}}</p>
     <!--<p>Table No {{tableNo}}</p>
     <p>Orders {{order}}</p>
     <p>orderID {{orderID}}</p>
@@ -61,11 +67,13 @@
     <p>Current order {{orderEditArray}}</p>
     <p>New order {{newItemArray}}</p>
     <p>Current Order to be removed {{currentItemRemove}}</p>-->
-    
-    <button data-ng-if = "orderEditArray.length > 0" class="btn btn-info" data-toggle="modal" data-target="#editModal">Submit</button>
-    <button data-ng-if = "newItemArray.length > 0 && orderEditArray.length === 0" class="btn btn-info" data-toggle="modal" data-target="#editModal">Submit</button>
-    <button class="btn btn-danger" onclick="location.href='tablepage.php'">Cancel</button>
-    
+    <button class="float-left btn btn-info" onclick="location.href='tablepage.php'">Quit</button>
+    <div data-ng-if="isModified">
+        <button data-ng-if = "orderEditArray.length > 0" class="btn btn-info" data-toggle="modal" data-target="#editModal">Submit</button>
+        <button data-ng-if = "newItemArray.length > 0 && orderEditArray.length === 0" class="btn btn-info" data-toggle="modal" data-target="#editModal">Submit</button>
+        <button class="btn btn-danger" onclick="location.href='tablepage.php'">Cancel</button>
+    </div>
+    <button type="button" class="btn btn-info" data-ng-click="reset()">Reset</button>
     <!-- Modal -->
     <div class="modal fade" id="editModal" role="dialog">
         <div class="modal-dialog">
