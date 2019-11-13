@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <h5>Table No: {{occupiedTable}}</h5>
                 <h5>Order ID: {{orderDetailsArray[0].orderID}}</h5>
-                <p> testing:{{orderDetailsArray}} <p>
+        
                 <table class="table table-striped tableOrder">
                 <thead>
                     <tr>

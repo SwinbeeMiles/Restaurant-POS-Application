@@ -111,7 +111,7 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
                 }
                 b += 1;
             }
-            $scope.test = "test";
+
             $window.sessionStorage.orders=JSON.stringify($scope.orderDetailsArray);
             $window.sessionStorage.tableNo=$scope.table[tableId].TableID;
 
