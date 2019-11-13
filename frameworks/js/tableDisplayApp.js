@@ -149,6 +149,8 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
 app.controller("payment", function ($scope, $http,$window,getData) {
     "use strict";
     var couponData,regExNum = /^[0-9]*(\.[0-9]+)?$/,x=0;
+    $scope.payed = false;
+    $scope.balance=0;
     $scope.totalValid=false;
     $scope.discountValid=false;
     $scope.couponCode="";
@@ -194,16 +196,17 @@ app.controller("payment", function ($scope, $http,$window,getData) {
         else if(regExNum.test($scope.enteredAmount))
         {
             $window.alert("Transaction success!");
-            if(($scope.enteredAmount > $scope.discountedTotal) && ($scope.couponValidity))
+            if(($scope.enteredAmount >= $scope.discountedTotal) && ($scope.couponValidity))
             {
                 $scope.discountValid=true;
-                $window.alert("Balance: RM" + (parseFloat($scope.enteredAmount) - parseFloat($scope.discountedTotal)));
+                $scope.balance = parseFloat($scope.enteredAmount) - parseFloat($scope.discountedTotal);
             }
-            else if(($scope.enteredAmount > $scope.total) && (!$scope.couponValidity))
+            else if(($scope.enteredAmount >= $scope.total) && (!$scope.couponValidity))
             {
                 $scope.totalValid=true;
-                $window.alert("Balance: RM" + (parseFloat($scope.enteredAmount) - parseFloat($scope.total)));
+                $scope.balance = parseFloat($scope.enteredAmount) - parseFloat($scope.total);
             }
+            $scope.payed = true;
         }
 
         if(($scope.totalValid)||($scope.discountValid))

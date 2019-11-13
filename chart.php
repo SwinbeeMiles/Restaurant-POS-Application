@@ -54,8 +54,8 @@
         </tr>
     </table>
 
-    <h5>Total Earned: RM{{orderTotal.TOTALAmount}}</h5>
-    <h5>Total Menu Item Ordered: {{orderTotal.TotalOrder}}</h5>
+    <h5>Total Earned: RM{{orderTotal.TotalAmountEarned}}</h5>
+    <h5>Total Menu Item Ordered: {{orderTotal.TotalItemOrdered}}</h5>
 
     <div id ="numOfEachFoodSold"></div>
     <div id ="foodSoldDuringSpecificTime"></div>

@@ -50,7 +50,7 @@ app.controller("chartControl", function ($scope, $http, $window, getData) {
         $scope.orderData = result;
     });
 
-    orderSumFetch = getData.sqlFetch("SELECT SUM(op.TotalPaid - op.Balance) AS TOTALAmount, COUNT(od.FoodID) AS TotalOrder FROM orders AS o JOIN orderpayment AS op on o.OrderID = op.OrderID JOIN orderdetails AS od on o.OrderID = od.OrderID WHERE o.OrderDate=" + "'" + $scope.selectedReportDate + "'" + " AND op.PaidStatus != 0", 0);
+    orderSumFetch = getData.sqlFetch("SELECT(SELECT SUM(op.TotalPaid - op.Balance) FROM orderpayment AS op JOIN orders AS o on op.OrderID = o.OrderID WHERE o.OrderDate = '" + $scope.selectedReportDate + "'" + " AND op.PaidStatus != 0)AS TotalAmountEarned,(SELECT COALESCE(SUM(od.Quantity),0) FROM orders AS o JOIN orderdetails AS od ON o.OrderID = od.OrderID WHERE OrderDate = '" + $scope.selectedReportDate + "'" + ") AS TotalItemOrdered", 0);
     orderSumFetch.then(function (result) {
         $scope.orderTotal = result;
     });
