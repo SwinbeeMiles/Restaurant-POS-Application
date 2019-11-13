@@ -99,7 +99,7 @@
 							continue;
 						}
                     } else {
-						if($key == 'ReservationID'){
+						if($key == 'ReservationID' && $queryType == 'INSERT'){
 							$msg[] = "Leave empty because this field is auto-generated";
 							continue;
 						}
