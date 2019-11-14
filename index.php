@@ -23,15 +23,15 @@
   $username_err = $password_err = "";
   $nousername = $nopassword = "";
   $login_err = "";
-  
+
   if(isset($_GET["loginerror"])){
 	  $login = $_GET["loginerror"];
-	  
+
 	  if($login == 1){
 		  $login_err = "<p>Login Required!</p>";
 	  }
   }
-  
+
   if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     //Ensures username and password is not empty
@@ -122,8 +122,8 @@
                 <br><br>
 
                 <div class="row justify-content-around">
-                <button type="submit" id="loginbutton" class="btn btn-secondary">Login</button>
-                <button type="reset" id="loginbutton" class="btn btn-outline-secondary">Reset</button>
+                <button type="submit" class="btn btn-secondary loginbutton">Login</button>
+                <button type="reset" class="btn btn-outline-secondary loginbutton">Reset</button>
               </div>
 
               </form>

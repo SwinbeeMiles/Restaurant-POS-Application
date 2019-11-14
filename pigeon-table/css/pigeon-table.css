@@ -136,10 +136,20 @@
     }
 }
 
+#floatL{
+  float:left;
+  margin-right: auto;
+}
+
+#floatR{
+  float:right;
+  margin-left: auto;
+}
+
+
 .closeX{
   float:right;
 }
-
 .modal-title{
 float:left;
 }

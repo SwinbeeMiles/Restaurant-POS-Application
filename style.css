@@ -79,13 +79,7 @@ header{
    border-radius: 10px;
   }
 
-#loginbutton {
-display:flex;
-justify-content: center;
-}
-#loginbutton:hover{
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
+
 .card{
   /* Add shadows to create the "card" effect */
   background-color: rgba(255,255,255, 0.6) !important;
@@ -176,9 +170,14 @@ padding: 2.5% 5%;
 }
 
 #adminButton{
-float:right;
-background-color:#337ab7;
-color: white;
+  float:right;
+  background-color:#337ab7;
+  color: white;
+}
+#adminButton:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  color:black;
+  transition: 0.5s;
 }
 
 .editSquare{
@@ -199,24 +198,86 @@ color: white;
 .deleteSquare:hover{
   filter: brightness(85%);
 }
+.editButton{
+  background-color: #38AB20 !important;
+  border-radius: 5px;
+  color:white !important;
+  width:18%;
+}
+.editButton:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  background-color: #6d757d;
+  color:black !important;
+}
+.deleteButton{
+  background-color: #D41220 !important;
+  border-radius: 5px;
+  color:white !important;
+  width:18%;
+}
+.deleteButton:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  background-color: #6d757d;
+  color:black !important;
+}
+.payButton{
+  background-color: #337ab7 !important;
+  border-radius: 5px;
+  color:white !important;
+  width:18%;
+}
+.payButton:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  background-color: #6d757d;
+  color:black !important;
+}
+.insertButton{
+  background-color:#38AB20; /*green*/
+  color: white;
+  margin:auto 5px;
+}
+.insertButton:hover{
+    filter: brightness(85%);
+}
+
 .orderButton{
-  background-color:#38AB20;
+  background-color:#38AB20; /*blue*/
   color: white;
   margin:auto 5px;
   width: 8%;
+}
+.orderButton:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
 }
 .resetButton{
   background-color: #D41220;
   color: white;
   width: 8%;
 }
+.resetButton:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+}
 .exitButton{
- color:black;
+  color:black;
   width: 8%;
 }
-.deleteButton{
+.exitButton:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+}
+
+.exitPigeon{
+  border-radius: 5px;
+  color:#383839;
+  width:18%;
+  border: 1px solid #b6b8bb !important;
 
 }
+.exitPigeon:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  background-color: #6d757d;
+  color:white !important;
+}
+
 .countButton{
   background-color:#b6b5bb;
   margin-left: 10px;
@@ -239,9 +300,16 @@ color: white;
   width:70%;
 }
 .removeButton:hover{
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
   color:black;
   transition: 0.5s;
+}
+.loginbutton {
+  display:flex;
+  justify-content: center;
+  width:35%;
+}
+.loginbutton:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 #foodButton{
@@ -254,7 +322,7 @@ color: white;
   margin-left: 11px;
   margin-right: 11px;
   margin-top:10%;
-margin-top: 5%;
+  margin-top: 5%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   display: wrap;

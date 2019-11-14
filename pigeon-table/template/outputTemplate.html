@@ -70,7 +70,7 @@
             </div>
 
             <div class="col-sm-4 col-md-5 col-sm-pull-8 col-md-pull-7 xs-center xs-margin-bottom">
-                <button type="button" class="btn btn-info" ng-show="btn == true && data != null" ng-click="insertBtn()">Insert</button>
+                <button type="button" class="btn insertButton" ng-show="btn == true && data != null" ng-click="insertBtn()">Insert</button>
             </div>
         </div>
     </div>
@@ -119,8 +119,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="close()">Close</button>
-        <button type="button" class="btn btn-success" ng-click="submit()">Insert</button>
+        <button type="button" class="btn exitPigeon" id="floatL" ng-click="close()">Close</button>
+        <button type="button" class="btn insertButton" id="floatR" ng-click="submit()">Confirm Insert</button>
     </div>
 </script>
 
@@ -143,8 +143,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="close()">Close</button>
-        <button type="button" class="btn btn-success" ng-click="submit()">Edit</button>
+        <button type="button" class="btn exitPigeon"  id="floatL" ng-click="close()">Close</button>
+        <button type="button" class="btn insertButton" id="floatR" ng-click="submit()">Confirm Edit</button>
     </div>
 </script>
 

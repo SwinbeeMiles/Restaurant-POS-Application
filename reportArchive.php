@@ -25,7 +25,7 @@
             ?>
         </div>
     </header>
-    
+
     <h2>Reports</h2>
     <p>Search Date Filter: <input type="text" data-ng-model="query"/></p>
     <ol>

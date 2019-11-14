@@ -1,0 +1,11 @@
+@media print {
+   #myHeader, .printButton{
+     display: none !important;
+   }
+
+   *{
+     width:100%!important;
+
+}
+
+}

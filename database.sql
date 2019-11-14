@@ -19,19 +19,19 @@ CREATE TABLE menu (
 );
 
 INSERT INTO menu (FoodID, FoodName, FoodPrice)
-VALUES ('f1', 'Lobster Benedict', 55.00),
-('f2', 'Croque Madame', 23.00),
-('f3', 'Angus Beef Burger', 60.00),
-('f4', 'Trufle Mushroom Potato Hash', 20.00),
-('f5', 'Tamarind Prawn Toast', 28.00),
-('f6', 'Orange Duck Sausages', 30.00),
-('f7', 'Hanged Caciocavallo', 35.00),
-('f8', 'Greek Doughnut Twist with Nutella', 20.00),
-('f9', 'Raspberry Ricotta Hotcakes', 35.00),
-('f10', 'Lemon Myrtle Kombucha', 10.00),
-('f11', 'Mule-Tide', 12.00),
-('f12', 'Bounty Monarch Hot Chocolate',15.00),
-('f13', 'LoupTown Earl Grey Tea', 10.00);
+VALUES ('f10', 'Lobster Benedict', 55.00),
+('f11', 'Croque Madame', 23.00),
+('f12', 'Angus Beef Burger', 60.00),
+('f13', 'Trufle Mushroom Potato Hash', 20.00),
+('f14', 'Tamarind Prawn Toast', 28.00),
+('f15', 'Orange Duck Sausages', 30.00),
+('f16', 'Hanged Caciocavallo', 35.00),
+('f17', 'Greek Doughnut Twist Nutella', 20.00),
+('f18', 'Raspberry Ricotta Hotcakes', 35.00),
+('f19', 'Lemon Myrtle Kombucha', 10.00),
+('f20', 'Mule-Tide', 12.00),
+('f21', 'Bounty Monarch Hot Chocolate',15.00),
+('f22', 'LoupTown Earl Grey Tea', 10.00);
 
 
 CREATE TABLE tables (
@@ -48,7 +48,15 @@ VALUES (1, 8, 'available'),
 (3, 8, 'available'),
 (4, 8, 'available'),
 (5, 8, 'available'),
-(6, 8, 'available');
+(6, 8, 'available'),
+(7, 8, 'available'),
+(8, 8, 'available'),
+(9, 8, 'available'),
+(10, 8, 'available'),
+(11, 8, 'available'),
+(12, 8, 'available'),
+(13, 8, 'available'),
+(14, 8, 'available');
 
 CREATE TABLE orders (
 	OrderID int(3) NOT NULL AUTO_INCREMENT,
@@ -94,7 +102,7 @@ CREATE TABLE reservation (
 );
 
 INSERT INTO reservation (TableID, ReservationDate, ReservationTime, EndTime)
-VALUES (1,'2019-10-09', '07:07:07', '19:09:09');
+VALUES (1,'2019-11-18', '12:00:00', '13:00:00');
 
 CREATE TABLE coupons (
 	CouponCode varchar(10) NOT NULL,
