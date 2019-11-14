@@ -222,23 +222,44 @@
 		$retrievedTime = null;
 		$retrievedEnd = null;
 		
-		$mySqlReservation = "SELECT ReservationID, ReservationTime, EndTime FROM reservation WHERE ReservationDate = '$myReservedDate'";
-		$myResult = mysqli_query($db, $mySqlReservation);
-			
-		$mySqlTable = "SELECT * FROM tables WHERE TableID = $tableID";
-		$myTableStmt = mysqli_prepare($db, $mySqlTable);
-
-		while($row = mysqli_fetch_assoc($myResult)){
-			foreach($row as $key => $value){
-				if($key == 'ReservationID'){
-					$retrievedID = $value;
-				} else if($key == 'ReservationTime'){
-					$retrievedTime = $value;
-				} else if($key == 'EndTime'){
-					$retrievedEnd = $value;
+		$mySqlReservation = "SELECT ReservationID, ReservationTime, EndTime FROM reservation 
+		WHERE ReservationDate = ? AND TableID = ?";
+		$myReservationStmt = mysqli_prepare($db, $mySqlReservation);
+		mysqli_stmt_bind_param($myReservationStmt, 'si', $myReservedDate, $myTableID);
+		mysqli_stmt_execute($myReservationStmt);
+		mysqli_stmt_bind_result($myReservationStmt, $retrievedID, $retrievedTime, $retrievedEnd);
+		
+		while(mysqli_stmt_fetch($myReservationStmt)){
+			for($x = 0; $x < sizeof($msg); $x++){
+				if($msg[$x] == "Validated"){
+					if ($x == 2){
+						if($myStartTime >= $retrievedTime && $myStartTime <= $retrievedEnd){
+							if($myReservationID != $retrievedID){
+								$msg[$x] = "Overlapping Start Time With Reservation $retrievedID!";
+							}
+						}
+					}
+					if ($x == 4){
+						if($myEndTime < $startTime){
+							$msg[$x] = "End Time must be greater than Reserved Time.";
+						} else if ((strtotime($myEndTime) - strtotime($startTime))/60 < 59){
+							$msg[$x] = "Reservation must be have at least a 59 minutes interval.";
+						} else {
+							if($myEndTime >= $retrievedTime && $myEndTime <= $retrievedEnd){
+								if($myReservationID != $retrievedID){
+									$msg[$x] = "Overlapping End Time With Reservation $retrievedID!";
+								}
+							}
+						}
+					}
 				}
 			}
 		}
+		
+		mysqli_stmt_close($myReservationStmt);
+		
+		$mySqlTable = "SELECT * FROM tables WHERE TableID = $tableID";
+		$myTableStmt = mysqli_prepare($db, $mySqlTable);
 		
 		for($x = 0; $x < sizeof($msg); $x++){
 			if($msg[$x] == "Validated"){
@@ -250,33 +271,14 @@
 						$msg[$x] = "Table does not exist";
 					}
 				}
-				if ($x == 2){
-					if($myStartTime >= $retrievedTime && $myStartTime <= $retrievedEnd){
-						if($myReservationID != $retrievedID){
-							$msg[$x] = "Overlapping Start Time!";
-						}
-					}
-				}
 				if ($x == 3){
 					if($myReservedDate < date("Y-m-d")){
 						$msg[$x] = "Unable to reserve a past date!";
 					}
 				}
-				if ($x == 4){
-					if($myEndTime < $startTime){
-						$msg[$x] = "End Time must be greater than Reserved Time.";
-					} else if ((strtotime($myEndTime) - strtotime($startTime))/60 < 59){
-						$msg[$x] = "Reservation must be have at least a 59 minutes interval.";
-					} else {
-						if($myEndTime >= $retrievedTime && $myEndTime <= $retrievedEnd){
-							if($myReservationID != $retrievedID){
-								$msg[$x] = "Overlapping End Time!";
-							}
-						}
-					}
-				}
 			}
 		}
+	
 			
         $queryMode = true;
         for ($i = 0; $i < sizeof($msg); $i++) {

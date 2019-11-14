@@ -8,38 +8,46 @@
 	$date = date('Y-m-d');
 	$time = date('H:i:s');
 	
-	$sql = "SELECT * FROM reservation WHERE ReservationDate = '$date'";
-	$result = mysqli_query($conn, $sql);
+	$table = null;
+	$start = null;
+	$end = null;
 	
-	while($row = mysqli_fetch_assoc($result)){
-		$table = null;
-		$start = null;
-		$end = null;
-		
-		foreach($row as $key => $value){
-			if($key == "TableID"){
-				$table = $value;
-			}
-			if($key == "ReservationTime"){
-				$start = $value;
-			}
-			if($key == "EndTime"){
-				$end = $value;
-			}
-		}
-		
-		if($table != null && $start != null && $end != null){
-			if($start <= $time && $end >= $time){
-				//Reserve tables
-				$sql = "UPDATE tables SET Status = IF(Status <> 'occupied', 'reserved', Status) WHERE TableID = $table";
-				mysqli_query($conn, $sql);
-				echo mysqli_error($conn);
-				break;
-			}else{
-				//Unreserve tables
-				$sql = "UPDATE tables SET Status = IF(Status <> 'occupied', 'available', Status) WHERE TableID = $table";
-				mysqli_query($conn, $sql);
-			}
+	$sql = "SELECT TableID, ReservationTime, EndTime FROM reservation WHERE ReservationDate = ?";
+	$stmt = mysqli_prepare($conn, $sql);
+	mysqli_stmt_bind_param($stmt, 's', $date);
+	mysqli_stmt_execute($stmt);
+	mysqli_stmt_bind_result($stmt, $tableid, $starttime, $endtime);
+	
+	$reservations = array();
+	
+	while(mysqli_stmt_fetch($stmt)){
+		$reservations[] = array(
+			'table' => $tableid, 
+			'start' => $starttime,
+			'end' => $endtime
+		);
+	}
+	
+	mysqli_stmt_close($stmt);
+	
+	foreach($reservations as $r){
+		$table = $r['table'];
+		$start = $r['start'];
+		$end = $r['end'];
+		if($start <= $time && $end >= $time){
+			//Reserve tables
+			$sql2 = "UPDATE tables SET Status = IF(Status <> 'occupied', 'reserved', Status) WHERE TableID = ?";
+			$stmt2 = mysqli_prepare($conn, $sql2);
+			mysqli_stmt_bind_param($stmt2, 'i', $table);
+			mysqli_stmt_execute($stmt2);
+			mysqli_stmt_close($stmt2);
+		}else{
+			//Unreserve tables
+			$sql3 = "UPDATE tables SET Status = IF(Status <> 'occupied', 'available', Status) WHERE TableID = ?";
+			$stmt3 = mysqli_prepare($conn, $sql3);
+			mysqli_stmt_bind_param($stmt3, 'i', $table);
+			mysqli_stmt_execute($stmt3);
+			mysqli_stmt_close($stmt3);
 		}
 	}
 	
