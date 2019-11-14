@@ -14,10 +14,6 @@
     <!-- Pigeon Table -->
     <link href="pigeon-table/css/pigeon-table.css" rel="stylesheet" />
 
-	<!-- The includes.php file is required to include all necessary dependencies-->
-    <?php
-		include "pigeon-table/php/includes.php"
-	   ?>
 </head>
 
 <body>
@@ -26,7 +22,6 @@
     <?php
 		      include('includes/header.php');
 		      include('includes/loginCheck.php');
-          include('includes/loginAdminCheck.php');
     ?>
     <div class="menuNavigation">
       <?php
@@ -43,7 +38,14 @@
           <br><br>
         <h2 class="listTitle">Coupon List</h2>
         <!-- View Data in table form -->
-        <pigeon-table query="SELECT * FROM coupons" editable="true" control="true"></pigeon-table>
+		<?php
+			if(isset($_SESSION["privilege"]) && $_SESSION["privilege"] === 1){
+				echo '<pigeon-table query="SELECT * FROM coupons" editable="true" control="true"></pigeon-table>';
+			}
+			else{
+				echo '<pigeon-table query="SELECT * FROM coupons"></pigeon-table>';
+			}
+		?>
     </div>
     </div>
     </div>
@@ -58,6 +60,6 @@
   <!-- Angular UI Bootstrap -->
   <script src="pigeon-table/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
   <!-- Pigeon Table -->
-  <script src="pigeon-table/js/pigeon-table.js"></script>
+  <script src="pigeon-table/js/pigeon-table-coupon.js"></script>
 </body>
 </html>
