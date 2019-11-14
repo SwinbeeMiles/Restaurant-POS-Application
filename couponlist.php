@@ -38,28 +38,16 @@
           <br><br>
         <h2 class="listTitle">Coupon List</h2>
         <!-- View Data in table form -->
-		<?php
-			if(isset($_SESSION["privilege"]) && $_SESSION["privilege"] === 1){
-				echo '<pigeon-table query="SELECT * FROM coupons" editable="true" control="true"></pigeon-table>';
-			}
-			else{
-				echo '<pigeon-table query="SELECT * FROM coupons"></pigeon-table>';
-			}
-		?>
+		<pigeon-table query="SELECT * FROM coupons"></pigeon-table>
     </div>
     </div>
     </div>
 
 </div>
-  <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
   <script src="pigeon-table/js/jquery.min.js"></script>
-  <!-- All Bootstrap plug-ins file -->
   <script src="pigeon-table/js/bootstrap.min.js"></script>
-  <!-- AngularJS -->
   <script src="pigeon-table/js/angular.min.js"></script>
-  <!-- Angular UI Bootstrap -->
   <script src="pigeon-table/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
-  <!-- Pigeon Table -->
-  <script src="pigeon-table/js/pigeon-table-coupon.js"></script>
+  <script src='pigeon-table/js/pigeon-table-reservation.js'></script>
 </body>
 </html>
