@@ -55,56 +55,29 @@
         $updateValue = "";
         $result = $db->query("DESCRIBE $table");
 		
-		$startTime = "";
-		$endTime = "";
-		$reservedDate = "";
-		$reservationID = "";
-		$tableID = "";
+		$discount = "";
+		$expirydate = "";
 		
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
 
             foreach($input as $key => $value) {
 
                 if ($key != "sqlType" && $key == $row['Field']) {
-					if($key == 'ReservationID'){
-						$reservationID = $value;
+					if($key == 'DiscountRate'){
+						$discount = $value;
 					}
 					
-					if($key == 'TableID'){
-						$tableID = $value;
-					}
-					
-					if($key == 'ReservationTime'){
-						$startTime = $value;
-					}
-					
-					if($key == 'ReservationDate'){
-						$reservedDate = $value;
-					}
-					
-					if($key == 'EndTime'){
-						$endTime = $value;
+					if($key == 'ExpiryDate'){
+						$expirydate = $value;
 					}
 					
                     //Check if the column is null
                     if ($value == "" && $row['Null'] == "YES") {
                         $value = "NULL";
                     } else if ($value == "" && $row['Null'] == "NO") {
-						if($key == 'ReservationID'){
-							$msg[] = "Validated";
-							continue;
-						}
-						else{
-							$msg[] = "Please insert your data.";
-							continue;
-						}
-                    } else {
-						if($key == 'ReservationID' && $queryType == 'INSERT'){
-							$msg[] = "Leave empty because this field is auto-generated";
-							continue;
-						}
-					}
-						
+                        $msg[] = "Please insert your data.";
+                        continue;
+                    }
 
                     $colTitle .= $key. ', ';
                     $length = preg_replace("/[^0-9]/","",$row['Type']);
@@ -146,9 +119,9 @@
                             continue;
                         }
                     } else if (preg_match("/(time)/i", $row['Type'])) {
-                        if (!preg_match("/^(([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?)$/", $value)) {
-							$msg[] = "Please insert valid time within range 00:00:00 to 23:59:59";
-							continue;
+                        if (!preg_match("/^(([0-7][0-9]{2}|8[0-2][0-9]|83[0-8]|\d{2})|(-[0-7][0-9]{2}|-8[0-2][0-9]|-83[0-8]|-\d{2})):([0-5][0-9]):([0-5][0-9])$/", $value)) {
+                            $msg[] = "Please insert valid time within range -838:59:59 to 838:59:59";
+                            continue;
                         }
                     } else if (preg_match("/(year)/i", $row['Type'])) {
                         if (!preg_match("/^(190[1-9]|19[1-9][0-9]|20[0-9]{2}|21[0-4][0-9]|215[0-5])$/", $value)) {
@@ -187,16 +160,16 @@
                         }
 
                         //Continue validatation if SQL statement is "INSERT"
-                        //$exists = false;
-                        //foreach ($data as $colVal) {
-                        //    if (($row['Key'] == "PRI" || $row['Key'] == "UNI") && $colVal[$key] == $value) {
-                        //        $msg[] = "The data already exists. Please insert different data.";
-                        //        $exists = true;
-                        //       break;
-                        //    }
-                        //}
-						//
-                        //if ($exists) break 2;
+                        $exists = false;
+                        foreach ($data as $colVal) {
+                            if (($row['Key'] == "PRI" || $row['Key'] == "UNI") && $colVal[$key] == $value) {
+                                $msg[] = "The data already exists. Please insert different data.";
+                                $exists = true;
+                                break;
+                            }
+                        }
+
+                        if ($exists) break 2;
                     }
 
                     // Store the data if there are no validation errors
@@ -213,77 +186,31 @@
             }
         }
 		
-		$myReservedDate = $reservedDate;
-		$myReservationID = $reservationID;
-		$myStartTime = $startTime;
-		$myEndTime = $endTime;
-		$myTableID = $tableID;
-		$retrievedID = null;
-		$retrievedTime = null;
-		$retrievedEnd = null;
-		
-		$mySqlReservation = "SELECT ReservationID, ReservationTime, EndTime FROM reservation WHERE ReservationDate = '$myReservedDate'";
-		$myResult = mysqli_query($db, $mySqlReservation);
-			
-		$mySqlTable = "SELECT * FROM tables WHERE TableID = $tableID";
-		$myTableStmt = mysqli_prepare($db, $mySqlTable);
-
-		while($row = mysqli_fetch_assoc($myResult)){
-			foreach($row as $key => $value){
-				if($key == 'ReservationID'){
-					$retrievedID = $value;
-				} else if($key == 'ReservationTime'){
-					$retrievedTime = $value;
-				} else if($key == 'EndTime'){
-					$retrievedEnd = $value;
-				}
-			}
-		}
-		
-		for($x = 0; $x < sizeof($msg); $x++){
-			if($msg[$x] == "Validated"){
-				if($x == 1){
-					mysqli_stmt_execute($myTableStmt);
-					//Stores new statement
-					mysqli_stmt_store_result($myTableStmt);
-					if(mysqli_stmt_num_rows($myTableStmt) == 0){
-						$msg[$x] = "Table does not exist";
+		$myDiscount = $discount;
+		$myExpiryDate = $expirydate;
+				
+		for ($x = 0; $x < sizeof($msg); $x++) {
+			if ($msg[$x] == "Validated") {
+				if ($x == 1){
+					if($myDiscount == 0){
+						$msg[$x] = "Discount rate should not be 0!";
+					}
+					if($myDiscount > 1){
+						$msg[$x] = "Discount range is 0.01 to 1.00.";
 					}
 				}
 				if ($x == 2){
-					if($myStartTime >= $retrievedTime && $myStartTime <= $retrievedEnd){
-						if($myReservationID != $retrievedID){
-							$msg[$x] = "Overlapping Start Time!";
-						}
-					}
-				}
-				if ($x == 3){
-					if($myReservedDate < date("Y-m-d")){
-						$msg[$x] = "Unable to reserve a past date!";
-					}
-				}
-				if ($x == 4){
-					if($myEndTime < $startTime){
-						$msg[$x] = "End Time must be greater than Reserved Time.";
-					} else if ((strtotime($myEndTime) - strtotime($startTime))/60 < 59){
-						$msg[$x] = "Reservation must be have at least a 59 minutes interval.";
-					} else {
-						if($myEndTime >= $retrievedTime && $myEndTime <= $retrievedEnd){
-							if($myReservationID != $retrievedID){
-								$msg[$x] = "Overlapping End Time!";
-							}
-						}
+					if($myExpiryDate < date("Y-m-d")){
+						$msg[$x] = "Unable to insert a past date!";
 					}
 				}
 			}
-		}
-			
+        }
+		
         $queryMode = true;
         for ($i = 0; $i < sizeof($msg); $i++) {
             if ($msg[$i] != "Validated") {
-				if ($msg[$i] != "") {
-					$queryMode = false;
-				}
+                $queryMode = false;
             }
         }
 

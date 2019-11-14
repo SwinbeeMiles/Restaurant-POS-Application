@@ -149,6 +149,8 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
 app.controller("payment", function ($scope, $http,$window,getData) {
     "use strict";
     var couponData,regExNum = /^[0-9]*(\.[0-9]+)?$/,x=0;
+    $scope.payed = false;
+    $scope.balance=0;
     $scope.totalValid=false;
     $scope.discountValid=false;
     $scope.couponCode="";
@@ -194,16 +196,17 @@ app.controller("payment", function ($scope, $http,$window,getData) {
         else if(regExNum.test($scope.enteredAmount))
         {
             $window.alert("Transaction success!");
-            if(($scope.enteredAmount > $scope.discountedTotal) && ($scope.couponValidity))
+            if(($scope.enteredAmount >= $scope.discountedTotal) && ($scope.couponValidity))
             {
                 $scope.discountValid=true;
-                $window.alert("Balance: RM" + (parseFloat($scope.enteredAmount) - parseFloat($scope.discountedTotal)));
+                $scope.balance = parseFloat($scope.enteredAmount) - parseFloat($scope.discountedTotal);
             }
-            else if(($scope.enteredAmount > $scope.total) && (!$scope.couponValidity))
+            else if(($scope.enteredAmount >= $scope.total) && (!$scope.couponValidity))
             {
                 $scope.totalValid=true;
-                $window.alert("Balance: RM" + (parseFloat($scope.enteredAmount) - parseFloat($scope.total)));
+                $scope.balance = parseFloat($scope.enteredAmount) - parseFloat($scope.total);
             }
+            $scope.payed = true;
         }
 
         if(($scope.totalValid)||($scope.discountValid))
@@ -319,6 +322,7 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
             b=0;
             x+=1;
         }
+        $scope.orderEditArrayBackup = angular.copy($scope.orderEditArray);
     });
 
     $scope.tableNo = $window.sessionStorage.tableNo;
@@ -338,7 +342,7 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
             {
                 $scope.temp -= 1;
             }
-            $scope.orderEditArray[rowSelected].quantity = $scope.temp;
+        $scope.orderEditArray[rowSelected].quantity = $scope.temp;
         $scope.isModified = true;
     };
 
@@ -393,12 +397,14 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
                 price: $scope.menu[rowSelected].FoodPrice
             });
         }
+        $scope.isModified = true;
     };
 
     $scope.removeCurrentItem = function (rowSelected)
     {
         $scope.currentItemRemove.push($scope.orderEditArray[rowSelected].foodID);
         $scope.orderEditArray.splice([rowSelected],1);
+        $scope.isModified = true;
     };
 
     $scope.removeNewItem = function (rowSelected)
@@ -423,6 +429,14 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
+    };
+    
+    $scope.reset = function()
+    {
+        $scope.orderEditArray = angular.copy($scope.orderEditArrayBackup);
+        $scope.newItemArray = [];
+        $scope.currentItemRemove =[];
+        $scope.isModified = false;
     };
 });
 
