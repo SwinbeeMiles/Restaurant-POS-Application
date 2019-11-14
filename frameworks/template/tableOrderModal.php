@@ -51,7 +51,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Are You Sure?</h4>
+                <h4 class="modal-title">Delete this order?</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -59,8 +59,8 @@
                 <p>Order ID: {{orderDetailsArray[0].orderID}}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-default" onclick="window.location.reload();" data-ng-click = deleteOrder() data-dismiss="modal">Yes</button>
+                <button type="button" class="btn exitPigeon" data-dismiss="modal">No</button>
+                <button type="button" class="btn deleteButton" onclick="window.location.reload();" data-ng-click = deleteOrder() data-dismiss="modal">Yes</button>
             </div>
         </div>
     </div>

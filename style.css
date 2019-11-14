@@ -92,12 +92,17 @@ header{
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.1);
 }
-
+.cardcard{
+  padding:3% 5% !important;
+}
 .cardTableBodies{
 padding: 2.5% 5%;
 }
 .cardTablePage{
   padding: 2.5% 5%;
+}
+.cardTable{
+  padding:3% 5%;
 }
 
 .flex-container {
@@ -199,7 +204,7 @@ padding: 2.5% 5%;
   filter: brightness(85%);
 }
 .editButton{
-  background-color: #38AB20 !important;
+  background-color:#337ab7  !important;
   border-radius: 5px;
   color:white !important;
   width:18%;
@@ -221,7 +226,7 @@ padding: 2.5% 5%;
   color:black !important;
 }
 .payButton{
-  background-color: #337ab7 !important;
+  background-color: #38AB20 !important; /*green*/
   border-radius: 5px;
   color:white !important;
   width:18%;
@@ -237,9 +242,8 @@ padding: 2.5% 5%;
   margin:auto 5px;
 }
 .insertButton:hover{
-    filter: brightness(85%);
+  filter: brightness(85%);
 }
-
 .orderButton{
   background-color:#38AB20; /*blue*/
   color: white;
@@ -257,6 +261,31 @@ padding: 2.5% 5%;
 .resetButton:hover{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
 }
+.resetAmend{
+  background-color: #D41220!important; /*red*/
+  border-radius: 5px;
+  color:white !important;
+  width:8%;
+  float:right;
+}
+.resetAmend:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  background-color: #6d757d;
+  color:black !important;
+}
+.orderAmend{
+  background-color: #38AB20 !important; /*green*/
+  border-radius: 5px;
+  color:white !important;
+  width:8%;
+  float:right;
+}
+
+.orderAmend:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  background-color: #6d757d;
+  color:black !important;
+}
 .exitButton{
   color:black;
   width: 8%;
@@ -270,12 +299,35 @@ padding: 2.5% 5%;
   color:#383839;
   width:18%;
   border: 1px solid #b6b8bb !important;
-
 }
 .exitPigeon:hover{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
   background-color: #6d757d;
   color:white !important;
+}
+.exitX{
+  width:8% !important;
+}
+.exitPay{
+  border-radius: 5px;
+  color:#383839;
+  border: 1px solid #b6b8bb !important;
+
+}
+.exitPay:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  background-color: #6d757d;
+  color:white !important;
+}
+.payPay{
+  background-color: #38AB20 !important; /*green*/
+  border-radius: 5px;
+  color:white !important;
+}
+.payPay:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  background-color: #6d757d;
+  color:black !important;
 }
 
 .countButton{
@@ -296,7 +348,6 @@ padding: 2.5% 5%;
   color: white;
   padding:7px 5px;
   border-radius: 5px;
-  text-size:12px;
   width:70%;
 }
 .removeButton:hover{
@@ -310,6 +361,19 @@ padding: 2.5% 5%;
 }
 .loginbutton:hover{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.printX{
+  border-radius: 5px;
+  float:right;
+  background-color:#337ab7;
+  color: white;
+  margin:15px 10px;
+  padding:5px 8px;
+}
+.printX:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  color:black;
+  transition: 0.5s;
 }
 
 #foodButton{
@@ -335,4 +399,10 @@ padding: 2.5% 5%;
 }
 .tableOrder tbody > tr > td {
   font-size: 13px;
+}
+.inputtext{
+  width: 30%;
+  padding: 5px;
+  border-radius: 2px;
+
 }
