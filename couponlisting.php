@@ -22,7 +22,6 @@
     <?php
 		      include('includes/header.php');
 		      include('includes/loginCheck.php');
-          include('includes/loginAdminCheck.php');
     ?>
     <div class="menuNavigation">
       <?php
@@ -35,16 +34,16 @@
     <div class="container">
       <div class="card cardTableBody">
         <div class="card-body cardTableBodies">
-            <button type="button" class="btn" id="adminButton" onclick="location.href='couponlisting.php'">Back to Coupon</button>
+            <button type="button" class="btn" id="adminButton" onclick="location.href='couponlist.php'">Edit Coupon</button>
           <br><br>
-        <h2 class="listTitle">Coupon List</h2>
+        <h2 class="listTitle">Coupon Listing</h2>
         <!-- View Data in table form -->
-		      <pigeon-table query="SELECT * FROM coupons" editable="true" control="true"></pigeon-table>
+		      <pigeon-table query="SELECT * FROM coupons" editable="false" control="true"></pigeon-table>
         </div>
       </div>
     </div>
   </div>
-  
+
   <script src="pigeon-table/js/jquery.min.js"></script>
   <script src="pigeon-table/js/bootstrap.min.js"></script>
   <script src="pigeon-table/js/angular.min.js"></script>

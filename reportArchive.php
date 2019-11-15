@@ -11,28 +11,45 @@
     <!-- Bootstrap -->
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
+<header id="myHeader">
+<?php
+    include('includes/header.php');
+    include('includes/loginCheck.php');
+    include('includes/loginAdminCheck.php');
+    include('includes/reservationCheck.php');
+?>
+<div class="menuNavigation">
+    <?php
+        include('includes/navMenu.php');
+    ?>
+</div>
+</header>
 
-<body data-ng-controller="chartArchiveControl">
-        <header id="myHeader">
-        <?php
-            include('includes/header.php');
-            include('includes/loginCheck.php');
-            include('includes/reservationCheck.php');
-        ?>
-        <div class="menuNavigation">
-            <?php
-                include('includes/navMenu.php');
-            ?>
+<body>
+  <div data-ng-controller="chartArchiveControl">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="card cardTableBody">
+                <div class="card-body cardTableBodies cardcard">
+
+                  <h2>Reports</h2>
+                  <div class="form-inline">
+                  <p>Search Date Filter: <input type="text" class="form-control inputtext col-8" data-ng-model="query"/></p>
+                </div>
+
+                  <ol class="list-group">
+
+                    <li class="list-group-item" data-ng-repeat="x in dateArchive | filter: query track by $index">
+                      <a href="chart.php" data-ng-click="date($index)">{{x.OrderDate}}</a>
+                    </li>
+
+                  </ol>
+
+              </div>
+           </div>
         </div>
-    </header>
-
-    <h2>Reports</h2>
-    <p>Search Date Filter: <input type="text" data-ng-model="query"/></p>
-    <ol>
-        <li data-ng-repeat="x in dateArchive | filter: query track by $index">
-            <a href="chart.php" data-ng-click="date($index)">{{x.OrderDate}}</a>
-        </li>
-    </ol>
+      </div>
+    </div>
 
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>

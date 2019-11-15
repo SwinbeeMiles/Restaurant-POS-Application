@@ -12,42 +12,50 @@
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body data-ng-controller="payment" data-ng-init="couponCode=''">
-    <header>
-        <?php
-          include('includes/header.php');
-          include('includes/loginCheck.php');
+<body>
+  <header>
+      <?php
+        include('includes/header.php');
+        include('includes/loginCheck.php');
+        ?>
+      <div class="menuNavigation">
+          <?php
+        include('includes/navMenu.php');
     ?>
-        <div class="menuNavigation">
-            <?php
-          include('includes/navMenu.php');
-      ?>
-        </div>
-    </header>
+      </div>
+  </header>
+<div data-ng-controller="payment" data-ng-init="couponCode=''">
+
     <div class="container-fluid">
-        <div class="container h-100">
-            <div class="row h-100 justify-content-center align-items-center">
-                <div class="card cardTableC">
-                    <div class="card-body cardTable">
+        <div class="container">
+
+                <div class="card cardTable">
+                    <div class="card-body">
 
                         <h3>Customer Bill Payment for Table: {{tableID}}</h3>
-                        <h4>Order ID: {{order[0].orderID}}</h4>
-                        <table class="table table-striped table-hover">
+                        <h5>Order ID: {{order[0].orderID}}</h4>
+                        <table class="table table-striped tableOrder">
+                          <thead>
                             <tr>
                                 <th>Food ID</th>
                                 <th>Quantitiy</th>
                                 <th>Total</th>
                             </tr>
-
+                          </thead>
+                          <tbody>
                             <tr data-ng-repeat="x in order">
                                 <td>{{x.foodID}}</td>
                                 <td>{{x.quantity}}</td>
                                 <td>RM {{x.total}}</td>
                             </tr>
+                          </tbody>
                         </table>
-                        <h4>Total Price: RM{{total}}</h4>
-                        <h4>Coupon Code (Optional):<input type="text" name="couponCode" data-ng-model="couponCode" /></h4>
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#payModal" data-ng-click="validateCoupon()">Pay</button>
+                        <h5>Total Price: RM{{total}}</h5>
+                        <div class="form-inline">
+                        <h6>Coupon Code (Optional): <input type="text" class="form-control inputtext col-8" name="couponCode" data-ng-model="couponCode" /></h5>
+                        </div>
+                        <button type="button" class="btn exitPigeon exitX" onclick="location.href='tablepage.php'">Cancel</button>
+                        <button type="button" class="btn orderAmend" data-toggle="modal" data-target="#payModal" data-ng-click="validateCoupon()">Pay</button>
 
                         <!-- Modal -->
                         <div class="modal fade" id="payModal" role="dialog">
@@ -62,12 +70,14 @@
                                     </div>
                                     <div class="modal-body">
                                         <h4>Total Price: RM {{total}}</h4>
+
                                         <div ng-if="couponCode!=''">
                                             <div ng-if="couponValidity">
-                                                <h4>Discounted Total Price: RM {{discountedTotal}}</h4>
+
+                                                <h5>Discounted Total Price: RM {{discountedTotal}}</h5>
                                             </div>
                                             <div ng-if="!couponValidity">
-                                                <h4>Invalid coupon!</h4>
+                                                <h5><span style="color:red">Invalid coupon!</span></h5>
                                             </div>
                                         </div>
 
@@ -75,20 +85,23 @@
                         dynamically depending on user input -->
                                         <input type="hidden" name="orderid" value="{{order[0].orderID}}" />
                                         <input type="hidden" name="tableid" value="{{tableID}}" />
-                                        Paid Amount: RM<input type="text" name="amount" ng-model="enteredAmount" id="test" />
+                                        <div class="form-inline">
+                                          Paid Amount: RM   <input type="text" class="form-control inputtext col-6" name="amount" ng-model="enteredAmount" id="test" />
+                                        </div>
                                         <br/>
                                         <div data-ng-if="payed">
                                             <p>Balance: RM{{balance}}</p>
                                         </div>
-                                        
+
                                         Coupon Code (Optional): {{couponCode}}
 
                                     </div>
                                     <div class="modal-footer">
                                         <div data-ng-if="!payed">
-                                            <button type="button" class="btn btn-success" data-dismiss="modal" data-ng-click="validatePaymentInput()">Yes</button>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                          <button type="button" class="btn exitPay " data-dismiss="modal">Cancel</button>
+                                          <button type="button" class="btn payPay" data-dismiss="modal" data-ng-click="validatePaymentInput()">Confirm Payment</button>
                                         </div>
+
                                         <div data-ng-if="payed">
                                             <button class="btn btn-success" onclick="location.href='tablepage.php'">Back</button>
                                         </div>

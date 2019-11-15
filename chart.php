@@ -13,52 +13,64 @@
     <!-- Bootstrap -->
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
-<header id="myHeader">
-<?php
-    include('includes/header.php');
-    include('includes/loginCheck.php');
-    include('includes/reservationCheck.php');
-?>
-<div class="menuNavigation">
-    <?php
-        include('includes/navMenu.php');
-    ?>
-</div>
-</header>
 
-<button onclick="window.print()" class="printButton">Save Report</button>
+<body>
+  <header id="myHeader">
+  <?php
+      include('includes/header.php');
+      include('includes/loginCheck.php');
+      include('includes/reservationCheck.php');
+  ?>
+  <div class="menuNavigation">
+      <?php
+          include('includes/navMenu.php');
+      ?>
+  </div>
+  </header>
 
-<body data-ng-controller="chartControl">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="card cardTableBody">
+          <div class="card-body cardTableBodies cardcard">
 
+            <div class="d-none d-print-block">
+              <h3>FoodSmith Cafe Report</h3>
+            </div>
 
+              <button onclick="window.print()" class="printButton printX">Save Report</button>
 
+              <div data-ng-controller="chartControl">
+                <h4 class="mt-3">Date: {{selectedReportDate}}</h4>
+                <table class="table table-striped  tableOrder">
+                  <thead>
+                    <tr>
+                      <td>Order ID</td>
+                      <td>Order Time</td>
+                      <td>Total Price (No Discount)</td>
+                      <td>Total Price (Discount)</td>
+                      <td>Amount Paid</td>
+                      <td>Balance</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-ng-repeat="x in orderData">
+                      <td>{{x.OrderID}}</td>
+                      <td>{{x.OrderTime}}</td>
+                      <td>{{x.TotalPrice}}</td>
+                      <td>{{x.DiscountPrice}}</td>
+                      <td>{{x.TotalPaid}}</td>
+                      <td>{{x.Balance}}</td>
+                    </tr>
+                  </tbody>
+                </table>
 
-    <h4>Date: {{selectedReportDate}}</h4>
-    <table class="table table-striped table-hover">
-        <tr>
-            <td>Order ID</td>
-            <td>Order Time</td>
-            <td>Total Price (No Discount)</td>
-            <td>Total Price (Discount)</td>
-            <td>Amount Paid</td>
-            <td>Balance</td>
-        </tr>
+                <h6>Total Earned: RM{{orderTotal.TotalAmountEarned}}</h6>
+                <h6>Total Menu Item Ordered: {{orderTotal.TotalItemOrdered}}</h6>
 
-        <tr data-ng-repeat="x in orderData">
-            <td>{{x.OrderID}}</td>
-            <td>{{x.OrderTime}}</td>
-            <td>{{x.TotalPrice}}</td>
-            <td>{{x.DiscountPrice}}</td>
-            <td>{{x.TotalPaid}}</td>
-            <td>{{x.Balance}}</td>
-        </tr>
-    </table>
-
-    <h5>Total Earned: RM{{orderTotal.TotalAmountEarned}}</h5>
-    <h5>Total Menu Item Ordered: {{orderTotal.TotalItemOrdered}}</h5>
-
-    <div id ="numOfEachFoodSold"></div>
-    <div id ="foodSoldDuringSpecificTime"></div>
+                <br/>
+                <div id ="numOfEachFoodSold"></div>
+                <br/>
+                <div id ="foodSoldDuringSpecificTime"></div>
 
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>
@@ -68,7 +80,7 @@
     <script src="frameworks/js/chart.js"></script>
     <script src="frameworks/highchart/highcharts.js"></script>
 
-    <button onclick="window.print()" class="printButton">Save Report</button>
+    <button onclick="window.print()" class="printButton printX">Save Report</button>
 
 </body>
 

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+
     <header>
         <?php
           include('includes/header.php');
@@ -20,16 +20,19 @@
       ?>
         </div>
     </header>
+
+    <body>
     <div class="container-fluid">
         <div class="container">
             <div class="card cardTableBody">
                 <div class="card-body cardTableBodies">
                     <div data-ng-controller="orderControl">
-                        <h2 class="listTitle">Creating Order for Table {{tableID}}</h2>
+                        <h3 class="listTitle">Creating Order for Table {{tableID}}</h3>
 
-                        <p>Select an item or more from the following list</p>
-                        <p>Search Filter: <input type="text" data-ng-model="query"/></p>
-
+                        <p>Select an item or more from the following list.</p>
+                        <div class="form-inline">
+                          <p>Search Filter: <input type="text" class="form-control inputtext col-8" data-ng-model="query"/></p>
+                        </div>
                         <div class="container h-100">
                             <div class="row h-100 justify-content-center align-items-center">
                               <div class="flex-container">
@@ -53,6 +56,7 @@
                                   <th></th>
                               </tr>
                             </thead>
+
                             <tbody>
                               <tr data-ng-repeat="item in orderedItems track by $index">
                                   <td>{{$index + 1}}.</td>

@@ -13,27 +13,27 @@ var app = angular.module("orderSystem", []);
 
 app.controller("orderControl", function ($scope, $http, $window, $rootScope, $timeout) {
     "use strict";
-    
+
     $scope.spinnerShow = false;
-    
+
     $scope.menuData = [];
     $scope.orderData = [];
-    
+
     $scope.tableID = $window.sessionStorage.orderTable;
     $scope.orderedItems = [];
     $rootScope.confirmedItems = [];
-    
+
     $scope.orderToModal = function () {
         $rootScope.confirmedItems = $scope.orderedItems;
     };
-    
+
     //Courtesy of Tan
     //Get current date
     $scope.DateObj = new Date();
     //Convert date to yyyy-mm-dd
     $scope.date = $scope.DateObj.getFullYear() + '-' + ('0' + ($scope.DateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + $scope.DateObj.getDate()).slice(-2);
     $scope.time = ('0'  + $scope.DateObj.getHours()).slice(-2)+':'+('0'  + $scope.DateObj.getMinutes()).slice(-2)+':'+('0' + $scope.DateObj.getSeconds()).slice(-2);
-    
+
     $scope.fetchMenu = $http({
         method: 'GET',
         url: 'includes/orderMenu.php'
@@ -49,7 +49,7 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
         $scope.orderData = response.data;
         return $scope.orderData;
     });
-    
+
     $scope.addToOrder = function (item, itemID, itemFoodPrice) {
         var i, isIn;
         if ($scope.orderedItems.length === 0) {
@@ -59,7 +59,7 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
                 price: itemFoodPrice,
                 quantity: 1
             });
-        } 
+        }
         else {
             for (i = 0; i < $scope.orderedItems.length; i++) {
                 if (item === $scope.orderedItems[i].name) {
@@ -79,46 +79,46 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
             }
             else {
                 /* eslint-disable */
-                window.alert("That item has already been selected."); 
+                window.alert("That item has already been selected.");
                 /* eslint-enable */
             }
         }
     };
-    
+
     $scope.removeItem = function(index) {
         $scope.orderedItems.splice(index,1);
     };
-    
+
     $scope.resetAll = function() { //resets everything
         $scope.orderedItems = [];
         $rootScope.confirmedItems = [];
     };
-    
+
     $scope.addQuantity = function(index) {
         $scope.orderedItems[index].quantity++;
     };
-    
+
     $scope.minusQuantity = function(index) {
         if ($scope.orderedItems[index].quantity > 1) {
             $scope.orderedItems[index].quantity--;
         }
     };
-    
+
     $scope.postData = function () {
         $scope.spinnerShow = true;
-        
+
         var i;
-        
+
         $scope.total = 0;
         for (i = 0; i < $rootScope.confirmedItems.length; i++) {
             $scope.total += ($rootScope.confirmedItems[i].price * $rootScope.confirmedItems[i].quantity);
         }
-    
+
         $scope.id = 1;
         if ($scope.orderData.length !== 0) {
             $scope.id = parseInt($scope.orderData[$scope.orderData.length-1].OrderID,10) + 1;
         }
-        
+
         var requestOrders = $http({
             method: 'POST',
             url: 'includes/orderPost.php',
@@ -132,7 +132,7 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
-        
+
         function initiateCRUD() {
             var requestTable = $http({
                 method: 'POST',
@@ -185,13 +185,13 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
             requestDetails.success(function (data) {
                 $scope.detailsToast = data;
             });
-            
+
             /* eslint-disable */
             window.location.replace("tablepage.php");
             /* eslint-enable */
         }
-        
-        $timeout(initiateCRUD, 4000);
+
+        $timeout(initiateCRUD, 1000);
     };
 });
 
