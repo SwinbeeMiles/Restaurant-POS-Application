@@ -60,6 +60,7 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
     $scope.displayTableStatus = function (tableId) {
         var a = 0,b=0,e=0, x=$scope.paymentInfo.length-1;
         $scope.occupiedTable = $scope.table[tableId].TableID;
+        $scope.orderID=0;
         a = $scope.tableOrders.length - 1;
 
         if($scope.table[tableId].Status === "available")
@@ -142,6 +143,12 @@ app.controller("tableControl", function ($scope, $http, $window, getData) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
+    };
+    
+    $scope.updateTable = function(tableID)
+    {
+        $window.alert("Table No:" + tableID + " updated to available!");
+        getData.sqlFetch("UPDATE tables SET Status='available' WHERE TableID ='" + tableID + "'", 1);
     };
 
 });

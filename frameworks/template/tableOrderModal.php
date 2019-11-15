@@ -8,37 +8,47 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <h6>Table No: {{occupiedTable}}</h6>
-                <h6>Order ID: {{orderDetailsArray[0].orderID}}</h6>
+                <div data-ng-if="orderDetailsArray.length===0">
+                    <p>It appears that there is no order for this table....</p>
+                    <p>It seems that there is an unpaid order from yesterday</p>
+                    <button data-ng-click="updateTable(occupiedTable)" data-dismiss="modal" onclick="window.location.reload();">Update Table</button>
+                    <p>Click on the "Update Table" button to make this table available for use.</p>
+                </div>
+                <div data-ng-if="orderDetailsArray.length!=0">
+                    <h6>Table No: {{occupiedTable}}</h6>
+                    <h6>Order ID: {{orderDetailsArray[0].orderID}}</h6>
 
-                <table class="table table-striped tableOrder">
-                <thead>
-                    <tr>
-                         <th>Food ID</th>
-                         <th>Quantity</th>
-                         <th>Total</th>
-                     </tr>
-                </thead>
-                <tbody>
-                    <tr data-ng-repeat="x in orderDetailsArray">
-                        <td>{{x.foodID}}</td>
-                        <td>{{x.quantity}}</td>
-                        <td>RM{{x.total}}</td>
-                      </tr>
-                </tbody>
-                </table>
+                    <table class="table table-striped tableOrder">
+                    <thead>
+                        <tr>
+                             <th>Food ID</th>
+                             <th>Quantity</th>
+                             <th>Total</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="x in orderDetailsArray">
+                            <td>{{x.foodID}}</td>
+                            <td>{{x.quantity}}</td>
+                            <td>RM{{x.total}}</td>
+                          </tr>
+                    </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn exitPigeon mr-auto" data-dismiss="modal">Close</button>
-                <button type="button" class="btn editButton" onclick="location.href='editOrder.php'">Edit</button>
-                <?php
-                    session_start();
-                    if($_SESSION["privilege"] === 1)
-                    {
-                        echo '<button type="button" class="btn deleteButton" data-toggle="modal" data-target="#delete" data-dismiss="modal">Delete</button>';
-                    }
-                ?>
-                <button type="button" class="btn payButton" onclick="location.href='payment.php'">Pay</button>
+            <div data-ng-if="orderDetailsArray.length!=0">
+                <div class="modal-footer">
+                    <button type="button" class="btn exitPigeon mr-auto" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn editButton" onclick="location.href='editOrder.php'">Edit</button>
+                    <?php
+                        session_start();
+                        if($_SESSION["privilege"] === 1)
+                        {
+                            echo '<button type="button" class="btn deleteButton" data-toggle="modal" data-target="#delete" data-dismiss="modal">Delete</button>';
+                        }
+                    ?>
+                    <button type="button" class="btn payButton" onclick="location.href='payment.php'">Pay</button>
+                </div>
             </div>
         </div>
     </div>

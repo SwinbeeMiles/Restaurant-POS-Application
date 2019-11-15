@@ -64,7 +64,6 @@
     </div>
     <data-order-Info></data-order-Info>
     <data-reserved-Info></data-reserved-Info>
-
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>
     <script src="frameworks/js/bootstrap.min.js"></script>
