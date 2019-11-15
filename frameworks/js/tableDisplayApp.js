@@ -403,8 +403,9 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
                 quantity: 1,
                 price: $scope.menu[rowSelected].FoodPrice
             });
+            $scope.isModified = true;
         }
-        $scope.isModified = true;
+        
     };
 
     $scope.removeCurrentItem = function (rowSelected)

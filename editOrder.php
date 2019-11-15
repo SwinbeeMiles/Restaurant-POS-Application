@@ -12,7 +12,7 @@
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body data-ng-controller="editOrder">
     <header id="myHeader">
         <?php
             include('includes/header.php');
@@ -30,7 +30,7 @@
         <div class="container">
             <div class="card cardTableBody">
                 <div class="card-body cardTableBodies cardcard">
-                  <div data-ng-controller="editOrder">
+                  <div>
 
                     <h3 class="listTitle">Amending Order for Table {{tableID}}</h3>
 
@@ -92,7 +92,8 @@
                 </div>
               </div>
             </div>
-
+        </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="editModal" role="dialog">
         <div class="modal-dialog">
