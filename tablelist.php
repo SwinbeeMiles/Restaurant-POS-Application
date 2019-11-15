@@ -58,6 +58,6 @@
     <script src="pigeon-table/js/bootstrap.min.js"></script>
     <script src="pigeon-table/js/angular.min.js"></script>
     <script src="pigeon-table/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
-    <script src="pigeon-table/js/pigeon-table.js"></script>
+    <script src="pigeon-table/js/pigeon-table-table.js"></script>
 </body>
 </html>

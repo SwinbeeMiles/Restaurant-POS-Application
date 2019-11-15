@@ -31,7 +31,7 @@
             <div class="card cardTableBody">
                 <div class="card-body cardTableBodies cardcard">
 
-                    <h3 class="listTitle">Amending Order for Table {{tableID}}</h3>
+                    <h3 class="listTitle">Amending Order for Table {{tableNo}}</h3>
 
                     <p>Select an item or more from the following list for amendment.</p>
                     <div class="form-inline">
