@@ -10,8 +10,8 @@
             <div class="modal-body">
                 <div data-ng-if="orderDetailsArray.length===0">
                     <p>It appears that there is no order for this table....</p>
-                    <p>It seems that there is an unpaid order from yesterday</p>
-                    <button class=" " data-ng-click="updateTable(occupiedTable)" data-dismiss="modal" onclick="window.location.reload();">Update Table</button>
+                    <p>It seems that there is an unpaid order from yesterday.</p>
+                    <button class="editX" data-ng-click="updateTable(occupiedTable)" data-dismiss="modal" onclick="window.location.reload();">Update Table</button>
                     <p>Click on the "Update Table" button to make this table available for use.</p>
                 </div>
                 <div data-ng-if="orderDetailsArray.length!=0">
