@@ -12,7 +12,7 @@
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body data-ng-controller="editOrder">
     <header id="myHeader">
         <?php
             include('includes/header.php');
@@ -30,7 +30,6 @@
         <div class="container">
             <div class="card cardTableBody">
                 <div class="card-body cardTableBodies cardcard">
-                  <div data-ng-controller="editOrder">
 
                     <h3 class="listTitle">Amending Order for Table {{tableID}}</h3>
 
@@ -81,17 +80,21 @@
                       </tbody>
                     </table>
 
-                    <button class="btn btn-outline-secondary exitButton"  onclick="location.href='tablepage.php'">Cancel</button>
-                    <button class="btn resetAmend" data-ng-click="reset()">Reset</button>
+                    <div class="d-flex justify-content-between">
+                      <button class="btn btn-outline-secondary"  onclick="location.href='tablepage.php'">Cancel</button>
+                      <button class="btn resetAmend mr-1 ml-auto" data-ng-click="reset()">Reset</button>
 
-                    <div data-ng-if="isModified">
-                      <button class="btn orderAmend" data-ng-if = "orderEditArray.length > 0" data-toggle="modal" data-target="#editModal">Submit</button>
-                      <button class="btn orderAmend" data-ng-if = "newItemArray.length > 0 && orderEditArray.length === 0" data-toggle="modal" data-target="#editModal">Submit</button>
+                      <div data-ng-if="isModified">
+                        <button class="btn payPay ml-auto" data-ng-if = "orderEditArray.length > 0" data-toggle="modal" data-target="#editModal">Submit</button>
+                        <button class="btn payPay payX ml-auto" data-ng-if = "newItemArray.length > 0 && orderEditArray.length === 0" data-toggle="modal" data-target="#editModal">Submit</button>
+                      </div>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
 
     <!-- Modal -->
     <div class="modal fade" id="editModal" role="dialog">
@@ -103,8 +106,8 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <h6>Table no: {{tableNo}}</h6>
-                    <h6>Order Id: {{orderID}}</h6>
+                    <h6>Table No: {{tableNo}}</h6>
+                    <h6>Order ID: {{orderID}}</h6>
 
                   <table class="table table-striped  tableOrder">
                     <thead>
@@ -131,8 +134,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn resetButton" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn orderButton" data-ng-click="submit()" onclick="location.href='tablepage.php'">Confirm</button>
+                    <button type="button" class="btn exitPay mr-auto" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn payPay" data-ng-click="submit()" onclick="location.href='tablepage.php'">Confirm</button>
                 </div>
             </div>
         </div>

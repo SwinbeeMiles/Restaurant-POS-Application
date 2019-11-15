@@ -28,12 +28,11 @@
 
     <div class="container-fluid">
         <div class="container">
-
-                <div class="card cardTable">
-                    <div class="card-body">
+            <div class="card cardTable">
+                <div class="card-body">
 
                         <h3>Customer Bill Payment for Table: {{tableID}}</h3>
-                        <h5>Order ID: {{order[0].orderID}}</h4>
+                        <h5>Order ID: {{order[0].orderID}}</h5>
                         <table class="table table-striped tableOrder">
                           <thead>
                             <tr>
@@ -51,9 +50,11 @@
                           </tbody>
                         </table>
                         <h5>Total Price: RM{{total}}</h5>
+
                         <div class="form-inline">
-                        <h6>Coupon Code (Optional): <input type="text" class="form-control inputtext col-8" name="couponCode" data-ng-model="couponCode" /></h5>
+                          <h6>Coupon Code (Optional): <input type="text" class="form-control inputtext col-8" name="couponCode" data-ng-model="couponCode" /></h6>
                         </div>
+
                         <button type="button" class="btn exitPigeon exitX" onclick="location.href='tablepage.php'">Cancel</button>
                         <button type="button" class="btn orderAmend" data-toggle="modal" data-target="#payModal" data-ng-click="validateCoupon()">Pay</button>
 
@@ -62,8 +63,10 @@
                             <div class="modal-dialog">
                                 <!-- Modal content-->
                                 <div class="modal-content">
+
                                     <div class="modal-header">
                                         <h4 class="modal-title">Payment</h4>
+
                                         <div data-ng-if="!payed">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
@@ -81,13 +84,13 @@
                                             </div>
                                         </div>
 
-                                        <!-- Value of orderid & tableid changed
-                        dynamically depending on user input -->
+                                        <!-- Value of orderid & tableid changed dynamically depending on user input -->
                                         <input type="hidden" name="orderid" value="{{order[0].orderID}}" />
                                         <input type="hidden" name="tableid" value="{{tableID}}" />
-                                        <div class="form-inline">
-                                          Paid Amount: RM   <input type="text" class="form-control inputtext col-6" name="amount" ng-model="enteredAmount" id="test" />
-                                        </div>
+
+                                          <div class="form-inline">
+                                            Paid Amount: RM   <input type="text" class="form-control inputtext col-6" name="amount" ng-model="enteredAmount" id="test" />
+                                          </div>
                                         <br/>
                                         <div data-ng-if="payed">
                                             <p>Balance: RM{{balance}}</p>
@@ -95,26 +98,31 @@
 
                                         Coupon Code (Optional): {{couponCode}}
 
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div data-ng-if="!payed">
-                                          <button type="button" class="btn exitPay " data-dismiss="modal">Cancel</button>
-                                          <button type="button" class="btn payPay" data-dismiss="modal" data-ng-click="validatePaymentInput()">Confirm Payment</button>
+                                      </div>
+
+
+
+                                      <div class="modal-footer">
+                                           <div data-ng-if="!payed">
+                                             <button type="button" class="btn exitPay" data-dismiss="modal">Cancel</button>
+                                             <button type="button" class="btn payPay" data-dismiss="modal" data-ng-click="validatePaymentInput()">Confirm Payment</button>
+                                           </div>
+
+                                         <div data-ng-if="payed">
+                                          <button class="btn payPay" onclick="location.href='tablepage.php'">Back</button>
+                                          </div>
+
                                         </div>
 
-                                        <div data-ng-if="payed">
-                                            <button class="btn btn-success" onclick="location.href='tablepage.php'">Back</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                  </div>
+                              </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>
