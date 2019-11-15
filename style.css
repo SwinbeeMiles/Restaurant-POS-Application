@@ -204,7 +204,7 @@ padding: 2.5% 5%;
   filter: brightness(85%);
 }
 .editButton{
-  background-color:#337ab7  !important;
+  background-color:#337ab7  !important; /*blue*/
   border-radius: 5px;
   color:white !important;
   width:18%;
@@ -245,7 +245,7 @@ padding: 2.5% 5%;
   filter: brightness(85%);
 }
 .orderButton{
-  background-color:#38AB20; /*blue*/
+  background-color:#38AB20; /*green*/
   color: white;
   margin:auto 5px;
   width: 8%;
@@ -254,7 +254,7 @@ padding: 2.5% 5%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
 }
 .resetButton{
-  background-color: #D41220;
+  background-color: #D41220; /*red*/
   color: white;
   width: 8%;
 }
