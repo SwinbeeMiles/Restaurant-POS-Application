@@ -405,7 +405,6 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
             });
             $scope.isModified = true;
         }
-        
     };
 
     $scope.removeCurrentItem = function (rowSelected)
