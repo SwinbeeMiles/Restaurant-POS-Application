@@ -12,7 +12,7 @@
     <link href="frameworks/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body data-ng-controller="editOrder">
     <header id="myHeader">
         <?php
             include('includes/header.php');
@@ -92,7 +92,8 @@
                 </div>
               </div>
             </div>
-
+        </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="editModal" role="dialog">
         <div class="modal-dialog">
