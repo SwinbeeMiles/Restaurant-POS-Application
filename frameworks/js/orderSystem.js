@@ -14,6 +14,8 @@ var app = angular.module("orderSystem", []);
 app.controller("orderControl", function ($scope, $http, $window, $rootScope, $timeout) {
     "use strict";
 
+    var orderCheck = [];
+    
     $scope.spinnerShow = false;
 
     $scope.menuData = [];
@@ -51,7 +53,6 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
     });
 
     $scope.addToOrder = function (item, itemID, itemFoodPrice) {
-        var i, isIn;
         if ($scope.orderedItems.length === 0) {
             $scope.orderedItems.push({
                 name: item,
@@ -59,31 +60,55 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
                 price: itemFoodPrice,
                 quantity: 1
             });
-        }
-        else {
-            for (i = 0; i < $scope.orderedItems.length; i++) {
-                if (item === $scope.orderedItems[i].name) {
-                    isIn = true;
-                }
-                else {
-                    isIn = false;
-                }
-            }
-            if (!isIn) {
+            orderCheck.push(item);
+        } else {
+            if (orderCheck.includes(item)) {
+                /* eslint-disable */
+                window.alert("That item has already been selected.");
+                /* eslint-enable */
+            } else {
                 $scope.orderedItems.push({
                     name: item,
                     id: itemID,
                     price: itemFoodPrice,
                     quantity: 1
                 });
-            }
-            else {
-                /* eslint-disable */
-                window.alert("That item has already been selected.");
-                /* eslint-enable */
+                orderCheck.push(item);
             }
         }
     };
+        
+//        if ($scope.orderedItems.length === 0) {
+//            $scope.orderedItems.push({
+//                name: item,
+//                id: itemID,
+//                price: itemFoodPrice,
+//                quantity: 1
+//            });
+//        }
+//        else {
+//            for (i = 0; i < $scope.orderedItems.length; i++) {
+//                if (item === $scope.orderedItems[i].name) {
+//                    isIn = true;
+//                }
+//                else {
+//                    isIn = false;
+//                }
+//            }
+//            if (!isIn) {
+//                $scope.orderedItems.push({
+//                    name: item,
+//                    id: itemID,
+//                    price: itemFoodPrice,
+//                    quantity: 1
+//                });
+//            }
+//            else {
+//                /* eslint-disable */
+//                window.alert("That item has already been selected.");
+//                /* eslint-enable */
+//            }
+//        }
 
     $scope.removeItem = function(index) {
         $scope.orderedItems.splice(index,1);
