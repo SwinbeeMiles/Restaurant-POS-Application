@@ -100,8 +100,6 @@
 
                                       </div>
 
-
-
                                       <div class="modal-footer">
                                            <div data-ng-if="!payed">
                                              <button type="button" class="btn exitPay" data-dismiss="modal">Cancel</button>
@@ -109,7 +107,7 @@
                                            </div>
 
                                          <div data-ng-if="payed">
-                                          <button class="btn payPay" onclick="location.href='tablepage.php'">Back</button>
+                                          <button class="btn payPay" onclick="location.href='tablepage.php'">Back to Table</button>
                                           </div>
 
                                         </div>

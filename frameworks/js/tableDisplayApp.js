@@ -298,7 +298,7 @@ app.controller("createOrder", function ($scope, $http,$window) {
     $scope.takenTable=$window.sessionStorage.orderTable;
 });
 
-app.controller("editOrder", function ($scope, $http,$window, getData) {
+app.controller("editOrder", function ($scope, $http,$window, getData, $timeout) {
     "use strict";
     var x=0,b=0,menuData;
     $scope.newItemArray =[];
@@ -419,24 +419,35 @@ app.controller("editOrder", function ($scope, $http,$window, getData) {
         $scope.newItemArray.splice([rowSelected],1);
     };
 
-    $scope.submit = function()
-    {
-        //$window.alert($scope.isModified);
-        $http({
-            method: 'POST',
-            url: 'includes/amendOrder.php',
-            data: {
-                orderID: $scope.orderID,
-                tableID: $scope.tableNo,
-                addOrderItem: JSON.stringify($scope.orderEditArray),
-                newItem: JSON.stringify($scope.newItemArray),
-                removeOrderItem: JSON.stringify($scope.currentItemRemove)
-            },
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
+    //Edited start
+    $scope.submit = function () {
+        $scope.spinnerShow = true;
+        
+        function delayCRUD() {
+            //$window.alert($scope.isModified);
+            $http({
+                method: 'POST',
+                url: 'includes/amendOrder.php',
+                data: {
+                    orderID: $scope.orderID,
+                    tableID: $scope.tableNo,
+                    addOrderItem: JSON.stringify($scope.orderEditArray),
+                    newItem: JSON.stringify($scope.newItemArray),
+                    removeOrderItem: JSON.stringify($scope.currentItemRemove)
+                },
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+            
+            /* eslint-disable */
+            window.location.replace("tablepage.php");
+            /* eslint-enable */
+        }
+        
+        $timeout(delayCRUD, 750);
     };
+    //Edited end
     
     $scope.reset = function()
     {

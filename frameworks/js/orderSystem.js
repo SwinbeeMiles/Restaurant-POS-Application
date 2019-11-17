@@ -63,9 +63,7 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
             orderCheck.push(item);
         } else {
             if (orderCheck.includes(item)) {
-                /* eslint-disable */
-                window.alert("That item has already been selected.");
-                /* eslint-enable */
+                $window.alert("That item has already been selected.");
             } else {
                 $scope.orderedItems.push({
                     name: item,
@@ -77,38 +75,6 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
             }
         }
     };
-        
-//        if ($scope.orderedItems.length === 0) {
-//            $scope.orderedItems.push({
-//                name: item,
-//                id: itemID,
-//                price: itemFoodPrice,
-//                quantity: 1
-//            });
-//        }
-//        else {
-//            for (i = 0; i < $scope.orderedItems.length; i++) {
-//                if (item === $scope.orderedItems[i].name) {
-//                    isIn = true;
-//                }
-//                else {
-//                    isIn = false;
-//                }
-//            }
-//            if (!isIn) {
-//                $scope.orderedItems.push({
-//                    name: item,
-//                    id: itemID,
-//                    price: itemFoodPrice,
-//                    quantity: 1
-//                });
-//            }
-//            else {
-//                /* eslint-disable */
-//                window.alert("That item has already been selected.");
-//                /* eslint-enable */
-//            }
-//        }
 
     $scope.removeItem = function(index) {
         $scope.orderedItems.splice(index,1);
@@ -157,6 +123,10 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
+        
+        //Allow delay between the first and the rest of the CRUD operations
+        //so that the database has enough time to store the primary keys
+        //which the the rest of the CRUD operations rely on as foreign keys
 
         function initiateCRUD() {
             var requestTable = $http({
@@ -216,7 +186,7 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
             /* eslint-enable */
         }
 
-        $timeout(initiateCRUD, 1000);
+        $timeout(initiateCRUD, 750);
     };
 });
 
