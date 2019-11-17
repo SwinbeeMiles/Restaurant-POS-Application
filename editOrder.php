@@ -81,7 +81,7 @@
                     </table>
 
                     <div class="d-flex justify-content-between">
-                      <button class="btn btn-outline-secondary"  onclick="location.href='tablepage.php'">Cancel</button>
+                      <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#quitPrompt">Cancel</button>
                       <button class="btn resetAmend mr-1 ml-auto" data-ng-click="reset()">Reset</button>
 
                       <div data-ng-if="isModified">
@@ -144,6 +144,8 @@
             </div>
         </div>
     </div>
+    
+    <data-quit-Prompt></data-quit-Prompt>
 
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="frameworks/js/jquery.min.js"></script>

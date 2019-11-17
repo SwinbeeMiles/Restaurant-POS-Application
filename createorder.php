@@ -68,7 +68,7 @@
                             </tbody>
                           </table>
 
-                          <button class="float-left btn btn-outline-secondary exitButton" onclick="location.href='tablepage.php'">Cancel</button>
+                          <button class="float-left btn btn-outline-secondary exitButton" data-toggle="modal" data-target="#quitPrompt">Cancel</button>
                           <button data-ng-if = "orderedItems.length > 0" class="float-right btn orderButton" data-toggle="modal" data-target="#orderSummary" data-ng-click = "orderToModal()">Order</button>
                           <button data-ng-if = "orderedItems.length > 0" class="float-right btn resetButton" data-ng-click = "resetAll()">Reset</button>
 
@@ -78,7 +78,7 @@
              </div>
           </div>
         </div>
-
+    <data-quit-Prompt></data-quit-Prompt>
     <data-order-Summary></data-order-Summary>
 
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->

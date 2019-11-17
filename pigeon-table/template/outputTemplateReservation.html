@@ -106,15 +106,13 @@
         <h4 class="modal-title">Insert</h4>
         <button type="button" class="close closeX" ng-click="close()">&times;</button>
     </div>
-
     <div class="modal-body">
         <div class="spinner" ng-show="modalLoading == true"></div>
         <form class="form-horizontal" ng-show="modalLoading == false">
-
-            <div class="form-group" ng-repeat="(key, result) in selectedData track by $index">
+            <div class="form-group" ng-repeat="(key, result) in selectedData">
                 <label ng-show="readOnly[$index] !== true" class="control-label col-sm-3" for="{{key}}">{{key}}:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control ng-dirty" id="{{key}}" ng-model="form[key]" ng-show="readOnly[$index] !== true">
+                    <input type="text" class="form-control ng-dirty" id="{{key}}" ng-show="readOnly[$index] !== true" ng-model="form[key]">
                     <span ng-show="validateMsg[$index] != 'Validated'" style="color:red; font-style:italic;">{{validateMsg[$index]}}</span>
                 </div>
             </div>
@@ -122,7 +120,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn exitPigeon" id="floatL" ng-click="close()">Cancel</button>
-        <button type="button" class="btn insertButton" id="floatR" ng-click="submit()">Confirm Insert</button>
+        <button type="button" class="btn insertButton" id="floatR" ng-click="submit()" onClick="window.location.reload();">Confirm Insert</button>
     </div>
 </script>
 
@@ -137,7 +135,7 @@
             <div class="form-group" ng-repeat="(key, result) in selectedData">
                 <label class="control-label col-sm-3" for="{{key}}">{{key}}:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="{{key}}" ng-model="selectedData[key]" ng-readonly="tableStructure['indexCol'][key] == 'PRI' || tableStructure['indexCol'][key] == 'UNI' || readOnly[$index] === true">
+                    <input type="text" class="form-control" id="{{key}}" ng-model="selectedData[key]" ng-readonly="tableStructure['indexCol'][key] == 'PRI' || tableStructure['indexCol'][key] == 'UNI'">
                     <span ng-show="existed == key" style="color:red; font-style:italic;">The data is existed. Please insert another data.</span>
                     <span ng-show="validateMsg[$index] != 'Validated'" style="color:red; font-style:italic;">{{validateMsg[$index]}}</span>
                 </div>

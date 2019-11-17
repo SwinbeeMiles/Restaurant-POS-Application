@@ -24,7 +24,7 @@ app.directive("pigeonTable", function ($parse, $http) {
     
     direc.controller = "pigeonTable";
 
-    direc.templateUrl = 'pigeon-table/template/outputTemplate.html';
+    direc.templateUrl = 'pigeon-table/template/outputTemplateReservation.html';
     
     direc.compile = function () {
         var linkFunction = function (scope, element, attributes) {
@@ -144,7 +144,9 @@ app.controller("pigeonTable", function ($scope, $http, $uibModal) {
 
     //Initialize Insert Modal
     $scope.insertBtn = function () {
-
+        
+        
+        
         var modalInstance = $uibModal.open({
             animation: true,
             backdrop: 'static',
@@ -271,6 +273,7 @@ app.controller("InsertModalInstanceCtrl", function ($scope, $http, $uibModalInst
     $scope.modalLoading = false;
     $scope.selectedData = selectedData;
     $scope.form = {};
+    $scope.readOnly = [true,false,false,false,false];
 
     var i;
     //Initialize form with empty string in every fields

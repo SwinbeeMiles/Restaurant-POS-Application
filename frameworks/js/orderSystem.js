@@ -207,3 +207,21 @@ app.directive("orderSummary", function () {
     return product;
 });
 /* eslint-enable */
+
+/* eslint-disable */
+app.directive("quitPrompt", function () {
+    "use strict";
+    var product = {};
+    product.restrict = "E";
+    product.controller = "orderControl";
+    product.templateUrl = "frameworks/template/quitModal.html";
+    product.compile = function () {
+        var linkFunction = function (scope, element, attributes) {
+            //Initialize the default settings
+            scope.init();
+        };
+        return linkFunction;
+    };
+    return product;
+});
+/* eslint-enable */
