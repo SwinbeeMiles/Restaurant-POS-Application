@@ -24,7 +24,7 @@ app.directive("pigeonTable", function ($parse, $http) {
     
     direc.controller = "pigeonTable";
 
-    direc.templateUrl = 'pigeon-table/template/outputTemplateReservation.html';
+    direc.templateUrl = 'pigeon-table/template/outputTemplate.html';
     
     direc.compile = function () {
         var linkFunction = function (scope, element, attributes) {
