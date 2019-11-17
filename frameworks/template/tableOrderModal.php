@@ -38,7 +38,7 @@
             </div>
             <div data-ng-if="orderDetailsArray.length!=0">
                 <div class="modal-footer">
-                    <button type="button" class="btn exitPigeon mr-auto" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn exitPigeon mr-auto" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn editButton" onclick="location.href='editOrder.php'">Edit</button>
                     <?php
                         session_start();
