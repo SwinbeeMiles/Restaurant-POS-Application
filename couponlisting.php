@@ -48,6 +48,6 @@
   <script src="pigeon-table/js/bootstrap.min.js"></script>
   <script src="pigeon-table/js/angular.min.js"></script>
   <script src="pigeon-table/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
-  <script src='pigeon-table/js/pigeon-table-reservation.js'></script>
+  <script src='pigeon-table/js/pigeon-table-coupon.js'></script>
 </body>
 </html>
