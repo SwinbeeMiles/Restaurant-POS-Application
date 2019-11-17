@@ -3,12 +3,8 @@
     $request = json_decode($postdata);
     @$TableID = $request->TableID;
 
-    $dbServername = 'localhost';
-    $dbUsername = 'root';
-    $dbPassword = '';
-    $dbName = 'restaurantdatabase';
-
-    $conn = new mysqli($dbServername, $dbUsername, $dbPassword, $dbName);
+    require_once 'connectDB.php';
+	$conn = connect();
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
