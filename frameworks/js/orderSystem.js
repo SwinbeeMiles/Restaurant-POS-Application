@@ -78,11 +78,13 @@ app.controller("orderControl", function ($scope, $http, $window, $rootScope, $ti
 
     $scope.removeItem = function(index) {
         $scope.orderedItems.splice(index,1);
+		orderCheck.splice(index,1);
     };
 
     $scope.resetAll = function() { //resets everything
         $scope.orderedItems = [];
         $rootScope.confirmedItems = [];
+		orderCheck = [];
     };
 
     $scope.addQuantity = function(index) {
