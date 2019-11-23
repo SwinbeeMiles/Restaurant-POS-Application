@@ -68,8 +68,8 @@
                 <p>Table No: {{occupiedTable}}</p>
                 <p>Order ID: {{orderDetailsArray[0].orderID}}</p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn exitPigeon" data-dismiss="modal">No</button>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn exitPigeon mr-auto" data-dismiss="modal">No</button>
                 <button type="button" class="btn deleteButton" onclick="window.location.reload();" data-ng-click = deleteOrder() data-dismiss="modal">Yes</button>
             </div>
         </div>

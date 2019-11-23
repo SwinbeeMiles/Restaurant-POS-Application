@@ -188,7 +188,7 @@ padding: 2.5% 5%;
 .editSquare{
   background-color:#337ab7;
   color: white;
-  padding:8px 12px;
+  padding:7px 11px;
   border-radius: 5px;
 }
  .editSquare:hover{
@@ -198,7 +198,7 @@ padding: 2.5% 5%;
 .deleteSquare{
   background-color: #D41220;
   color: white;
-  padding:8px 12px;
+  padding:7px 11px;
   border-radius: 5px;
 }
 .deleteSquare:hover{

@@ -132,7 +132,7 @@
                     </tbody>
                   </table>
                 </div>
-                
+
                 <div data-ng-if="spinnerShow === true" class="spinner-border text-dark ml-auto mr-auto mb-2" style="width: 1rem; height: 1rem;" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
@@ -144,7 +144,7 @@
             </div>
         </div>
     </div>
-    
+
     <data-quit-Prompt></data-quit-Prompt>
 
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
